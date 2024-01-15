@@ -1,0 +1,38 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net7.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>disable</Nullable>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\Core\Core.csproj" />
+	</ItemGroup>
+	<ItemGroup>
+		<None Remove="Microsoft.EntityFrameworkCore" />
+		<None Remove="Microsoft.EntityFrameworkCore.Design" />
+		<None Remove="Microsoft.EntityFrameworkCore.Tools" />
+		<None Remove="Microsoft.EntityFrameworkCore.Relational" />
+		<None Remove="Microsoft.EntityFrameworkCore.SqlServer" />
+	</ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.11" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.11">
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+			<PrivateAssets>all</PrivateAssets>
+		</PackageReference>
+		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.3" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.11">
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+			<PrivateAssets>all</PrivateAssets>
+		</PackageReference>
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="7.0.11" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.11" />
+		<PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="7.0.11" />
+		<PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="7.0.0" />
+	</ItemGroup>
+	<ItemGroup>
+	  <Folder Include="Migrations\" />
+	</ItemGroup>
+</Project>

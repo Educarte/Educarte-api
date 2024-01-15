@@ -1,0 +1,7 @@
+services:
+  web:
+    build: .
+    env_file:
+      - prod.env
+    ports:
+      - 443:443
