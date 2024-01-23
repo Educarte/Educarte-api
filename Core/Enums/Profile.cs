@@ -4,5 +4,6 @@ public enum Profile
 {
     Admin,
     LegalGuardian,
-    Employee
+    Employee,
+    Teacher
 }

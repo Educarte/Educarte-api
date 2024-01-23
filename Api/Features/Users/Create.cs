@@ -101,23 +101,20 @@ public class Create
         public async Task<ResultOf<UserResult>> Handle(Command request, CancellationToken cancellationToken)
         {
             var user = request.Adapt<User>();
-            var password = user.Profile == Profile.Admin ? Guid.NewGuid().ToString().Substring(0, 8) : request.NewPassword;
+            var password = Guid.NewGuid().ToString().Substring(0, 8);
 
-            if (user.Profile == Profile.Admin)
-            {
-                await emailService.SendTemplateEmail(
-                    new EmailMessage
-                    {
-                        To = user.Email,
-                        Subject = $"{resetPasswordOptions.CompanyName} || Nova conta criada!"
-                    },
-                    resetPasswordOptions.TempPasswordTemplateId,
-                    new
-                    {
-                        company_name = resetPasswordOptions.CompanyName,
-                        temp_password = password,
-                    }, cancellationToken);
-            }
+            await emailService.SendTemplateEmail(
+                new EmailMessage
+                {
+                    To = user.Email,
+                    Subject = $"{resetPasswordOptions.CompanyName} || Nova conta criada!"
+                },
+                resetPasswordOptions.TempPasswordTemplateId,
+                new
+                {
+                    company_name = resetPasswordOptions.CompanyName,
+                    temp_password = password,
+                }, cancellationToken);
 
             var (passwordHash, passwordSalt) = hashService.Encrypt(password);
             user.PasswordHash = passwordHash;

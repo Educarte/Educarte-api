@@ -28,7 +28,7 @@ public class Create
         /// <summary>
         /// Legal guardian Id
         /// </summary>
-        public Guid LegalGuardianId { get; set; }
+        public IList<Guid> LegalGuardianIds { get; set; }
 
         /// <summary>
         /// Classroom Id
@@ -42,7 +42,7 @@ public class Create
             ClassroomExistenceValidator<Command> classroomExistenceValidator)
         {
             RuleFor(x => x.Name).NotEmpty();
-            RuleFor(x => x.LegalGuardianId).NotEmpty().SetAsyncValidator(legalGuardianExistenceValidator);
+            RuleForEach(x => x.LegalGuardianIds).NotEmpty().SetAsyncValidator(legalGuardianExistenceValidator);
             RuleFor(x => x.ClassroomId).NotEmpty().SetAsyncValidator(classroomExistenceValidator);
         }
     }

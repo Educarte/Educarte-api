@@ -64,9 +64,22 @@ public class UsersController : ControllerBase
     /// </summary>
     /// <returns></returns>
     [HttpPost("CreateLegalGuardian")]
+    [AuthorizeByProfile(Profile.Admin)]
     public Task<ResultOf<UserResult>> CreateLegalGuardian([FromBody] Create.Command command, CancellationToken cancellationToken)
     {
         command.Profile = Profile.LegalGuardian;
+        return mediator.Send(command, cancellationToken);
+    }
+
+    /// <summary>
+    /// Create Legal Guardian
+    /// </summary>
+    /// <returns></returns>
+    [HttpPost("CreateTeacher")]
+    [AuthorizeByProfile(Profile.Admin)]
+    public Task<ResultOf<UserResult>> CreateTeacher([FromBody] Create.Command command, CancellationToken cancellationToken)
+    {
+        command.Profile = Profile.Teacher;
         return mediator.Send(command, cancellationToken);
     }
 

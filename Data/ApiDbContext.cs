@@ -14,8 +14,9 @@ public class ApiDbContext : DbContext
     public DbSet<Student> Students { get; set; }
     public DbSet<Menu> Menus { get; set; }
     public DbSet<Classroom> Classrooms { get; set; }
-    public DbSet<DiaryClassroom> DiaryClassrooms { get; set; }
+    public DbSet<ContractedHour> ContractedHours { get; set; }
     public DbSet<Diary> Diaries { get; set; }
+    public DbSet<EmergencyContact> EmergencyContacts { get; set; }
     public DbSet<AccessControl> AccessControls { get; set; }
 
     public ApiDbContext(DbContextOptions options) : base(options)
@@ -24,11 +25,16 @@ public class ApiDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder mb)
     {
-        //mb.Entity<Address>(d =>
-        //{
-        //    d.HasKey(d => d.Id);
-        //    d.HasOne(d => d.User).WithMany(d => d.Adresses).HasForeignKey(d => d.UserId);
-        //});
+        mb.Entity<Address>(d =>
+        {
+            d.HasKey(d => d.Id);
+        });
+
+        mb.Entity<Menu>(d =>
+        {
+            d.HasKey(d => d.Id);
+            d.Property(d => d.Status).HasDefaultValue(Status.Active);
+        });
 
         mb.Entity<AccessControl>(d =>
         {
@@ -39,42 +45,42 @@ public class ApiDbContext : DbContext
         mb.Entity<Diary>(d =>
         {
             d.HasKey(d => d.Id);
-            d.HasOne(d => d.Student).WithMany(d => d.Diaries).HasForeignKey(d => d.StudentId);
-        });
-
-        mb.Entity<DiaryClassroom>(d =>
-        {
-            d.HasKey(d => d.Id);
-            d.HasOne(d => d.Classroom).WithMany(d => d.DiaryClassrooms).HasForeignKey(d => d.ClassroomId);
+            d.HasMany(d => d.Students).WithMany(d => d.Diaries);
+            d.HasMany(d => d.Classrooms).WithMany(d => d.Diaries);
         });
 
         mb.Entity<Classroom>(d =>
         {
             d.HasKey(d => d.Id);
-            d.HasMany(d => d.Employee).WithMany(d => d.Classrooms);
+            d.Property(d => d.Status).HasDefaultValue(Status.Active);
+            d.HasMany(d => d.Teachers).WithMany(d => d.Classrooms);
+            d.HasMany(d => d.Diaries).WithMany(d => d.Classrooms);
             d.HasMany(d => d.Students).WithOne(d => d.Classroom).HasForeignKey(d => d.ClassroomId);
         });
 
-        mb.Entity<Menu>(d =>
+        mb.Entity<EmergencyContact>(d =>
         {
             d.HasKey(d => d.Id);
-            d.HasOne(d => d.MenuPack).WithMany(d => d.Menu).HasForeignKey(d => d.MenuPackId);
+            d.HasOne(d => d.Student).WithMany(d => d.EmergencyContacts).HasForeignKey(d => d.StudentId);
         });
 
-        mb.Entity<MenuPack>(d =>
+        mb.Entity<ContractedHour>(d =>
         {
             d.HasKey(d => d.Id);
-            //TODO: Estudar melhor forma para realizar cardápios restritivos e variações de cardápio (caso houver)
+            d.Property(d => d.Status).HasDefaultValue(Status.Active);
+            d.HasOne(d => d.Student).WithMany(d => d.ContractedHours).HasForeignKey(d => d.StudentId);
         });
 
         mb.Entity<Student>(d =>
         {
             d.HasKey(d => d.Id);
-            d.HasOne(d => d.LegalGuardian).WithMany(d => d.Childs).HasForeignKey(d => d.LegalGuardianId);
+            d.Property(d => d.Status).HasDefaultValue(Status.Active);
+            d.HasMany(d => d.LegalGuardians).WithMany(d => d.Childs);
             d.HasOne(d => d.Classroom).WithMany(d => d.Students).HasForeignKey(d => d.ClassroomId);
             d.HasMany(d => d.AccessControls).WithOne(d => d.Student).HasForeignKey(d => d.StudentId);
-            d.HasOne(d => d.MenuPack).WithMany(d => d.Students).HasForeignKey(d => d.MenuPackId);
-            d.HasMany(d => d.Diaries).WithOne(d => d.Student).HasForeignKey(d => d.StudentId);
+            d.HasMany(d => d.ContractedHours).WithOne(d => d.Student).HasForeignKey(d => d.StudentId);
+            d.HasMany(d => d.Diaries).WithMany(d => d.Students);
+            d.HasMany(d => d.EmergencyContacts).WithOne(d => d.Student).HasForeignKey(d => d.StudentId);
         });
 
         mb.Entity<ResetPasswordCode>(d =>
@@ -87,10 +93,10 @@ public class ApiDbContext : DbContext
         {
             d.HasKey(d => d.Id);
             d.Property(d => d.Status).HasDefaultValue(Status.Active);
-            //d.HasMany(d => d.Adresses).WithOne(d => d.User).HasForeignKey(d => d.UserId);
+            d.HasOne(d => d.Address).WithOne().HasForeignKey<Address>(d => d.Id);
             d.HasMany(d => d.ResetPasswordCodes).WithOne(d => d.User).HasForeignKey(d => d.UserId);
-            d.HasMany(d => d.Childs).WithOne(d => d.LegalGuardian).HasForeignKey(d => d.LegalGuardianId);
-            d.HasMany(d => d.Classrooms).WithMany(d => d.Employee);
+            d.HasMany(d => d.Childs).WithMany(d => d.LegalGuardians);
+            d.HasMany(d => d.Classrooms).WithMany(d => d.Teachers);
         });
 
         SetCreatedAtAndModifiedAtProperty(mb);
