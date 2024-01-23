@@ -8,7 +8,7 @@ public class Student : IEntity, IDeletable
     public Guid Id { get; set; }
 
     public string Name { get; set; }
-    public string Naturalidade { get; set; }
+    public string Naturalness { get; set; }
     public string HealthProblem { get; set; }
     public string AllergicFood { get; set; }
     public string AllergicMedicine { get; set; }

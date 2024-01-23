@@ -1,5 +1,6 @@
 ﻿using Api.Infrastructure;
 using Api.Infrastructure.Services;
+using Api.Infrastructure.Validators;
 using Api.Results.Users;
 using Data;
 using FluentValidation;
@@ -37,11 +38,8 @@ public class ChangePassword
     {
         public Validator()
         {
-            RuleFor(d => d.CurrentPassword)
-                .NotEmpty();
-
-            RuleFor(d => d.NewPassword)
-                .NotEmpty();
+            RuleFor(d => d.CurrentPassword).NotEmpty().Matches(x => x.NewPassword).WithMessage("Senha e Confirmação precisam ser iguais.");
+            RuleFor(d => d.NewPassword).NotEmpty().SetValidator(new PasswordValidator<Command>());
         }
     }
     internal class Handler : IRequestHandler<Command, ResultOf<UserResult>>

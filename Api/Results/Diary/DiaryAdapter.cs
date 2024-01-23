@@ -1,12 +1,12 @@
 ﻿using Core;
 using Mapster;
 
-namespace Api.Results.Students
+namespace Api.Results.Diary
 {
     /// <summary>
     /// 
     /// </summary>
-    public class StudentAdapter : IRegister
+    public class DiaryAdapter : IRegister
     {
         /// <summary>
         /// 
@@ -14,8 +14,8 @@ namespace Api.Results.Students
         /// <param name="config"></param>
         public void Register(TypeAdapterConfig config)
         {
-            config.NewConfig<Student, StudentResult>();
-            config.NewConfig<Student, StudentSimpleResult>();
+            config.NewConfig<Core.Diary, DiaryResult>();
+            config.NewConfig<Core.Diary, DiarySimpleResult>();
         }
     }
 }

@@ -44,16 +44,6 @@ public class Create
         public string Cellphone { get; set; }
 
         /// <summary>
-        /// NewPassword of user
-        /// </summary>
-        public string NewPassword { get; set; }
-
-        /// <summary>
-        /// ConfirmPassword of user
-        /// </summary>
-        public string ConfirmPassword { get; set; }
-
-        /// <summary>
         /// Profile of user
         /// </summary>
         [BindNever]
@@ -77,9 +67,7 @@ public class Create
             RuleFor(x => x.Name).NotEmpty();
             RuleFor(x => x.Email).NotEmpty().EmailAddress().SetAsyncValidator(new UniqueUserValidator<Command>(db));
 
-            RuleFor(x => x.Cellphone).NotEmpty().When(x => x.Profile == Profile.LegalGuardian);
-            RuleFor(d => d.ConfirmPassword).NotEmpty().Matches(x => x.NewPassword).WithMessage("Senha e Confirmação precisam ser iguais.").When(x => x.Profile == Profile.LegalGuardian);
-            RuleFor(d => d.NewPassword).NotEmpty().SetValidator(new PasswordValidator<Command>()).When(x => x.Profile == Profile.LegalGuardian);
+            RuleFor(x => x.Cellphone).NotEmpty().When(x => x.Profile == Profile.LegalGuardian).WithMessage("Necessário número de telefone em caso de usuário ser um responsável legal");
         }
     }
 

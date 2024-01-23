@@ -1,12 +1,12 @@
 ﻿using Core;
 using Mapster;
 
-namespace Api.Results.Students
+namespace Api.Results.EmergencyContacts
 {
     /// <summary>
     /// 
     /// </summary>
-    public class StudentAdapter : IRegister
+    public class EmergencyContactAdapter : IRegister
     {
         /// <summary>
         /// 
@@ -14,8 +14,7 @@ namespace Api.Results.Students
         /// <param name="config"></param>
         public void Register(TypeAdapterConfig config)
         {
-            config.NewConfig<Student, StudentResult>();
-            config.NewConfig<Student, StudentSimpleResult>();
+            config.NewConfig<EmergencyContact, EmergencyContactResult>();
         }
     }
 }

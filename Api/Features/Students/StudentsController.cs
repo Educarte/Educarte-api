@@ -59,6 +59,14 @@ public class StudentsController : ControllerBase
         return mediator.Send(query, cancellationToken);
     }
 
+    [HttpGet("{Id}")]
+    [Authorize]
+    public Task<ResultOf<StudentResult>> Get([FromQuery] Detail.Query query, [FromRoute] Guid Id, CancellationToken cancellationToken)
+    {
+        query.Id = Id;
+        return mediator.Send(query, cancellationToken);
+    }
+
     /// <summary>
     /// Delete an user
     /// </summary>

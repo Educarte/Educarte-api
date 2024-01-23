@@ -112,14 +112,109 @@
             File Stream
             </summary>
         </member>
+        <member name="T:Api.Features.Students.AddLegalGuardian">
+            <summary>
+            Add Legal Guardian
+            </summary>
+        </member>
+        <member name="T:Api.Features.Students.AddLegalGuardian.Command">
+            <summary>
+            Add Legal Guardian command
+            </summary>
+        </member>
+        <member name="P:Api.Features.Students.AddLegalGuardian.Command.StudentId">
+            <summary>
+            StudentId
+            </summary>
+        </member>
+        <member name="P:Api.Features.Students.AddLegalGuardian.Command.LegalGuardian">
+            <summary>
+            Legal Guardians
+            </summary>
+        </member>
+        <member name="T:Api.Features.Students.AddLegalGuardian.Command.LegalGuardianCommand">
+            <summary>
+            Legal guardian command
+            </summary>
+        </member>
+        <member name="P:Api.Features.Students.AddLegalGuardian.Command.LegalGuardianCommand.Name">
+            <summary>
+            Name
+            </summary>
+        </member>
+        <member name="P:Api.Features.Students.AddLegalGuardian.Command.LegalGuardianCommand.Email">
+            <summary>
+            Email
+            </summary>
+        </member>
+        <member name="P:Api.Features.Students.AddLegalGuardian.Command.LegalGuardianCommand.Cellphone">
+            <summary>
+            Cellphone
+            </summary>
+        </member>
+        <member name="P:Api.Features.Students.AddLegalGuardian.Command.LegalGuardianCommand.LegalGuardianType">
+            <summary>
+            LegalGuardianType
+            </summary>
+        </member>
+        <member name="P:Api.Features.Students.AddLegalGuardian.Command.LegalGuardianCommand.Address">
+            <summary>
+            Address
+            </summary>
+        </member>
+        <member name="T:Api.Features.Students.AddLegalGuardian.Command.AddressCommand">
+            <summary>
+            Address command
+            </summary>
+        </member>
+        <member name="P:Api.Features.Students.AddLegalGuardian.Command.AddressCommand.Name">
+            <summary>
+            Name
+            </summary>
+        </member>
+        <member name="P:Api.Features.Students.AddLegalGuardian.Command.AddressCommand.Cep">
+            <summary>
+            Cep
+            </summary>
+        </member>
+        <member name="P:Api.Features.Students.AddLegalGuardian.Command.AddressCommand.Street">
+            <summary>
+            Street
+            </summary>
+        </member>
+        <member name="P:Api.Features.Students.AddLegalGuardian.Command.AddressCommand.Number">
+            <summary>
+            Number
+            </summary>
+        </member>
+        <member name="P:Api.Features.Students.AddLegalGuardian.Command.AddressCommand.District">
+            <summary>
+            District
+            </summary>
+        </member>
+        <member name="P:Api.Features.Students.AddLegalGuardian.Command.AddressCommand.Complement">
+            <summary>
+            Complement
+            </summary>
+        </member>
+        <member name="P:Api.Features.Students.AddLegalGuardian.Command.AddressCommand.Reference">
+            <summary>
+            Reference
+            </summary>
+        </member>
+        <member name="P:Api.Features.Students.AddLegalGuardian.Command.AddressCommand.Telephone">
+            <summary>
+            Telephone
+            </summary>
+        </member>
         <member name="T:Api.Features.Students.Create">
             <summary>
-            Create an student
+            Create a student
             </summary>
         </member>
         <member name="T:Api.Features.Students.Create.Command">
             <summary>
-            Create an student command
+            Create a student command
             </summary>
         </member>
         <member name="P:Api.Features.Students.Create.Command.Name">
@@ -127,14 +222,189 @@
             Name of student
             </summary>
         </member>
-        <member name="P:Api.Features.Students.Create.Command.LegalGuardianId">
+        <member name="P:Api.Features.Students.Create.Command.Naturalness">
             <summary>
-            Legal guardian Id
+            Naturalness
+            </summary>
+        </member>
+        <member name="P:Api.Features.Students.Create.Command.HealthProblem">
+            <summary>
+            HealthProblem
+            </summary>
+        </member>
+        <member name="P:Api.Features.Students.Create.Command.AllergicFood">
+            <summary>
+            AllergicFood
+            </summary>
+        </member>
+        <member name="P:Api.Features.Students.Create.Command.AllergicMedicine">
+            <summary>
+            AllergicMedicine
+            </summary>
+        </member>
+        <member name="P:Api.Features.Students.Create.Command.Epilepsy">
+            <summary>
+            Epilepsy
+            </summary>
+        </member>
+        <member name="P:Api.Features.Students.Create.Command.AllergicBugBite">
+            <summary>
+            AllergicBugBite
+            </summary>
+        </member>
+        <member name="P:Api.Features.Students.Create.Command.SpecialChild">
+            <summary>
+            SpecialChild
+            </summary>
+        </member>
+        <member name="P:Api.Features.Students.Create.Command.SpecialChildHasReport">
+            <summary>
+            SpecialChildHasReport
+            </summary>
+        </member>
+        <member name="P:Api.Features.Students.Create.Command.Genre">
+            <summary>
+            Genre
+            </summary>
+        </member>
+        <member name="P:Api.Features.Students.Create.Command.BloodType">
+            <summary>
+            BloodType
+            </summary>
+        </member>
+        <member name="P:Api.Features.Students.Create.Command.Time">
+            <summary>
+            Morning or night shift
             </summary>
         </member>
         <member name="P:Api.Features.Students.Create.Command.ClassroomId">
             <summary>
             Classroom Id
+            </summary>
+        </member>
+        <member name="P:Api.Features.Students.Create.Command.ContractedHours">
+            <summary>
+            Contracted hours
+            </summary>
+        </member>
+        <member name="P:Api.Features.Students.Create.Command.EmergencyContacts">
+            <summary>
+            Contracted hours
+            </summary>
+        </member>
+        <member name="P:Api.Features.Students.Create.Command.LegalGuardians">
+            <summary>
+            Legal Guardians
+            </summary>
+        </member>
+        <member name="T:Api.Features.Students.Create.Command.LegalGuardianCommand">
+            <summary>
+            Legal guardian command
+            </summary>
+        </member>
+        <member name="P:Api.Features.Students.Create.Command.LegalGuardianCommand.Name">
+            <summary>
+            Name
+            </summary>
+        </member>
+        <member name="P:Api.Features.Students.Create.Command.LegalGuardianCommand.Email">
+            <summary>
+            Email
+            </summary>
+        </member>
+        <member name="P:Api.Features.Students.Create.Command.LegalGuardianCommand.Cellphone">
+            <summary>
+            Cellphone
+            </summary>
+        </member>
+        <member name="P:Api.Features.Students.Create.Command.LegalGuardianCommand.LegalGuardianType">
+            <summary>
+            LegalGuardianType
+            </summary>
+        </member>
+        <member name="P:Api.Features.Students.Create.Command.LegalGuardianCommand.Address">
+            <summary>
+            Address
+            </summary>
+        </member>
+        <member name="T:Api.Features.Students.Create.Command.AddressCommand">
+            <summary>
+            Address command
+            </summary>
+        </member>
+        <member name="P:Api.Features.Students.Create.Command.AddressCommand.Name">
+            <summary>
+            Name
+            </summary>
+        </member>
+        <member name="P:Api.Features.Students.Create.Command.AddressCommand.Cep">
+            <summary>
+            Cep
+            </summary>
+        </member>
+        <member name="P:Api.Features.Students.Create.Command.AddressCommand.Street">
+            <summary>
+            Street
+            </summary>
+        </member>
+        <member name="P:Api.Features.Students.Create.Command.AddressCommand.Number">
+            <summary>
+            Number
+            </summary>
+        </member>
+        <member name="P:Api.Features.Students.Create.Command.AddressCommand.District">
+            <summary>
+            District
+            </summary>
+        </member>
+        <member name="P:Api.Features.Students.Create.Command.AddressCommand.Complement">
+            <summary>
+            Complement
+            </summary>
+        </member>
+        <member name="P:Api.Features.Students.Create.Command.AddressCommand.Reference">
+            <summary>
+            Reference
+            </summary>
+        </member>
+        <member name="P:Api.Features.Students.Create.Command.AddressCommand.Telephone">
+            <summary>
+            Telephone
+            </summary>
+        </member>
+        <member name="T:Api.Features.Students.Create.Command.ContractedHourCommand">
+            <summary>
+            Contracted Hour Command
+            </summary>
+        </member>
+        <member name="P:Api.Features.Students.Create.Command.ContractedHourCommand.Hours">
+            <summary>
+            Hours
+            </summary>
+        </member>
+        <member name="P:Api.Features.Students.Create.Command.ContractedHourCommand.StartDate">
+            <summary>
+            StartDate
+            </summary>
+        </member>
+        <member name="P:Api.Features.Students.Create.Command.ContractedHourCommand.EndDate">
+            <summary>
+            EndDate
+            </summary>
+        </member>
+        <member name="T:Api.Features.Students.Create.Command.EmergencyContactCommand">
+            <summary>
+            Contracted Hour Command
+            </summary>
+        </member>
+        <member name="P:Api.Features.Students.Create.Command.EmergencyContactCommand.Name">
+            <summary>
+            Hours
+            </summary>
+        </member>
+        <member name="P:Api.Features.Students.Create.Command.EmergencyContactCommand.Telephone">
+            <summary>
+            Telephone
             </summary>
         </member>
         <member name="T:Api.Features.Students.Delete">
@@ -150,6 +420,21 @@
         <member name="P:Api.Features.Students.Delete.Command.Id">
             <summary>
             Student Id
+            </summary>
+        </member>
+        <member name="T:Api.Features.Students.Detail">
+            <summary>
+            Find student by id
+            </summary>
+        </member>
+        <member name="T:Api.Features.Students.Detail.Query">
+            <summary>
+            Find student by id
+            </summary>
+        </member>
+        <member name="P:Api.Features.Students.Detail.Query.Id">
+            <summary>
+            Student id 
             </summary>
         </member>
         <member name="T:Api.Features.Students.Edit">
@@ -172,14 +457,199 @@
             Name of student
             </summary>
         </member>
-        <member name="P:Api.Features.Students.Edit.Command.LegalGuardianId">
+        <member name="P:Api.Features.Students.Edit.Command.Naturalness">
             <summary>
-            Legal guardian Id
+            Naturalness
+            </summary>
+        </member>
+        <member name="P:Api.Features.Students.Edit.Command.HealthProblem">
+            <summary>
+            HealthProblem
+            </summary>
+        </member>
+        <member name="P:Api.Features.Students.Edit.Command.AllergicFood">
+            <summary>
+            AllergicFood
+            </summary>
+        </member>
+        <member name="P:Api.Features.Students.Edit.Command.AllergicMedicine">
+            <summary>
+            AllergicMedicine
+            </summary>
+        </member>
+        <member name="P:Api.Features.Students.Edit.Command.Epilepsy">
+            <summary>
+            Epilepsy
+            </summary>
+        </member>
+        <member name="P:Api.Features.Students.Edit.Command.AllergicBugBite">
+            <summary>
+            AllergicBugBite
+            </summary>
+        </member>
+        <member name="P:Api.Features.Students.Edit.Command.SpecialChild">
+            <summary>
+            SpecialChild
+            </summary>
+        </member>
+        <member name="P:Api.Features.Students.Edit.Command.SpecialChildHasReport">
+            <summary>
+            SpecialChildHasReport
+            </summary>
+        </member>
+        <member name="P:Api.Features.Students.Edit.Command.Genre">
+            <summary>
+            Genre
+            </summary>
+        </member>
+        <member name="P:Api.Features.Students.Edit.Command.BloodType">
+            <summary>
+            BloodType
+            </summary>
+        </member>
+        <member name="P:Api.Features.Students.Edit.Command.Time">
+            <summary>
+            Morning or night shift
             </summary>
         </member>
         <member name="P:Api.Features.Students.Edit.Command.ClassroomId">
             <summary>
             Classroom Id
+            </summary>
+        </member>
+        <member name="P:Api.Features.Students.Edit.Command.ContractedHours">
+            <summary>
+            Contracted hours
+            </summary>
+        </member>
+        <member name="P:Api.Features.Students.Edit.Command.EmergencyContacts">
+            <summary>
+            Contracted hours
+            </summary>
+        </member>
+        <member name="P:Api.Features.Students.Edit.Command.LegalGuardians">
+            <summary>
+            Legal Guardians
+            </summary>
+        </member>
+        <member name="T:Api.Features.Students.Edit.Command.LegalGuardianCommand">
+            <summary>
+            Legal guardian command
+            </summary>
+        </member>
+        <member name="P:Api.Features.Students.Edit.Command.LegalGuardianCommand.Id">
+            <summary>
+            Legal guardian id
+            </summary>
+        </member>
+        <member name="P:Api.Features.Students.Edit.Command.LegalGuardianCommand.Name">
+            <summary>
+            Name
+            </summary>
+        </member>
+        <member name="P:Api.Features.Students.Edit.Command.LegalGuardianCommand.Email">
+            <summary>
+            Email
+            </summary>
+        </member>
+        <member name="P:Api.Features.Students.Edit.Command.LegalGuardianCommand.Cellphone">
+            <summary>
+            Cellphone
+            </summary>
+        </member>
+        <member name="P:Api.Features.Students.Edit.Command.LegalGuardianCommand.LegalGuardianType">
+            <summary>
+            LegalGuardianType
+            </summary>
+        </member>
+        <member name="P:Api.Features.Students.Edit.Command.LegalGuardianCommand.Address">
+            <summary>
+            Address
+            </summary>
+        </member>
+        <member name="T:Api.Features.Students.Edit.Command.AddressCommand">
+            <summary>
+            Address command
+            </summary>
+        </member>
+        <member name="P:Api.Features.Students.Edit.Command.AddressCommand.Id">
+            <summary>
+            Address id
+            </summary>
+        </member>
+        <member name="P:Api.Features.Students.Edit.Command.AddressCommand.Name">
+            <summary>
+            Name
+            </summary>
+        </member>
+        <member name="P:Api.Features.Students.Edit.Command.AddressCommand.Cep">
+            <summary>
+            Cep
+            </summary>
+        </member>
+        <member name="P:Api.Features.Students.Edit.Command.AddressCommand.Street">
+            <summary>
+            Street
+            </summary>
+        </member>
+        <member name="P:Api.Features.Students.Edit.Command.AddressCommand.Number">
+            <summary>
+            Number
+            </summary>
+        </member>
+        <member name="P:Api.Features.Students.Edit.Command.AddressCommand.District">
+            <summary>
+            District
+            </summary>
+        </member>
+        <member name="P:Api.Features.Students.Edit.Command.AddressCommand.Complement">
+            <summary>
+            Complement
+            </summary>
+        </member>
+        <member name="P:Api.Features.Students.Edit.Command.AddressCommand.Reference">
+            <summary>
+            Reference
+            </summary>
+        </member>
+        <member name="P:Api.Features.Students.Edit.Command.AddressCommand.Telephone">
+            <summary>
+            Telephone
+            </summary>
+        </member>
+        <member name="T:Api.Features.Students.Edit.Command.ContractedHourCommand">
+            <summary>
+            Contracted Hour Command
+            </summary>
+        </member>
+        <member name="P:Api.Features.Students.Edit.Command.ContractedHourCommand.Id">
+            <summary>
+            Contracted hour id
+            </summary>
+        </member>
+        <member name="P:Api.Features.Students.Edit.Command.ContractedHourCommand.EndDate">
+            <summary>
+            EndDate
+            </summary>
+        </member>
+        <member name="T:Api.Features.Students.Edit.Command.EmergencyContactCommand">
+            <summary>
+            Emergency contact Command
+            </summary>
+        </member>
+        <member name="P:Api.Features.Students.Edit.Command.EmergencyContactCommand.Id">
+            <summary>
+            Emergency contact id
+            </summary>
+        </member>
+        <member name="P:Api.Features.Students.Edit.Command.EmergencyContactCommand.Name">
+            <summary>
+            Hours
+            </summary>
+        </member>
+        <member name="P:Api.Features.Students.Edit.Command.EmergencyContactCommand.Telephone">
+            <summary>
+            Telephone
             </summary>
         </member>
         <member name="T:Api.Features.Students.List">
@@ -295,16 +765,6 @@
         <member name="P:Api.Features.Users.Create.Command.Cellphone">
             <summary>
             Cellphone of user
-            </summary>
-        </member>
-        <member name="P:Api.Features.Users.Create.Command.NewPassword">
-            <summary>
-            NewPassword of user
-            </summary>
-        </member>
-        <member name="P:Api.Features.Users.Create.Command.ConfirmPassword">
-            <summary>
-            ConfirmPassword of user
             </summary>
         </member>
         <member name="P:Api.Features.Users.Create.Command.Profile">
@@ -535,9 +995,9 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Api.Features.Users.UsersController.CreateLegalGuardian(Api.Features.Users.Create.Command,System.Threading.CancellationToken)">
+        <member name="M:Api.Features.Users.UsersController.CreateTeacher(Api.Features.Users.Create.Command,System.Threading.CancellationToken)">
             <summary>
-            Create Legal Guardian
+            Create Teacher
             </summary>
             <returns></returns>
         </member>
@@ -898,6 +1358,17 @@
             <param name="cancellationToken"></param>
             <returns></returns>
         </member>
+        <member name="T:Api.Results.AccessControl.AccessControlAdapter">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Api.Results.AccessControl.AccessControlAdapter.Register(Mapster.TypeAdapterConfig)">
+            <summary>
+            
+            </summary>
+            <param name="config"></param>
+        </member>
         <member name="T:Api.Results.Adresses.Adressdapter">
             <summary>
             
@@ -912,6 +1383,50 @@
             <summary>
             Authentication Token
             </summary>
+        </member>
+        <member name="T:Api.Results.Classroom.ClassroomAdapter">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Api.Results.Classroom.ClassroomAdapter.Register(Mapster.TypeAdapterConfig)">
+            <summary>
+            
+            </summary>
+            <param name="config"></param>
+        </member>
+        <member name="T:Api.Results.ContractedHours.ContractedHourAdapter">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Api.Results.ContractedHours.ContractedHourAdapter.Register(Mapster.TypeAdapterConfig)">
+            <summary>
+            
+            </summary>
+            <param name="config"></param>
+        </member>
+        <member name="T:Api.Results.Diary.DiaryAdapter">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Api.Results.Diary.DiaryAdapter.Register(Mapster.TypeAdapterConfig)">
+            <summary>
+            
+            </summary>
+            <param name="config"></param>
+        </member>
+        <member name="T:Api.Results.EmergencyContacts.EmergencyContactAdapter">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Api.Results.EmergencyContacts.EmergencyContactAdapter.Register(Mapster.TypeAdapterConfig)">
+            <summary>
+            
+            </summary>
+            <param name="config"></param>
         </member>
         <member name="T:Api.Results.Files.FileResult">
             <summary>
