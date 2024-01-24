@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Data.Migrations
 {
     [DbContext(typeof(ApiDbContext))]
-    [Migration("20240123200305_initial_migrations")]
+    [Migration("20240124144453_initial_migrations")]
     partial class initial_migrations
     {
         /// <inheritdoc />
@@ -401,6 +401,9 @@ namespace Data.Migrations
                         .HasColumnType("longtext");
 
                     b.Property<string>("Naturalness")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("RegistrationNumber")
                         .HasColumnType("longtext");
 
                     b.Property<string>("SpecialChild")

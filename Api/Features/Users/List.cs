@@ -18,7 +18,7 @@ public class List
     /// <summary>
     /// List Users
     /// </summary>
-    public class Query : PageRequest, IRequest<ResultOf<PageResult<UserResult>>>
+    public class Query : PageRequest, IRequest<ResultOf<PageResult<UserSimpleResult>>>
     {
         /// <summary>
         /// Filter by name and email
@@ -36,7 +36,7 @@ public class List
         public Profile? Profile { get; set; }
     }
 
-    internal class Handler : IRequestHandler<Query, ResultOf<PageResult<UserResult>>>
+    internal class Handler : IRequestHandler<Query, ResultOf<PageResult<UserSimpleResult>>>
     {
         private readonly ApiDbContext db;
 
@@ -45,7 +45,7 @@ public class List
             this.db = db;
         }
 
-        public async Task<ResultOf<PageResult<UserResult>>> Handle(Query request, CancellationToken cancellationToken)
+        public async Task<ResultOf<PageResult<UserSimpleResult>>> Handle(Query request, CancellationToken cancellationToken)
         {
             var users = db.Users.OnlyActives().Where(x => x.Profile != Profile.Admin);
 
@@ -61,11 +61,11 @@ public class List
             var total = await users.CountAsync(cancellationToken);
 
             var list = await users
-                .ProjectToType<UserResult>()
+                .ProjectToType<UserSimpleResult>()
                 .PaginateBy(request, s => s.Name)
                 .ToListAsync(cancellationToken);
 
-            return new PageResult<UserResult>(request, total, list);
+            return new PageResult<UserSimpleResult>(request, total, list);
         }
     }
 }

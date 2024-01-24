@@ -54,7 +54,7 @@ public class StudentsController : ControllerBase
     /// <returns></returns>
     [HttpGet]
     [Authorize]
-    public Task<ResultOf<PageResult<StudentResult>>> List([FromQuery] List.Query query, CancellationToken cancellationToken)
+    public Task<ResultOf<PageResult<StudentSimpleResult>>> List([FromQuery] List.Query query, CancellationToken cancellationToken)
     {
         return mediator.Send(query, cancellationToken);
     }

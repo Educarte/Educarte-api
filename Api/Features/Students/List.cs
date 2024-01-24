@@ -17,7 +17,7 @@ public class List
     /// <summary>
     /// List all students query
     /// </summary>
-    public class Query : PageRequest, IRequest<ResultOf<PageResult<StudentResult>>>
+    public class Query : PageRequest, IRequest<ResultOf<PageResult<StudentSimpleResult>>>
     {
         /// <summary>
         /// Filter
@@ -25,7 +25,7 @@ public class List
         public string Search { get; set; }
     }
 
-    internal class Handler : IRequestHandler<Query, ResultOf<PageResult<StudentResult>>>
+    internal class Handler : IRequestHandler<Query, ResultOf<PageResult<StudentSimpleResult>>>
     {
         private readonly ApiDbContext db;
 
@@ -34,9 +34,11 @@ public class List
             this.db = db;
         }
 
-        public async Task<ResultOf<PageResult<StudentResult>>> Handle(Query request, CancellationToken cancellationToken)
+        public async Task<ResultOf<PageResult<StudentSimpleResult>>> Handle(Query request, CancellationToken cancellationToken)
         {
-            var students = db.Students.OnlyActives().AsQueryable();
+            var students = db.Students
+                .OnlyActives()
+                .AsQueryable();
 
             if (!string.IsNullOrWhiteSpace(request.Search))
                 students = students.Where(s => s.Name.Contains(request.Search));
@@ -44,11 +46,11 @@ public class List
             var total = await students.CountAsync(cancellationToken);
 
             var list = await students
-                .ProjectToType<StudentResult>()
+                .ProjectToType<StudentSimpleResult>()
                 .PaginateBy(request, s => s.Name)
                 .ToListAsync(cancellationToken);
 
-            return new PageResult<StudentResult>(request, total, list);
+            return new PageResult<StudentSimpleResult>(request, total, list);
         }
     }
 }

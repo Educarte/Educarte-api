@@ -26,9 +26,9 @@ public class StudentResult
     public Time Time { get; set; }
     public Status Status { get; set; }
 
-    public UserResult LegalGuardian { get; set; }
     public ClassroomSimpleResult Classroom { get; set; }
 
+    public IList<UserSimpleResult> LegalGuardians { get; set; }
     public IList<AccessControlResult> AccessControls { get; set; }
     public IList<DiarySimpleResult> Diaries { get; set; }
     public IList<ContractedHourResult> ContractedHours { get; set; }

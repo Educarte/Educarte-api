@@ -286,14 +286,19 @@ public class Create
         public async Task<ResultOf<StudentResult>> Handle(Command request, CancellationToken cancellationToken)
         {
             var legalGuardians = await db.Users
+                .Include(x => x.Childs)
                 .OnlyActives()
                 .Where(x => request.LegalGuardians.Any(y => y.Email == x.Email)).ToListAsync(cancellationToken);
 
             var legalGuardiansToAddEmails = request.LegalGuardians.Select(x => x.Email).Except(legalGuardians.Select(x => x.Email));
             var legalGuardiansToAdd = request.LegalGuardians.Where(x => legalGuardiansToAddEmails.Contains(x.Email)).ToList();
+            var legalGuardiansToBind = legalGuardians.Where(x => !legalGuardiansToAddEmails.Contains(x.Email)).ToList();
+
+            if (legalGuardiansToBind.Select(x => x.Childs).Any(x => x.Count >= 2))
+                return new BadRequestError("Responsável legal selecionado já contem 2 crianças vinculadas ao mesmo.");
 
             var student = request.Adapt<Student>();
-            var users = request.LegalGuardians.Select(x => x.Adapt<User>()).ToList();
+            var users = legalGuardiansToAdd.Select(x => x.Adapt<User>()).ToList();
 
             foreach (var user in users)
             {
@@ -317,12 +322,13 @@ public class Create
                 user.PasswordSalt = passwordSalt;
             }
 
+            if(legalGuardiansToBind.Any())
+                users.AddRange(legalGuardiansToBind);
+
             student.LegalGuardians = users;
 
             db.Students.Add(student);
             await db.SaveChangesAsync(cancellationToken);
-
-
 
             return student.Adapt<StudentResult>();
         }

@@ -59,8 +59,9 @@ public class Detail
                 .Include(x => x.AccessControls)
                 .OnlyActives()
                 .FirstOrDefaultAsync(d => d.Id == request.Id, cancellationToken);
+
             if (students == null)
-                return new NotFoundError("Usuário não encontrado.");
+                return new NotFoundError("Estudante não encontrado.");
 
             return students.Adapt<StudentResult>();
         }

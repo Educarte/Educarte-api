@@ -11,8 +11,4 @@ public class UserSimpleResult
 
     public Profile Profile { get; set; }
     public Status Status { get; set; }
-
-    public DateTime CreatedAt { get; set; }
-    public DateTime ModifiedAt { get; set; }
-    public DateTime? DeletedAt { get; set; }
 }

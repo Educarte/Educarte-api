@@ -26,7 +26,7 @@ public class Create
     /// <summary>
     /// Create a new user command
     /// </summary>
-    public class Command : IRequest<ResultOf<UserResult>>
+    public class Command : IRequest<ResultOf<UserSimpleResult>>
     {
         /// <summary>
         /// Name of user
@@ -71,7 +71,7 @@ public class Create
         }
     }
 
-    internal class Handler : IRequestHandler<Command, ResultOf<UserResult>>
+    internal class Handler : IRequestHandler<Command, ResultOf<UserSimpleResult>>
     {
         private readonly ApiDbContext db;
         private readonly HashService hashService;
@@ -86,7 +86,7 @@ public class Create
             this.resetPasswordOptions = options.Value;
         }
 
-        public async Task<ResultOf<UserResult>> Handle(Command request, CancellationToken cancellationToken)
+        public async Task<ResultOf<UserSimpleResult>> Handle(Command request, CancellationToken cancellationToken)
         {
             var user = request.Adapt<User>();
             var password = Guid.NewGuid().ToString().Substring(0, 8);
@@ -111,7 +111,7 @@ public class Create
             db.Users.Add(user);
             await db.SaveChangesAsync(cancellationToken);
 
-            return user.Adapt<UserResult>();
+            return user.Adapt<UserSimpleResult>();
         }
     }
 }

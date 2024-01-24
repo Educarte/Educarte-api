@@ -8,6 +8,7 @@ public class Student : IEntity, IDeletable
     public Guid Id { get; set; }
 
     public string Name { get; set; }
+    public string RegistrationNumber { get; set; }
     public string Naturalness { get; set; }
     public string HealthProblem { get; set; }
     public string AllergicFood { get; set; }
@@ -17,14 +18,10 @@ public class Student : IEntity, IDeletable
     public string SpecialChild { get; set; }
     public bool SpecialChildHasReport { get; set; }
 
-
     public Genre Genre { get; set; }
     public BloodType BloodType { get; set; }
     public Time Time { get; set; }
     public Status Status { get; set; }
-
-    //TODO: Criar entidade para armazenar contrato com horas contratadas
-    //TODO: Relatório para retornar horas a mais (contradado)
 
     public IList<User> LegalGuardians { get; set; }
 

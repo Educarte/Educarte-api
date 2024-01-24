@@ -400,6 +400,9 @@ namespace Data.Migrations
                     b.Property<string>("Naturalness")
                         .HasColumnType("longtext");
 
+                    b.Property<string>("RegistrationNumber")
+                        .HasColumnType("longtext");
+
                     b.Property<string>("SpecialChild")
                         .HasColumnType("longtext");
 

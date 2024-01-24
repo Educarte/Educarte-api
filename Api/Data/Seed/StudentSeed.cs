@@ -12,6 +12,7 @@ namespace Api.Data.Seed
         {
             var students = new Faker<Student>()
                                             .RuleFor(x => x.Name, x => x.Person.FullName)
+                                            .RuleFor(x => x.RegistrationNumber, x => x.Random.Int(10000000,99999999).ToString())
                                             .RuleFor(x => x.LegalGuardians, x => x.PickRandom(db.Users.Local).Where(x => x.Profile == Profile.LegalGuardian).ToList())
                                             .RuleFor(x => x.Classroom, x => x.PickRandom(db.Classrooms.Local).First())
                                             .RuleFor(x => x.ContractedHours, x => new Faker<ContractedHour>()

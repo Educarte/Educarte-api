@@ -14,7 +14,7 @@ namespace Api.Results.Users
         /// <param name="config"></param>
         public void Register(TypeAdapterConfig config)
         {
-            config.NewConfig<User, UserResult>()
+            config.NewConfig<User, UserSimpleResult>()
                   .Map(d => d.Id, d => d.Id)
                   .Map(d => d.Email, d => d.Email)
                   .Map(d => d.Name, d => d.Name);

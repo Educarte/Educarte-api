@@ -122,6 +122,8 @@ public class AddLegalGuardian
         {
             config.NewConfig<Command.LegalGuardianCommand, User>()
                 .Map(x => x.Profile, x => Profile.LegalGuardian);
+
+            config.NewConfig<Command.AddressCommand, Core.Address>();
         }
     }
 
@@ -158,6 +160,9 @@ public class AddLegalGuardian
             var student = await db.Students
                 .OnlyActives()
                 .FirstOrDefaultAsync(x => x.Id == request.StudentId, cancellationToken);
+
+            if (student == null)
+                return new NotFoundError("Estudante não foi encontrado");
 
             var user = request.LegalGuardian.Adapt<User>();
 

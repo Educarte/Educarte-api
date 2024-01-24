@@ -20,7 +20,7 @@ public class ChangePassword
     /// <summary>
     /// Change User Password
     /// </summary>
-    public class Command : IRequest<ResultOf<UserResult>>
+    public class Command : IRequest<ResultOf<UserSimpleResult>>
     {
         /// <summary>
         /// Current password
@@ -42,7 +42,7 @@ public class ChangePassword
             RuleFor(d => d.NewPassword).NotEmpty().SetValidator(new PasswordValidator<Command>());
         }
     }
-    internal class Handler : IRequestHandler<Command, ResultOf<UserResult>>
+    internal class Handler : IRequestHandler<Command, ResultOf<UserSimpleResult>>
     {
         private readonly ApiDbContext db;
         private readonly IActor actor;
@@ -55,7 +55,7 @@ public class ChangePassword
             this.hashService = hashService;
         }
 
-        public async Task<ResultOf<UserResult>> Handle(Command request, CancellationToken cancellationToken)
+        public async Task<ResultOf<UserSimpleResult>> Handle(Command request, CancellationToken cancellationToken)
         {
             var user = await db.Users.FirstOrDefaultAsync(d => d.Id == actor.UserId, cancellationToken);
             if (user == null)
@@ -70,7 +70,7 @@ public class ChangePassword
 
             await db.SaveChangesAsync(cancellationToken);
 
-            return user.Adapt<UserResult>();
+            return user.Adapt<UserSimpleResult>();
         }
     }
 }
