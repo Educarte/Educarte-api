@@ -7,6 +7,7 @@ public class Diary : IEntity, IDeletable
     public Guid Id { get; set; }
 
     public string Description { get; set; }
+    public string FileUri { get; set; }
     public DateTime Time { get; set; }
 
     public Guid? UserId { get; set; }

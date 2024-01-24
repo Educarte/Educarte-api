@@ -229,6 +229,9 @@ namespace Data.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("longtext");
 
+                    b.Property<string>("FileUri")
+                        .HasColumnType("longtext");
+
                     b.Property<DateTime>("ModifiedAt")
                         .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("datetime(6)")

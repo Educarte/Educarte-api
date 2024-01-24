@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Data.Migrations
 {
     [DbContext(typeof(ApiDbContext))]
-    [Migration("20240124144453_initial_migrations")]
+    [Migration("20240124205508_initial_migrations")]
     partial class initial_migrations
     {
         /// <inheritdoc />
@@ -230,6 +230,9 @@ namespace Data.Migrations
                         .HasColumnType("datetime(6)");
 
                     b.Property<string>("Description")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("FileUri")
                         .HasColumnType("longtext");
 
                     b.Property<DateTime>("ModifiedAt")
