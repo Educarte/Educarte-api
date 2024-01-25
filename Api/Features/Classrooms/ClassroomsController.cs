@@ -1,4 +1,5 @@
 ﻿using Api.Infrastructure.Security;
+using Api.Results.Classroom;
 using Api.Results.Students;
 using Core.Enums;
 using MediatR;
@@ -7,72 +8,68 @@ using Microsoft.AspNetCore.Mvc;
 using Nudes.Paginator.Core;
 using Nudes.Retornator.Core;
 
-namespace Api.Features.Students;
+namespace Api.Features.Classrooms;
 
 /// <summary>
-/// Student Controller
+/// Classroom Controller
 /// </summary>
 [Route("[controller]")]
-public class StudentsController : ControllerBase
+public class ClassroomController : ControllerBase
 {
     private readonly IMediator mediator;
 
     /// <summary>
     /// 
     /// </summary>
-    public StudentsController(IMediator mediator)
+    public ClassroomController(IMediator mediator)
     {
         this.mediator = mediator;
     }
 
     /// <summary>
-    /// Create an student
+    /// Create a Classroom
     /// </summary>
     /// <returns></returns>
     [HttpPost]
     [AuthorizeByProfile(Profile.Admin, Profile.Employee)]
-    public Task<ResultOf<StudentResult>> Create([FromBody] Create.Command command, CancellationToken cancellationToken)
+    public Task<ResultOf<ClassroomResult>> Create([FromBody] Create.Command command, CancellationToken cancellationToken)
     {
         return mediator.Send(command, cancellationToken);
     }
 
     /// <summary>
-    /// Edit an student
+    /// Edit a Classroom
     /// </summary>
     /// <returns></returns>
     [HttpPut("{id}")]
     [AuthorizeByProfile(Profile.Admin, Profile.Employee)]
-    public Task<ResultOf<StudentResult>> Edit([FromBody] Edit.Command command, [FromRoute] Guid id, CancellationToken cancellationToken)
+    public Task<ResultOf<ClassroomResult>> Edit([FromBody] Edit.Command command, [FromRoute] Guid id, CancellationToken cancellationToken)
     {
         command.Id = id;
         return mediator.Send(command, cancellationToken);
     }
 
     /// <summary>
-    /// List all students
+    /// List all Classrooms
     /// </summary>
     /// <returns></returns>
     [HttpGet]
     [Authorize]
-    public Task<ResultOf<PageResult<StudentSimpleResult>>> List([FromQuery] List.Query query, CancellationToken cancellationToken)
+    public Task<ResultOf<PageResult<ClassroomSimpleResult>>> List([FromQuery] List.Query query, CancellationToken cancellationToken)
     {
         return mediator.Send(query, cancellationToken);
     }
 
-    /// <summary>
-    /// Return a student
-    /// </summary>
-    /// <returns></returns>
     [HttpGet("{Id}")]
     [Authorize]
-    public Task<ResultOf<StudentResult>> Get([FromQuery] Detail.Query query, [FromRoute] Guid Id, CancellationToken cancellationToken)
+    public Task<ResultOf<ClassroomResult>> Get([FromQuery] Detail.Query query, [FromRoute] Guid Id, CancellationToken cancellationToken)
     {
         query.Id = Id;
         return mediator.Send(query, cancellationToken);
     }
 
     /// <summary>
-    /// Delete a student
+    /// Delete a Classroom
     /// </summary>
     /// <returns></returns>
     [HttpDelete("{Id}")]
@@ -83,7 +80,7 @@ public class StudentsController : ControllerBase
     }
 
     /// <summary>
-    /// Toggle status active student
+    /// Toggle status active Classroom
     /// </summary>
     /// <returns></returns>
     [HttpPatch("{Id}/ToggleActive")]

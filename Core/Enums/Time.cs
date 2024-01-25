@@ -3,5 +3,6 @@
 public enum Time
 {
     Morning,
-    Afternoon
+    Afternoon,
+    Integral
 }

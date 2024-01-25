@@ -24,6 +24,7 @@ namespace Data.Migrations
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     MaxStudents = table.Column<int>(type: "int", nullable: false),
                     Status = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
+                    Time = table.Column<int>(type: "int", nullable: false),
                     ClassroomType = table.Column<int>(type: "int", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false, defaultValueSql: "NOW(6)"),
                     ModifiedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false, defaultValueSql: "NOW(6)")
