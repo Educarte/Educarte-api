@@ -37,6 +37,8 @@ public class List
         public async Task<ResultOf<PageResult<StudentSimpleResult>>> Handle(Query request, CancellationToken cancellationToken)
         {
             var students = db.Students
+                .Include(x => x.LegalGuardians)
+                .Include(x => x.ContractedHours)
                 .OnlyActives()
                 .AsQueryable();
 

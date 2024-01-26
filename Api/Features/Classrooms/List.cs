@@ -1,4 +1,6 @@
-﻿using Api.Results.Students;
+﻿using Api.Results.Classroom;
+using Api.Results.Students;
+using Core.Enums;
 using Core.Interfaces;
 using Data;
 using Mapster;
@@ -10,22 +12,37 @@ using Nudes.Retornator.Core;
 namespace Api.Features.Classrooms;
 
 /// <summary>
-/// List all students
+/// List all classrooms
 /// </summary>
 public class List
 {
     /// <summary>
-    /// List all students query
+    /// List all classrooms query
     /// </summary>
-    public class Query : PageRequest, IRequest<ResultOf<PageResult<StudentSimpleResult>>>
+    public class Query : PageRequest, IRequest<ResultOf<PageResult<ClassroomSimpleResult>>>
     {
         /// <summary>
         /// Filter
         /// </summary>
         public string Search { get; set; }
+
+        /// <summary>
+        /// Status
+        /// </summary>
+        public Status? Status { get; set; }
+
+        /// <summary>
+        /// Time
+        /// </summary>
+        public Time? Time { get; set; }
+
+        /// <summary>
+        /// ClassroomType
+        /// </summary>
+        public ClassroomType? ClassroomType { get; set; }
     }
 
-    internal class Handler : IRequestHandler<Query, ResultOf<PageResult<StudentSimpleResult>>>
+    internal class Handler : IRequestHandler<Query, ResultOf<PageResult<ClassroomSimpleResult>>>
     {
         private readonly ApiDbContext db;
 
@@ -34,23 +51,36 @@ public class List
             this.db = db;
         }
 
-        public async Task<ResultOf<PageResult<StudentSimpleResult>>> Handle(Query request, CancellationToken cancellationToken)
+        public async Task<ResultOf<PageResult<ClassroomSimpleResult>>> Handle(Query request, CancellationToken cancellationToken)
         {
-            var students = db.Students
+            var classrooms = db.Classrooms
+                .Include(x => x.Students)
                 .OnlyActives()
                 .AsQueryable();
 
             if (!string.IsNullOrWhiteSpace(request.Search))
-                students = students.Where(s => s.Name.Contains(request.Search));
+                classrooms = classrooms.Where(x => x.Name.Contains(request.Search));
 
-            var total = await students.CountAsync(cancellationToken);
+            if (request.Status.HasValue)
+                classrooms = classrooms.Where(x => x.Status == request.Status.Value);
 
-            var list = await students
-                .ProjectToType<StudentSimpleResult>()
+            if (request.Status.HasValue)
+                classrooms = classrooms.Where(x => x.ClassroomType == request.ClassroomType.Value);
+
+            if (request.Status.HasValue)
+                classrooms = classrooms.Where(x => x.Time == request.Time.Value);
+
+            if (request.Status.HasValue)
+                classrooms = classrooms.Where(x => x.Status == request.Status.Value);
+
+            var total = await classrooms.CountAsync(cancellationToken);
+
+            var list = await classrooms
+                .ProjectToType<ClassroomSimpleResult>()
                 .PaginateBy(request, s => s.Name)
                 .ToListAsync(cancellationToken);
 
-            return new PageResult<StudentSimpleResult>(request, total, list);
+            return new PageResult<ClassroomSimpleResult>(request, total, list);
         }
     }
 }

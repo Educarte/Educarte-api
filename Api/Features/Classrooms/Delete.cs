@@ -9,17 +9,17 @@ using Nudes.Retornator.Core;
 namespace Api.Features.Classrooms;
 
 /// <summary>
-/// Delete an student
+/// Delete an classroom
 /// </summary>
 public class Delete
 {
     /// <summary>
-    /// Delete and student command
+    /// Delete and classroom command
     /// </summary>
     public class Command : IRequest<Result>
     {
         /// <summary>
-        /// Student Id
+        /// Classroom Id
         /// </summary>
         public Guid Id { get; set; }
     }
@@ -43,12 +43,12 @@ public class Delete
 
         public async Task<Result> Handle(Command request, CancellationToken cancellationToken)
         {
-            var student = await db.Students.OnlyActives().FirstOrDefaultAsync(s => s.Id == request.Id, cancellationToken);
+            var classroom = await db.Classrooms.OnlyActives().FirstOrDefaultAsync(s => s.Id == request.Id, cancellationToken);
 
-            if (student == null)
-                return new NotFoundError("Estudante não encontrado.");
+            if (classroom == null)
+                return new NotFoundError("Turma não encontrado.");
 
-            student.DeletedAt = DateTime.UtcNow;
+            classroom.DeletedAt = DateTime.UtcNow;
 
             await db.SaveChangesAsync(cancellationToken);
 

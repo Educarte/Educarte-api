@@ -25,4 +25,7 @@ public class StudentSimpleResult
     public BloodType BloodType { get; set; }
     public Time Time { get; set; }
     public Status Status { get; set; }
+
+    public IList<UserSimpleResult> LegalGuardians { get; set; }
+    public IList<ContractedHourResult> ContractedHours { get; set; }
 }

@@ -11,8 +11,10 @@ public class ClassroomResult
 
     public string Name { get; set; }
     public int MaxStudents { get; set; }
+    public int CurrentQuantityStudents { get; set; }
 
     public Status Status { get; set; }
+    public Time Time { get; set; }
     public ClassroomType ClassroomType { get; set; }
 
     public IList<UserSimpleResult> Teachers { get; set; }

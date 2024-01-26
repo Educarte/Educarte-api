@@ -9,17 +9,17 @@ using Nudes.Retornator.Core;
 namespace Api.Features.Classrooms;
 
 /// <summary>
-/// Active / Inactive Student
+/// Active / Inactive classroom
 /// </summary>
 public class ToggleActive
 {
     /// <summary>
-    /// Active / Inactive Student
+    /// Active / Inactive classroom
     /// </summary>
     public class Command : IRequest<Result>
     {
         /// <summary>
-        /// Student id 
+        /// Classroom id 
         /// </summary>
         public Guid Id { get; set; }
     }
@@ -43,11 +43,11 @@ public class ToggleActive
 
         public async Task<Result> Handle(Command request, CancellationToken cancellationToken)
         {
-            var student = await db.Students.FirstOrDefaultAsync(s => s.Id == request.Id, cancellationToken);
-            if (student == null)
-                return new NotFoundError("Estudante não encontrado.");
+            var classroom = await db.Classrooms.FirstOrDefaultAsync(s => s.Id == request.Id, cancellationToken);
+            if (classroom == null)
+                return new NotFoundError("Turma não encontrado.");
 
-            student.Status = student.Status == Status.Active ? Status.Inactive : Status.Active;
+            classroom.Status = classroom.Status == Status.Active ? Status.Inactive : Status.Active;
 
             await db.SaveChangesAsync(cancellationToken);
 

@@ -14,17 +14,17 @@ using System.Text.Json.Serialization;
 namespace Api.Features.Classrooms;
 
 /// <summary>
-/// Find student by id
+/// Find classroom by id
 /// </summary>
 public class Detail
 {
     /// <summary>
-    /// Find student by id
+    /// Find classroom by id
     /// </summary>
     public class Query : IRequest<ResultOf<ClassroomResult>>
     {
         /// <summary>
-        /// Student id 
+        /// Classroom id 
         /// </summary>
         [BindNever]
         [JsonIgnore]

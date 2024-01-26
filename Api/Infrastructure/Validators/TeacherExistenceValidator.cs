@@ -13,7 +13,7 @@ public class TeacherExistenceValidator<T> : AsyncPropertyValidator<T, Guid>
     public override string Name => _name;
 
     protected override string GetDefaultMessageTemplate(string errorCode)
-                        => "O usuário não existe ou não é um professor.";
+                        => "O usuário não existe ou não é um professor ou um colaborador.";
 
     public TeacherExistenceValidator(ApiDbContext db)
     {
@@ -22,6 +22,6 @@ public class TeacherExistenceValidator<T> : AsyncPropertyValidator<T, Guid>
 
     public override async Task<bool> IsValidAsync(ValidationContext<T> context, Guid value, CancellationToken cancellation)
     {
-        return await db.Users.AsNoTrackingWithIdentityResolution().AnyAsync(d => d.Id == value && d.Profile == Core.Enums.Profile.Teacher, cancellation);
+        return await db.Users.AsNoTrackingWithIdentityResolution().AnyAsync(d => d.Id == value && (d.Profile == Core.Enums.Profile.Teacher || d.Profile == Core.Enums.Profile.Employee), cancellation);
     }
 }
