@@ -15,14 +15,14 @@ using System.Text.Json.Serialization;
 namespace Api.Features.Students;
 
 /// <summary>
-/// Find student by id
+/// Find student by id with details of access controls
 /// </summary>
-public class Detail
+public class DetailAccessControl
 {
     /// <summary>
-    /// Find student by id
+    /// Find student by id with details of access controls query
     /// </summary>
-    public class Query : IRequest<ResultOf<StudentResult>>
+    public class Query : IRequest<ResultOf<StudentSimpleResult>>
     {
         /// <summary>
         /// Student id 
@@ -40,7 +40,7 @@ public class Detail
         }
     }
 
-    internal class Handler : IRequestHandler<Query, ResultOf<StudentResult>>
+    internal class Handler : IRequestHandler<Query, ResultOf<StudentSimpleResult>>
     {
         private readonly ApiDbContext db;
 
@@ -49,15 +49,12 @@ public class Detail
             this.db = db;
         }
 
-        public async Task<ResultOf<StudentResult>> Handle(Query request, CancellationToken cancellationToken)
+        public async Task<ResultOf<StudentSimpleResult>> Handle(Query request, CancellationToken cancellationToken)
         {
             var student = await db.Students
                 .Include(x => x.Classroom)
-                    .ThenInclude(x => x.Diaries)
                 .Include(x => x.ContractedHours)
                 .Include(x => x.LegalGuardians)
-                .Include(x => x.Diaries)
-                .Include(x => x.EmergencyContacts)
                 .Include(x => x.AccessControls)
                 .OnlyActives()
                 .FirstOrDefaultAsync(d => d.Id == request.Id, cancellationToken);
@@ -65,17 +62,9 @@ public class Detail
             if (student == null)
                 return new NotFoundError("Estudante não encontrado.");
 
-            var studentResult = student.Adapt<StudentResult>();
+            var accessControlsGroup = student.AccessControls.GroupBy(x => x.Time);
 
-            var diaryClassrooms = db.Diaries
-                .Where(x => x.IsDiaryForAll || x.Classrooms.Any(y => y.Students.Any(z => z.Id == student.Id)))
-                .ToList();
-
-            if (diaryClassrooms.Any())
-            {
-                var diaries = diaryClassrooms.Adapt<List<DiarySimpleResult>>();
-                studentResult.Diaries.AddRange(diaries);
-            }
+            var studentResult = student.Adapt<StudentSimpleResult>();
 
             return studentResult;
         }

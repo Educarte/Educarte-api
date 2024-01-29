@@ -13,7 +13,9 @@ namespace Api.Results.Diary;
 public class DiaryResult
 {
     public Guid Id { get; set; }
+    public string FileUri { get; set; }
     public string Description { get; set; }
+    public bool IsDiaryForAll { get; set; }
     public DateTime Time { get; set; }
 
     public IList<StudentResult> Students { get; set; }

@@ -13,7 +13,7 @@ public class ClassroomExistenceValidator<T> : AsyncPropertyValidator<T, Guid>
     public override string Name => _name;
 
     protected override string GetDefaultMessageTemplate(string errorCode)
-                        => "A sala de aula não existe";
+                        => "A turma não existe.";
 
     public ClassroomExistenceValidator(ApiDbContext db)
     {

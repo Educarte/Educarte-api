@@ -261,7 +261,7 @@ public class Edit
         {
             var student = await db.Students.OnlyActives().FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken);
             if (student == null)
-                return new NotFoundError("Estudante não encontrado, tente novamente.");
+                return new NotFoundError("Estudante não encontrado.");
 
             request.Adapt(student);
 

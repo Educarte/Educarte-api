@@ -4,6 +4,89 @@
         <name>Api</name>
     </assembly>
     <members>
+        <member name="T:Api.Features.AccessControls.Create">
+            <summary>
+            Create
+            </summary>
+        </member>
+        <member name="T:Api.Features.AccessControls.Create.Command">
+            <summary>
+            Create command
+            </summary>
+        </member>
+        <member name="P:Api.Features.AccessControls.Create.Command.AccessControlType">
+            <summary>
+            AccessControlType
+            </summary>
+        </member>
+        <member name="P:Api.Features.AccessControls.Create.Command.StudentId">
+            <summary>
+            StudentId
+            </summary>
+        </member>
+        <member name="T:Api.Features.AccessControls.Delete">
+            <summary>
+            Delete
+            </summary>
+        </member>
+        <member name="T:Api.Features.AccessControls.Delete.Command">
+            <summary>
+            Delete command
+            </summary>
+        </member>
+        <member name="P:Api.Features.AccessControls.Delete.Command.Id">
+            <summary>
+            Id
+            </summary>
+        </member>
+        <member name="T:Api.Features.AccessControls.AccessControlsController">
+            <summary>
+            AccessControl Controller
+            </summary>
+        </member>
+        <member name="M:Api.Features.AccessControls.AccessControlsController.#ctor(MediatR.IMediator)">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Api.Features.AccessControls.AccessControlsController.Create(Api.Features.AccessControls.Create.Command,System.Threading.CancellationToken)">
+            <summary>
+            Create an access control
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Api.Features.AccessControls.AccessControlsController.Edit(Api.Features.AccessControls.Edit.Command,System.Guid,System.Threading.CancellationToken)">
+            <summary>
+            Edit an access control
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Api.Features.AccessControls.AccessControlsController.Delete(Api.Features.AccessControls.Delete.Command,System.Threading.CancellationToken)">
+            <summary>
+            Delete an access control
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Api.Features.AccessControls.Edit">
+            <summary>
+            Edit an
+            </summary>
+        </member>
+        <member name="T:Api.Features.AccessControls.Edit.Command">
+            <summary>
+            Edit and command
+            </summary>
+        </member>
+        <member name="P:Api.Features.AccessControls.Edit.Command.Id">
+            <summary>
+            Id
+            </summary>
+        </member>
+        <member name="P:Api.Features.AccessControls.Edit.Command.Time">
+            <summary>
+            Time
+            </summary>
+        </member>
         <member name="T:Api.Features.Authentication.Auth">
             <summary>
             Auth user
@@ -61,6 +144,417 @@
             Token
             </summary>
         </member>
+        <member name="T:Api.Features.Classrooms.ClassroomController">
+            <summary>
+            Classroom Controller
+            </summary>
+        </member>
+        <member name="M:Api.Features.Classrooms.ClassroomController.#ctor(MediatR.IMediator)">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Api.Features.Classrooms.ClassroomController.Create(Api.Features.Classrooms.Create.Command,System.Threading.CancellationToken)">
+            <summary>
+            Create a Classroom
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Api.Features.Classrooms.ClassroomController.Edit(Api.Features.Classrooms.Edit.Command,System.Guid,System.Threading.CancellationToken)">
+            <summary>
+            Edit a Classroom
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Api.Features.Classrooms.ClassroomController.List(Api.Features.Classrooms.List.Query,System.Threading.CancellationToken)">
+            <summary>
+            List all Classrooms
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Api.Features.Classrooms.ClassroomController.Delete(Api.Features.Classrooms.Delete.Command,System.Threading.CancellationToken)">
+            <summary>
+            Delete a Classroom
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Api.Features.Classrooms.ClassroomController.ToggleStatus(Api.Features.Classrooms.ToggleActive.Command,System.Threading.CancellationToken)">
+            <summary>
+            Toggle status active Classroom
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Api.Features.Classrooms.Create">
+            <summary>
+            Create a classroom
+            </summary>
+        </member>
+        <member name="T:Api.Features.Classrooms.Create.Command">
+            <summary>
+            Create a classroom command
+            </summary>
+        </member>
+        <member name="P:Api.Features.Classrooms.Create.Command.Name">
+            <summary>
+            Name
+            </summary>
+        </member>
+        <member name="P:Api.Features.Classrooms.Create.Command.MaxStudents">
+            <summary>
+            Max Student
+            </summary>
+        </member>
+        <member name="P:Api.Features.Classrooms.Create.Command.Status">
+            <summary>
+            Status
+            </summary>
+        </member>
+        <member name="P:Api.Features.Classrooms.Create.Command.Time">
+            <summary>
+            Time
+            </summary>
+        </member>
+        <member name="P:Api.Features.Classrooms.Create.Command.ClassroomType">
+            <summary>
+            ClassroomType
+            </summary>
+        </member>
+        <member name="P:Api.Features.Classrooms.Create.Command.TeacherIds">
+            <summary>
+            TeacherIds
+            </summary>
+        </member>
+        <member name="P:Api.Features.Classrooms.Create.Command.StudentIds">
+            <summary>
+            StudentIds
+            </summary>
+        </member>
+        <member name="T:Api.Features.Classrooms.Delete">
+            <summary>
+            Delete an classroom
+            </summary>
+        </member>
+        <member name="T:Api.Features.Classrooms.Delete.Command">
+            <summary>
+            Delete and classroom command
+            </summary>
+        </member>
+        <member name="P:Api.Features.Classrooms.Delete.Command.Id">
+            <summary>
+            Classroom Id
+            </summary>
+        </member>
+        <member name="T:Api.Features.Classrooms.Detail">
+            <summary>
+            Find classroom by id
+            </summary>
+        </member>
+        <member name="T:Api.Features.Classrooms.Detail.Query">
+            <summary>
+            Find classroom by id
+            </summary>
+        </member>
+        <member name="P:Api.Features.Classrooms.Detail.Query.Id">
+            <summary>
+            Classroom id 
+            </summary>
+        </member>
+        <member name="T:Api.Features.Classrooms.Edit">
+            <summary>
+            Edit an classroom
+            </summary>
+        </member>
+        <member name="T:Api.Features.Classrooms.Edit.Command">
+            <summary>
+            Edit and classroom command
+            </summary>
+        </member>
+        <member name="P:Api.Features.Classrooms.Edit.Command.Id">
+            <summary>
+            Classroom id
+            </summary>
+        </member>
+        <member name="P:Api.Features.Classrooms.Edit.Command.Name">
+            <summary>
+            Name
+            </summary>
+        </member>
+        <member name="P:Api.Features.Classrooms.Edit.Command.MaxStudents">
+            <summary>
+            Max Student
+            </summary>
+        </member>
+        <member name="P:Api.Features.Classrooms.Edit.Command.Status">
+            <summary>
+            Status
+            </summary>
+        </member>
+        <member name="P:Api.Features.Classrooms.Edit.Command.Time">
+            <summary>
+            Time
+            </summary>
+        </member>
+        <member name="P:Api.Features.Classrooms.Edit.Command.ClassroomType">
+            <summary>
+            ClassroomType
+            </summary>
+        </member>
+        <member name="P:Api.Features.Classrooms.Edit.Command.TeacherIds">
+            <summary>
+            TeacherIds
+            </summary>
+        </member>
+        <member name="P:Api.Features.Classrooms.Edit.Command.StudentIds">
+            <summary>
+            StudentIds
+            </summary>
+        </member>
+        <member name="T:Api.Features.Classrooms.List">
+            <summary>
+            List all classrooms
+            </summary>
+        </member>
+        <member name="T:Api.Features.Classrooms.List.Query">
+            <summary>
+            List all classrooms query
+            </summary>
+        </member>
+        <member name="P:Api.Features.Classrooms.List.Query.Search">
+            <summary>
+            Filter
+            </summary>
+        </member>
+        <member name="P:Api.Features.Classrooms.List.Query.Status">
+            <summary>
+            Status
+            </summary>
+        </member>
+        <member name="P:Api.Features.Classrooms.List.Query.Time">
+            <summary>
+            Time
+            </summary>
+        </member>
+        <member name="P:Api.Features.Classrooms.List.Query.ClassroomType">
+            <summary>
+            ClassroomType
+            </summary>
+        </member>
+        <member name="T:Api.Features.Classrooms.ToggleActive">
+            <summary>
+            Active / Inactive classroom
+            </summary>
+        </member>
+        <member name="T:Api.Features.Classrooms.ToggleActive.Command">
+            <summary>
+            Active / Inactive classroom
+            </summary>
+        </member>
+        <member name="P:Api.Features.Classrooms.ToggleActive.Command.Id">
+            <summary>
+            Classroom id 
+            </summary>
+        </member>
+        <member name="T:Api.Features.Diary.Create">
+            <summary>
+            Create
+            </summary>
+        </member>
+        <member name="T:Api.Features.Diary.Create.Command">
+            <summary>
+            Create command
+            </summary>
+        </member>
+        <member name="P:Api.Features.Diary.Create.Command.Description">
+            <summary>
+            Description
+            </summary>
+        </member>
+        <member name="P:Api.Features.Diary.Create.Command.FileUri">
+            <summary>
+            FileUri
+            </summary>
+        </member>
+        <member name="P:Api.Features.Diary.Create.Command.IsDiaryForAll">
+            <summary>
+            IsDiaryForAll
+            </summary>
+        </member>
+        <member name="P:Api.Features.Diary.Create.Command.Time">
+            <summary>
+            Time
+            </summary>
+        </member>
+        <member name="P:Api.Features.Diary.Create.Command.StudentIds">
+            <summary>
+            StudentIds
+            </summary>
+        </member>
+        <member name="P:Api.Features.Diary.Create.Command.ClassroomIds">
+            <summary>
+            ClassroomIds
+            </summary>
+        </member>
+        <member name="T:Api.Features.Diary.Delete">
+            <summary>
+            Delete
+            </summary>
+        </member>
+        <member name="T:Api.Features.Diary.Delete.Command">
+            <summary>
+            Delete command
+            </summary>
+        </member>
+        <member name="P:Api.Features.Diary.Delete.Command.Id">
+            <summary>
+            Id
+            </summary>
+        </member>
+        <member name="T:Api.Features.Diary.Detail">
+            <summary>
+            Find by id
+            </summary>
+        </member>
+        <member name="T:Api.Features.Diary.Detail.Query">
+            <summary>
+            Find by id
+            </summary>
+        </member>
+        <member name="P:Api.Features.Diary.Detail.Query.Id">
+            <summary>
+            Id 
+            </summary>
+        </member>
+        <member name="T:Api.Features.Diary.DiaryController">
+            <summary>
+            Diary Controller
+            </summary>
+        </member>
+        <member name="M:Api.Features.Diary.DiaryController.#ctor(MediatR.IMediator)">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Api.Features.Diary.DiaryController.Create(Api.Features.Diary.Create.Command,System.Threading.CancellationToken)">
+            <summary>
+            Create a diary
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Api.Features.Diary.DiaryController.Edit(Api.Features.Diary.Edit.Command,System.Guid,System.Threading.CancellationToken)">
+            <summary>
+            Edit a diary
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Api.Features.Diary.DiaryController.List(Api.Features.Diary.List.Query,System.Threading.CancellationToken)">
+            <summary>
+            List all diaries
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Api.Features.Diary.DiaryController.Get(Api.Features.Diary.Detail.Query,System.Guid,System.Threading.CancellationToken)">
+            <summary>
+            Get diary
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Api.Features.Diary.DiaryController.Delete(Api.Features.Diary.Delete.Command,System.Threading.CancellationToken)">
+            <summary>
+            Delete a diary
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Api.Features.Diary.DiaryController.ToggleStatus(Api.Features.Diary.ToggleActive.Command,System.Threading.CancellationToken)">
+            <summary>
+            Toggle status active diary
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Api.Features.Diary.Edit">
+            <summary>
+            Edit an
+            </summary>
+        </member>
+        <member name="T:Api.Features.Diary.Edit.Command">
+            <summary>
+            Edit and command
+            </summary>
+        </member>
+        <member name="P:Api.Features.Diary.Edit.Command.Id">
+            <summary>
+            Id
+            </summary>
+        </member>
+        <member name="P:Api.Features.Diary.Edit.Command.Description">
+            <summary>
+            Description
+            </summary>
+        </member>
+        <member name="P:Api.Features.Diary.Edit.Command.FileUri">
+            <summary>
+            FileUri
+            </summary>
+        </member>
+        <member name="P:Api.Features.Diary.Edit.Command.IsDiaryForAll">
+            <summary>
+            IsDiaryForAll
+            </summary>
+        </member>
+        <member name="P:Api.Features.Diary.Edit.Command.Time">
+            <summary>
+            Time
+            </summary>
+        </member>
+        <member name="P:Api.Features.Diary.Edit.Command.StudentIds">
+            <summary>
+            StudentIds
+            </summary>
+        </member>
+        <member name="P:Api.Features.Diary.Edit.Command.ClassroomIds">
+            <summary>
+            ClassroomIds
+            </summary>
+        </member>
+        <member name="T:Api.Features.Diary.List">
+            <summary>
+            List all
+            </summary>
+        </member>
+        <member name="T:Api.Features.Diary.List.Query">
+            <summary>
+            List all query
+            </summary>
+        </member>
+        <member name="P:Api.Features.Diary.List.Query.Status">
+            <summary>
+            Status
+            </summary>
+        </member>
+        <member name="P:Api.Features.Diary.List.Query.StartDate">
+            <summary>
+            StartDate
+            </summary>
+        </member>
+        <member name="P:Api.Features.Diary.List.Query.EndDate">
+            <summary>
+            EndDate
+            </summary>
+        </member>
+        <member name="T:Api.Features.Diary.ToggleActive">
+            <summary>
+            Active / Inactive
+            </summary>
+        </member>
+        <member name="T:Api.Features.Diary.ToggleActive.Command">
+            <summary>
+            Active / Inactive
+            </summary>
+        </member>
+        <member name="P:Api.Features.Diary.ToggleActive.Command.Id">
+            <summary>
+            Id 
+            </summary>
+        </member>
         <member name="T:Api.Features.Files.FilesController">
             <summary>
             Files Controller
@@ -110,6 +604,212 @@
         <member name="P:Api.Features.Files.Upload.Command.File.FileStream">
             <summary>
             File Stream
+            </summary>
+        </member>
+        <member name="T:Api.Features.Menus.Create">
+            <summary>
+            Create a classroom
+            </summary>
+        </member>
+        <member name="T:Api.Features.Menus.Create.Command">
+            <summary>
+            Create a classroom command
+            </summary>
+        </member>
+        <member name="P:Api.Features.Menus.Create.Command.Name">
+            <summary>
+            Name
+            </summary>
+        </member>
+        <member name="P:Api.Features.Menus.Create.Command.Uri">
+            <summary>
+            File Uri
+            </summary>
+        </member>
+        <member name="P:Api.Features.Menus.Create.Command.StartDate">
+            <summary>
+            StartDate
+            </summary>
+        </member>
+        <member name="P:Api.Features.Menus.Create.Command.ValidUntil">
+            <summary>
+            ValidUntil
+            </summary>
+        </member>
+        <member name="T:Api.Features.Menus.Delete">
+            <summary>
+            Delete an menu
+            </summary>
+        </member>
+        <member name="T:Api.Features.Menus.Delete.Command">
+            <summary>
+            Delete and menu command
+            </summary>
+        </member>
+        <member name="P:Api.Features.Menus.Delete.Command.Id">
+            <summary>
+            menu Id
+            </summary>
+        </member>
+        <member name="T:Api.Features.Menus.Detail">
+            <summary>
+            Find menu by id
+            </summary>
+        </member>
+        <member name="T:Api.Features.Menus.Detail.Query">
+            <summary>
+            Find menu by id
+            </summary>
+        </member>
+        <member name="P:Api.Features.Menus.Detail.Query.Id">
+            <summary>
+            menu id 
+            </summary>
+        </member>
+        <member name="T:Api.Features.Menus.Edit">
+            <summary>
+            Edit an classroom
+            </summary>
+        </member>
+        <member name="T:Api.Features.Menus.Edit.Command">
+            <summary>
+            Edit and classroom command
+            </summary>
+        </member>
+        <member name="P:Api.Features.Menus.Edit.Command.Id">
+            <summary>
+            Classroom id
+            </summary>
+        </member>
+        <member name="P:Api.Features.Menus.Edit.Command.Name">
+            <summary>
+            Name
+            </summary>
+        </member>
+        <member name="P:Api.Features.Menus.Edit.Command.Uri">
+            <summary>
+            File Uri
+            </summary>
+        </member>
+        <member name="P:Api.Features.Menus.Edit.Command.StartDate">
+            <summary>
+            StartDate
+            </summary>
+        </member>
+        <member name="P:Api.Features.Menus.Edit.Command.ValidUntil">
+            <summary>
+            ValidUntil
+            </summary>
+        </member>
+        <member name="T:Api.Features.Menus.List">
+            <summary>
+            List all menus
+            </summary>
+        </member>
+        <member name="T:Api.Features.Menus.List.Query">
+            <summary>
+            List all menus query
+            </summary>
+        </member>
+        <member name="P:Api.Features.Menus.List.Query.Search">
+            <summary>
+            Filter
+            </summary>
+        </member>
+        <member name="P:Api.Features.Menus.List.Query.Status">
+            <summary>
+            Status
+            </summary>
+        </member>
+        <member name="P:Api.Features.Menus.List.Query.StartDate">
+            <summary>
+            StartDate
+            </summary>
+        </member>
+        <member name="P:Api.Features.Menus.List.Query.EndDate">
+            <summary>
+            EndDate
+            </summary>
+        </member>
+        <member name="T:Api.Features.Menus.MenusController">
+            <summary>
+            Classroom Controller
+            </summary>
+        </member>
+        <member name="M:Api.Features.Menus.MenusController.#ctor(MediatR.IMediator)">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Api.Features.Menus.MenusController.Create(Api.Features.Menus.Create.Command,System.Threading.CancellationToken)">
+            <summary>
+            Create a menu
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Api.Features.Menus.MenusController.Edit(Api.Features.Menus.Edit.Command,System.Guid,System.Threading.CancellationToken)">
+            <summary>
+            Edit a menu
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Api.Features.Menus.MenusController.List(Api.Features.Menus.List.Query,System.Threading.CancellationToken)">
+            <summary>
+            List all menus
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Api.Features.Menus.MenusController.Get(Api.Features.Menus.Detail.Query,System.Guid,System.Threading.CancellationToken)">
+            <summary>
+            Get menu
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Api.Features.Menus.MenusController.Delete(Api.Features.Menus.Delete.Command,System.Threading.CancellationToken)">
+            <summary>
+            Delete a Classroom
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Api.Features.Menus.MenusController.ToggleStatus(Api.Features.Menus.ToggleActive.Command,System.Threading.CancellationToken)">
+            <summary>
+            Toggle status active Classroom
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Api.Features.Menus.ToggleActive">
+            <summary>
+            Active / Inactive menu
+            </summary>
+        </member>
+        <member name="T:Api.Features.Menus.ToggleActive.Command">
+            <summary>
+            Active / Inactive menu
+            </summary>
+        </member>
+        <member name="P:Api.Features.Menus.ToggleActive.Command.Id">
+            <summary>
+            menu id 
+            </summary>
+        </member>
+        <member name="T:Api.Features.Students.AddAccessControl">
+            <summary>
+            Add access control
+            </summary>
+        </member>
+        <member name="T:Api.Features.Students.AddAccessControl.Command">
+            <summary>
+            Add access control command
+            </summary>
+        </member>
+        <member name="P:Api.Features.Students.AddAccessControl.Command.Id">
+            <summary>
+            Student id
+            </summary>
+        </member>
+        <member name="P:Api.Features.Students.AddAccessControl.Command.AccessControlType">
+            <summary>
+            AccessControlType
             </summary>
         </member>
         <member name="T:Api.Features.Students.AddLegalGuardian">
@@ -695,9 +1395,15 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:Api.Features.Students.StudentsController.Get(Api.Features.Students.Detail.Query,System.Guid,System.Threading.CancellationToken)">
+            <summary>
+            Return a student
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:Api.Features.Students.StudentsController.Delete(Api.Features.Students.Delete.Command,System.Threading.CancellationToken)">
             <summary>
-            Delete an user
+            Delete a student
             </summary>
             <returns></returns>
         </member>
@@ -1452,6 +2158,17 @@
             <summary>
             File path
             </summary>
+        </member>
+        <member name="T:Api.Results.Menus.MenuAdapter">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Api.Results.Menus.MenuAdapter.Register(Mapster.TypeAdapterConfig)">
+            <summary>
+            
+            </summary>
+            <param name="config"></param>
         </member>
         <member name="T:Api.Results.Students.StudentAdapter">
             <summary>

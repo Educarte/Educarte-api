@@ -12,6 +12,7 @@ public class ClassroomSimpleResult
     public string Name { get; set; }
     public int MaxStudents { get; set; }
     public int CurrentQuantityStudents { get; set; }
+    public UserSimpleResult Teacher { get; set; }
 
     public Status Status { get; set; }
     public Time Time { get; set; }

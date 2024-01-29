@@ -55,6 +55,7 @@ public class List
         {
             var classrooms = db.Classrooms
                 .Include(x => x.Students)
+                .Include(x => x.Teachers)
                 .OnlyActives()
                 .AsQueryable();
 
@@ -64,14 +65,11 @@ public class List
             if (request.Status.HasValue)
                 classrooms = classrooms.Where(x => x.Status == request.Status.Value);
 
-            if (request.Status.HasValue)
+            if (request.ClassroomType.HasValue)
                 classrooms = classrooms.Where(x => x.ClassroomType == request.ClassroomType.Value);
 
-            if (request.Status.HasValue)
+            if (request.Time.HasValue)
                 classrooms = classrooms.Where(x => x.Time == request.Time.Value);
-
-            if (request.Status.HasValue)
-                classrooms = classrooms.Where(x => x.Status == request.Status.Value);
 
             var total = await classrooms.CountAsync(cancellationToken);
 

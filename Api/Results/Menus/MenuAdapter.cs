@@ -1,12 +1,12 @@
 ﻿using Core;
 using Mapster;
 
-namespace Api.Results.AccessControl
+namespace Api.Results.Menus
 {
     /// <summary>
     /// 
     /// </summary>
-    public class AccessControlAdapter : IRegister
+    public class MenuAdapter : IRegister
     {
         /// <summary>
         /// 
@@ -14,8 +14,7 @@ namespace Api.Results.AccessControl
         /// <param name="config"></param>
         public void Register(TypeAdapterConfig config)
         {
-            config.NewConfig<Core.AccessControl, AccessControlResult>();
-            config.NewConfig<Core.AccessControl, AccessControlSimpleResult>();
+            config.NewConfig<Menu, MenuResult>();
         }
     }
 }

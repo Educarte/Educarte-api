@@ -15,7 +15,8 @@ namespace Api.Results.Students
         public void Register(TypeAdapterConfig config)
         {
             config.NewConfig<Student, StudentResult>();
-            config.NewConfig<Student, StudentSimpleResult>();
+            config.NewConfig<Student, StudentSimpleResult>()
+                .Map(x => x.ContractedHours, x => x.ContractedHours.Where(x => x.Status == Core.Enums.Status.Active));
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Api.Results.Students;
+using Core.Enums;
 using Core.Interfaces;
 using Data;
 using Mapster;
@@ -23,6 +24,21 @@ public class List
         /// Filter
         /// </summary>
         public string Search { get; set; }
+
+        /// <summary>
+        /// StudentStatus
+        /// </summary>
+        public Status? StudentStatus { get; set; }
+        
+        /// <summary>
+        /// ContractStatus
+        /// </summary>
+        public Status? ContractStatus { get; set; }
+
+        /// <summary>
+        /// ClassroomType
+        /// </summary>
+        public ClassroomType? ClassroomType { get; set; }
     }
 
     internal class Handler : IRequestHandler<Query, ResultOf<PageResult<StudentSimpleResult>>>
@@ -39,11 +55,21 @@ public class List
             var students = db.Students
                 .Include(x => x.LegalGuardians)
                 .Include(x => x.ContractedHours)
+                .Include(x => x.Classroom)
                 .OnlyActives()
                 .AsQueryable();
 
             if (!string.IsNullOrWhiteSpace(request.Search))
                 students = students.Where(s => s.Name.Contains(request.Search));
+
+            if (request.StudentStatus.HasValue)
+                students = students.Where(x => x.Status == request.StudentStatus.Value);
+
+            if (request.ContractStatus.HasValue)
+                students = students.Where(x => x.ContractedHours.Any(x => x.Status == request.ContractStatus.Value));
+
+            if (request.ClassroomType.HasValue)
+                students = students.Where(x => x.Classroom.ClassroomType == request.ClassroomType);
 
             var total = await students.CountAsync(cancellationToken);
 
