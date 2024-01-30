@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Data.Migrations
 {
     [DbContext(typeof(ApiDbContext))]
-    [Migration("20240125194713_initial_migrations")]
+    [Migration("20240130142217_initial_migrations")]
     partial class initial_migrations
     {
         /// <inheritdoc />
@@ -238,10 +238,16 @@ namespace Data.Migrations
                     b.Property<string>("FileUri")
                         .HasColumnType("longtext");
 
+                    b.Property<bool>("IsDiaryForAll")
+                        .HasColumnType("tinyint(1)");
+
                     b.Property<DateTime>("ModifiedAt")
                         .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("datetime(6)")
                         .HasDefaultValueSql("NOW(6)");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("Time")
                         .HasColumnType("datetime(6)");

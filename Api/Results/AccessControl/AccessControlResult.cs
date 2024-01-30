@@ -1,15 +1,21 @@
 ﻿using Api.Results.ContractedHours;
 using Api.Results.Students;
+using Api.Results.Users;
 using Core.Enums;
 
 namespace Api.Results.AccessControl;
 
 public class AccessControlResult
 {
-    public Guid Id { get; set; }
-    public AccessControlType AccessControlType { get; set; }
-    public DateTime Time { get; set; }
+    public List<AccessControl> AccessControlsByDate { get; set; }
+    public List<UserSimpleResult> LegalGuardians { get; set; }
+    public StudentSoftResult Student { get; set; }
+}
 
-    public StudentResult Student { get; set; }
-    public ContractedHourResult ContractedHour { get; set; }
+public class AccessControl
+{
+    public DateTime Date { get; set; }
+
+    public List<AccessControlSimpleResult> AccessControls { get; set; }
+    public ContractedHourResult? ContractedHour { get; set; }
 }

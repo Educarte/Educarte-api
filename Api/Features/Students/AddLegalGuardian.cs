@@ -15,6 +15,8 @@ using Nudes.Retornator.AspnetCore.Errors;
 using Nudes.Retornator.Core;
 using Api.Infrastructure.Services.Interfaces;
 using Microsoft.Extensions.Options;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
+using System.Text.Json.Serialization;
 
 namespace Api.Features.Students;
 
@@ -31,6 +33,8 @@ public class AddLegalGuardian
         /// <summary>
         /// StudentId
         /// </summary>
+        [BindNever]
+        [JsonIgnore]
         public Guid StudentId { get; set; }
 
         /// <summary>
@@ -116,7 +120,7 @@ public class AddLegalGuardian
         }
     }
 
-    internal class Adapter : IRegister
+    public class Adapter : IRegister
     {
         public void Register(TypeAdapterConfig config)
         {
@@ -127,7 +131,7 @@ public class AddLegalGuardian
         }
     }
 
-    internal class Validator : AbstractValidator<Command>
+    public class Validator : AbstractValidator<Command>
     {
         public Validator(ApiDbContext db)
         {

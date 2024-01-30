@@ -38,7 +38,7 @@ public class AddAccessControl
     }
 
 
-    internal class Validator : AbstractValidator<Command>
+    public class Validator : AbstractValidator<Command>
     {
         public Validator()
         {

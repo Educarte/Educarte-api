@@ -236,7 +236,7 @@ public class Create
         }
     }
 
-    internal class Validator : AbstractValidator<Command>
+    public class Validator : AbstractValidator<Command>
     {
         public Validator(ApiDbContext db)
         {
@@ -288,7 +288,7 @@ public class Create
             var legalGuardians = await db.Users
                 .Include(x => x.Childs)
                 .OnlyActives()
-                .Where(x => request.LegalGuardians.Any(y => y.Email == x.Email)).ToListAsync(cancellationToken);
+                .Where(x => request.LegalGuardians.Select(x => x.Email).Contains(x.Email)).ToListAsync(cancellationToken);
 
             var legalGuardiansToAddEmails = request.LegalGuardians.Select(x => x.Email).Except(legalGuardians.Select(x => x.Email));
             var legalGuardiansToAdd = request.LegalGuardians.Where(x => legalGuardiansToAddEmails.Contains(x.Email)).ToList();

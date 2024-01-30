@@ -1,5 +1,8 @@
-﻿using Api.Results.Diary;
+﻿using Api.Results.AccessControl;
+using Api.Results.ContractedHours;
+using Api.Results.Diary;
 using Api.Results.Students;
+using Api.Results.Users;
 using Core;
 using Core.Interfaces;
 using Data;
@@ -22,7 +25,7 @@ public class DetailAccessControl
     /// <summary>
     /// Find student by id with details of access controls query
     /// </summary>
-    public class Query : IRequest<ResultOf<StudentSimpleResult>>
+    public class Query : IRequest<ResultOf<AccessControlResult>>
     {
         /// <summary>
         /// Student id 
@@ -32,7 +35,7 @@ public class DetailAccessControl
         public Guid Id { get; set; }
     }
 
-    internal class Validator : AbstractValidator<Query>
+    public class Validator : AbstractValidator<Query>
     {
         public Validator()
         {
@@ -40,7 +43,7 @@ public class DetailAccessControl
         }
     }
 
-    internal class Handler : IRequestHandler<Query, ResultOf<StudentSimpleResult>>
+    internal class Handler : IRequestHandler<Query, ResultOf<AccessControlResult>>
     {
         private readonly ApiDbContext db;
 
@@ -49,7 +52,7 @@ public class DetailAccessControl
             this.db = db;
         }
 
-        public async Task<ResultOf<StudentSimpleResult>> Handle(Query request, CancellationToken cancellationToken)
+        public async Task<ResultOf<AccessControlResult>> Handle(Query request, CancellationToken cancellationToken)
         {
             var student = await db.Students
                 .Include(x => x.Classroom)
@@ -62,11 +65,24 @@ public class DetailAccessControl
             if (student == null)
                 return new NotFoundError("Estudante não encontrado.");
 
-            var accessControlsGroup = student.AccessControls.GroupBy(x => x.Time);
+            var accessControlGroup = new AccessControlResult
+            {
+                AccessControlsByDate = student.AccessControls.GroupBy(x => x.Time.Date).Select(x => new Results.AccessControl.AccessControl
+                {
+                    Date = x.Key,
+                    AccessControls = x.Select(y => new AccessControlSimpleResult
+                    {
+                        Id = y.Id,
+                        AccessControlType = y.AccessControlType,
+                        Time = y.Time
+                    }).ToList(),
+                    ContractedHour = student.ContractedHours.FirstOrDefault(y => y.EndDate.HasValue ? x.Key <= y.EndDate.Value.Date : true)?.Adapt<ContractedHourResult>(),
+                }).ToList(),
+                LegalGuardians = student.LegalGuardians.Select(x => x.Adapt<UserSimpleResult>()).ToList(),
+                Student = student.Adapt<StudentSoftResult>(),
+            };
 
-            var studentResult = student.Adapt<StudentSimpleResult>();
-
-            return studentResult;
+            return accessControlGroup;
         }
     }
 }

@@ -31,7 +31,7 @@ public class Detail
         public Guid Id { get; set; }
     }
 
-    internal class Validator : AbstractValidator<Query>
+    public class Validator : AbstractValidator<Query>
     {
         public Validator()
         {

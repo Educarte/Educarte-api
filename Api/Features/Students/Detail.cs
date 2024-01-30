@@ -32,7 +32,7 @@ public class Detail
         public Guid Id { get; set; }
     }
 
-    internal class Validator : AbstractValidator<Query>
+    public class Validator : AbstractValidator<Query>
     {
         public Validator()
         {
@@ -54,6 +54,8 @@ public class Detail
             var student = await db.Students
                 .Include(x => x.Classroom)
                     .ThenInclude(x => x.Diaries)
+                .Include(x => x.Classroom)
+                    .ThenInclude(x => x.Teachers)
                 .Include(x => x.ContractedHours)
                 .Include(x => x.LegalGuardians)
                 .Include(x => x.Diaries)

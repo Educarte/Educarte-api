@@ -33,7 +33,7 @@ public class Create
         public Guid StudentId { get; set; }
     }
 
-    internal class Adapter : IRegister
+    public class Adapter : IRegister
     {
         public void Register(TypeAdapterConfig config)
         {

@@ -45,7 +45,7 @@ public class Edit
         public string Cellphone { get; set; }
     }
 
-    internal class Validator : AbstractValidator<Command>
+    public class Validator : AbstractValidator<Command>
     {
         public Validator()
         {

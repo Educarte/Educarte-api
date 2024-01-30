@@ -65,7 +65,7 @@ public class Edit
         public IList<Guid> ClassroomIds { get; set; }
     }
 
-    internal class Adapter : IRegister
+    public class Adapter : IRegister
     {
         public void Register(TypeAdapterConfig config)
         {

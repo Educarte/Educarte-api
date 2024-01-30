@@ -35,7 +35,7 @@ public class UpdateForgotPassword
         public string ConfirmPassword { get; set; }
     }
 
-    internal class Validator : AbstractValidator<Command>
+    public class Validator : AbstractValidator<Command>
     {
         /// <summary>
         /// 

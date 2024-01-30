@@ -236,7 +236,7 @@ public class Edit
     }
 
 
-    internal class Validator : AbstractValidator<Command>
+    public class Validator : AbstractValidator<Command>
     {
         public Validator(LegalGuardianExistenceValidator<Command> legalGuardianExistenceValidator,
             ClassroomExistenceValidator<Command> classroomExistenceValidator)

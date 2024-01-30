@@ -4,6 +4,34 @@
         <name>Api</name>
     </assembly>
     <members>
+        <member name="T:Api.Features.AccessControls.AccessControlsController">
+            <summary>
+            AccessControl Controller
+            </summary>
+        </member>
+        <member name="M:Api.Features.AccessControls.AccessControlsController.#ctor(MediatR.IMediator)">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Api.Features.AccessControls.AccessControlsController.Create(Api.Features.AccessControls.Create.Command,System.Threading.CancellationToken)">
+            <summary>
+            Create an access control
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Api.Features.AccessControls.AccessControlsController.Edit(Api.Features.AccessControls.Edit.Command,System.Guid,System.Threading.CancellationToken)">
+            <summary>
+            Edit an access control
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Api.Features.AccessControls.AccessControlsController.Delete(Api.Features.AccessControls.Delete.Command,System.Threading.CancellationToken)">
+            <summary>
+            Delete an access control
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:Api.Features.AccessControls.Create">
             <summary>
             Create
@@ -38,34 +66,6 @@
             <summary>
             Id
             </summary>
-        </member>
-        <member name="T:Api.Features.AccessControls.AccessControlsController">
-            <summary>
-            AccessControl Controller
-            </summary>
-        </member>
-        <member name="M:Api.Features.AccessControls.AccessControlsController.#ctor(MediatR.IMediator)">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="M:Api.Features.AccessControls.AccessControlsController.Create(Api.Features.AccessControls.Create.Command,System.Threading.CancellationToken)">
-            <summary>
-            Create an access control
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:Api.Features.AccessControls.AccessControlsController.Edit(Api.Features.AccessControls.Edit.Command,System.Guid,System.Threading.CancellationToken)">
-            <summary>
-            Edit an access control
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:Api.Features.AccessControls.AccessControlsController.Delete(Api.Features.AccessControls.Delete.Command,System.Threading.CancellationToken)">
-            <summary>
-            Delete an access control
-            </summary>
-            <returns></returns>
         </member>
         <member name="T:Api.Features.AccessControls.Edit">
             <summary>
@@ -1137,6 +1137,21 @@
             Student id 
             </summary>
         </member>
+        <member name="T:Api.Features.Students.DetailAccessControl">
+            <summary>
+            Find student by id with details of access controls
+            </summary>
+        </member>
+        <member name="T:Api.Features.Students.DetailAccessControl.Query">
+            <summary>
+            Find student by id with details of access controls query
+            </summary>
+        </member>
+        <member name="P:Api.Features.Students.DetailAccessControl.Query.Id">
+            <summary>
+            Student id 
+            </summary>
+        </member>
         <member name="T:Api.Features.Students.Edit">
             <summary>
             Edit an student
@@ -1367,6 +1382,21 @@
             Filter
             </summary>
         </member>
+        <member name="P:Api.Features.Students.List.Query.StudentStatus">
+            <summary>
+            StudentStatus
+            </summary>
+        </member>
+        <member name="P:Api.Features.Students.List.Query.ContractStatus">
+            <summary>
+            ContractStatus
+            </summary>
+        </member>
+        <member name="P:Api.Features.Students.List.Query.ClassroomType">
+            <summary>
+            ClassroomType
+            </summary>
+        </member>
         <member name="T:Api.Features.Students.StudentsController">
             <summary>
             Student Controller
@@ -1380,6 +1410,12 @@
         <member name="M:Api.Features.Students.StudentsController.Create(Api.Features.Students.Create.Command,System.Threading.CancellationToken)">
             <summary>
             Create an student
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Api.Features.Students.StudentsController.AddLegalGuardian(Api.Features.Students.AddLegalGuardian.Command,System.Guid,System.Threading.CancellationToken)">
+            <summary>
+            Add a Legal Guardian
             </summary>
             <returns></returns>
         </member>
@@ -1398,6 +1434,12 @@
         <member name="M:Api.Features.Students.StudentsController.Get(Api.Features.Students.Detail.Query,System.Guid,System.Threading.CancellationToken)">
             <summary>
             Return a student
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Api.Features.Students.StudentsController.GetAccessControlDetails(Api.Features.Students.DetailAccessControl.Query,System.Guid,System.Threading.CancellationToken)">
+            <summary>
+            Return a student with access controls details
             </summary>
             <returns></returns>
         </member>

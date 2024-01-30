@@ -1,4 +1,5 @@
 ﻿using Api.Infrastructure.Security;
+using Api.Results.AccessControl;
 using Api.Results.Students;
 using Core.Enums;
 using MediatR;
@@ -30,9 +31,21 @@ public class StudentsController : ControllerBase
     /// </summary>
     /// <returns></returns>
     [HttpPost]
-    [AuthorizeByProfile(Profile.Admin, Profile.Employee)]
+    [AuthorizeByProfile(Profile.Admin)]
     public Task<ResultOf<StudentResult>> Create([FromBody] Create.Command command, CancellationToken cancellationToken)
     {
+        return mediator.Send(command, cancellationToken);
+    }
+    
+    /// <summary>
+    /// Add a Legal Guardian
+    /// </summary>
+    /// <returns></returns>
+    [HttpPost("{Id}")]
+    [AuthorizeByProfile(Profile.Admin, Profile.Employee)]
+    public Task<ResultOf<StudentResult>> AddLegalGuardian([FromBody] AddLegalGuardian.Command command, [FromRoute] Guid Id, CancellationToken cancellationToken)
+    {
+        command.StudentId = Id;
         return mediator.Send(command, cancellationToken);
     }
 
@@ -66,6 +79,18 @@ public class StudentsController : ControllerBase
     [HttpGet("{Id}")]
     [Authorize]
     public Task<ResultOf<StudentResult>> Get([FromQuery] Detail.Query query, [FromRoute] Guid Id, CancellationToken cancellationToken)
+    {
+        query.Id = Id;
+        return mediator.Send(query, cancellationToken);
+    }
+    
+    /// <summary>
+    /// Return a student with access controls details
+    /// </summary>
+    /// <returns></returns>
+    [HttpGet("AccessControls/{Id}")]
+    [Authorize]
+    public Task<ResultOf<AccessControlResult>> GetAccessControlDetails([FromQuery] DetailAccessControl.Query query, [FromRoute] Guid Id, CancellationToken cancellationToken)
     {
         query.Id = Id;
         return mediator.Send(query, cancellationToken);

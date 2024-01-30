@@ -23,7 +23,7 @@ public class ValidateResetPasswordCode
         public string Code { get; set; }
     }
 
-    internal class Validator : AbstractValidator<Command>
+    public class Validator : AbstractValidator<Command>
     {
         /// <summary>
         /// 

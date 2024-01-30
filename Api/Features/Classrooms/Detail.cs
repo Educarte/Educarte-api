@@ -31,7 +31,7 @@ public class Detail
         public Guid Id { get; set; }
     }
 
-    internal class Validator : AbstractValidator<Query>
+    public class Validator : AbstractValidator<Query>
     {
         public Validator()
         {
@@ -54,6 +54,7 @@ public class Detail
                 .Include(x => x.Teachers)
                 .Include(x => x.Diaries)
                 .Include(x => x.Students)
+                    .ThenInclude(x => x.ContractedHours)
                 .OnlyActives()
                 .FirstOrDefaultAsync(d => d.Id == request.Id, cancellationToken);
 
