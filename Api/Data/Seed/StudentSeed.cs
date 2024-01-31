@@ -24,6 +24,7 @@ namespace Api.Data.Seed
                                                 .RuleFor(x => x.Telephone, x => x.Phone.PhoneNumber())
                                                 .GenerateBetween(1, 2).ToList())
                                             .RuleFor(x => x.Diaries, x => new Faker<Diary>()
+                                                .RuleFor(y => y.Name, y => y.Random.Word())
                                                 .RuleFor(x => x.Description, x => x.Random.Words())
                                                 .RuleFor(y => y.FileUri, y => y.Image.PicsumUrl())
                                                 .RuleFor(y => y.Time, y => y.Date.Past())

@@ -7,9 +7,9 @@ namespace Api.Results.AccessControl;
 
 public class AccessControlResult
 {
+    public StudentBasicResult Student { get; set; }
     public List<AccessControl> AccessControlsByDate { get; set; }
     public List<UserSimpleResult> LegalGuardians { get; set; }
-    public StudentSoftResult Student { get; set; }
 }
 
 public class AccessControl
@@ -18,4 +18,5 @@ public class AccessControl
 
     public List<AccessControlSimpleResult> AccessControls { get; set; }
     public ContractedHourResult? ContractedHour { get; set; }
+    public TimeSpan? DailySummary { get; set; }
 }

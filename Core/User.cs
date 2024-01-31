@@ -23,6 +23,7 @@ public class User : IEntity, IDeletable
     public IList<ResetPasswordCode> ResetPasswordCodes { get; set; }
     public IList<Student> Childs { get; set; }
     public IList<Classroom> Classrooms { get; set; }
+    public IList<Diary> Diaries { get; set; }
 
     public DateTime CreatedAt { get; set; }
     public DateTime ModifiedAt { get; set; }

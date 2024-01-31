@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Data.Migrations
 {
     [DbContext(typeof(ApiDbContext))]
-    [Migration("20240130142217_initial_migrations")]
+    [Migration("20240131172847_initial_migrations")]
     partial class initial_migrations
     {
         /// <inheritdoc />
@@ -245,6 +245,9 @@ namespace Data.Migrations
                         .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("datetime(6)")
                         .HasDefaultValueSql("NOW(6)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("longtext");
 
                     b.Property<int>("Status")
                         .HasColumnType("int");
@@ -585,11 +588,9 @@ namespace Data.Migrations
 
             modelBuilder.Entity("Core.Diary", b =>
                 {
-                    b.HasOne("Core.User", "User")
-                        .WithMany()
+                    b.HasOne("Core.User", null)
+                        .WithMany("Diaries")
                         .HasForeignKey("UserId");
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Core.EmergencyContact", b =>
@@ -672,6 +673,8 @@ namespace Data.Migrations
             modelBuilder.Entity("Core.User", b =>
                 {
                     b.Navigation("Address");
+
+                    b.Navigation("Diaries");
 
                     b.Navigation("ResetPasswordCodes");
                 });

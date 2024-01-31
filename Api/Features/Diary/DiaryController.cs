@@ -31,7 +31,7 @@ public class DiaryController : ControllerBase
     /// </summary>
     /// <returns></returns>
     [HttpPost]
-    [AuthorizeByProfile(Profile.Admin, Profile.Employee)]
+    [AuthorizeByProfile(Profile.Admin)]
     public Task<ResultOf<DiarySimpleResult>> Create([FromBody] Create.Command command, CancellationToken cancellationToken)
     {
         return mediator.Send(command, cancellationToken);
@@ -42,7 +42,7 @@ public class DiaryController : ControllerBase
     /// </summary>
     /// <returns></returns>
     [HttpPut("{id}")]
-    [AuthorizeByProfile(Profile.Admin, Profile.Employee)]
+    [AuthorizeByProfile(Profile.Admin)]
     public Task<ResultOf<DiarySimpleResult>> Edit([FromBody] Edit.Command command, [FromRoute] Guid id, CancellationToken cancellationToken)
     {
         command.Id = id;
@@ -77,7 +77,7 @@ public class DiaryController : ControllerBase
     /// </summary>
     /// <returns></returns>
     [HttpDelete("{Id}")]
-    [AuthorizeByProfile(Profile.Admin, Profile.Employee)]
+    [AuthorizeByProfile(Profile.Admin)]
     public Task<Result> Delete([FromRoute] Delete.Command command, CancellationToken cancellationToken)
     {
         return mediator.Send(command, cancellationToken);
@@ -88,7 +88,7 @@ public class DiaryController : ControllerBase
     /// </summary>
     /// <returns></returns>
     [HttpPatch("{Id}/ToggleActive")]
-    [AuthorizeByProfile(Profile.Admin, Profile.Employee)]
+    [AuthorizeByProfile(Profile.Admin)]
     public Task<Result> ToggleStatus([FromRoute] ToggleActive.Command query, CancellationToken cancellationToken)
     {
         return mediator.Send(query, cancellationToken);

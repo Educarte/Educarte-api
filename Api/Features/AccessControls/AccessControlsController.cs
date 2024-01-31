@@ -28,22 +28,11 @@ public class AccessControlsController : ControllerBase
     }
 
     /// <summary>
-    /// Create an access control
-    /// </summary>
-    /// <returns></returns>
-    [HttpPost]
-    [AuthorizeByProfile(Profile.Admin, Profile.Employee)]
-    public Task<ResultOf<AccessControlSimpleResult>> Create([FromBody] Create.Command command, CancellationToken cancellationToken)
-    {
-        return mediator.Send(command, cancellationToken);
-    }
-
-    /// <summary>
     /// Edit an access control
     /// </summary>
     /// <returns></returns>
     [HttpPut("{id}")]
-    [AuthorizeByProfile(Profile.Admin, Profile.Employee)]
+    [AuthorizeByProfile(Profile.Admin)]
     public Task<ResultOf<AccessControlSimpleResult>> Edit([FromBody] Edit.Command command, [FromRoute] Guid id, CancellationToken cancellationToken)
     {
         command.Id = id;
@@ -55,7 +44,7 @@ public class AccessControlsController : ControllerBase
     /// </summary>
     /// <returns></returns>
     [HttpDelete("{Id}")]
-    [AuthorizeByProfile(Profile.Admin, Profile.Employee)]
+    [AuthorizeByProfile(Profile.Admin)]
     public Task<Result> Delete([FromRoute] Delete.Command command, CancellationToken cancellationToken)
     {
         return mediator.Send(command, cancellationToken);

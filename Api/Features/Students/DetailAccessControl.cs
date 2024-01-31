@@ -33,6 +33,16 @@ public class DetailAccessControl
         [BindNever]
         [JsonIgnore]
         public Guid Id { get; set; }
+
+        /// <summary>
+        /// StartDate
+        /// </summary>
+        public DateTime? StartDate { get; set; }
+
+        /// <summary>
+        /// EndDate
+        /// </summary>
+        public DateTime? EndDate { get; set; }
     }
 
     public class Validator : AbstractValidator<Query>
@@ -58,12 +68,18 @@ public class DetailAccessControl
                 .Include(x => x.Classroom)
                 .Include(x => x.ContractedHours)
                 .Include(x => x.LegalGuardians)
-                .Include(x => x.AccessControls)
+                .Include(x => x.AccessControls.Where(x => !x.DeletedAt.HasValue))
                 .OnlyActives()
                 .FirstOrDefaultAsync(d => d.Id == request.Id, cancellationToken);
 
             if (student == null)
                 return new NotFoundError("Estudante não encontrado.");
+
+            if (request.StartDate.HasValue)
+                student.AccessControls = student.AccessControls.Where(x => x.Time.Date >= request.StartDate.Value).ToList();
+            
+            if (request.EndDate.HasValue)
+                student.AccessControls = student.AccessControls.Where(x => x.Time.Date <= request.EndDate.Value).ToList();
 
             var accessControlGroup = new AccessControlResult
             {
@@ -76,11 +92,14 @@ public class DetailAccessControl
                         AccessControlType = y.AccessControlType,
                         Time = y.Time
                     }).ToList(),
-                    ContractedHour = student.ContractedHours.FirstOrDefault(y => y.EndDate.HasValue ? x.Key <= y.EndDate.Value.Date : true)?.Adapt<ContractedHourResult>(),
+                    ContractedHour = student.ContractedHours.FirstOrDefault(y => y.EndDate.HasValue ? x.Key <= y.EndDate.Value.Date : true)?.Adapt<ContractedHourResult>()
                 }).ToList(),
                 LegalGuardians = student.LegalGuardians.Select(x => x.Adapt<UserSimpleResult>()).ToList(),
-                Student = student.Adapt<StudentSoftResult>(),
+                Student = student.Adapt<StudentBasicResult>()
             };
+
+            foreach (var accessControl in accessControlGroup.AccessControlsByDate)
+                accessControl.DailySummary = (accessControl.AccessControls.FirstOrDefault(x => x.AccessControlType == Core.Enums.AccessControlType.Exit)?.Time - accessControl.AccessControls.FirstOrDefault(x => x.AccessControlType == Core.Enums.AccessControlType.Entrance)?.Time) - TimeSpan.FromHours((double)accessControl.ContractedHour.Hours);
 
             return accessControlGroup;
         }

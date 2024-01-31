@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Nudes.Retornator.Core;
 using Api.Results.Diary;
 using Api.Infrastructure;
+using Microsoft.IdentityModel.Tokens;
 
 namespace Api.Features.Diary;
 
@@ -21,6 +22,11 @@ public class Create
     /// </summary>
     public class Command : IRequest<ResultOf<DiarySimpleResult>>
     {
+        /// <summary>
+        /// Name
+        /// </summary>
+        public string Name { get; set; }
+
         /// <summary>
         /// Description
         /// </summary>
@@ -60,23 +66,23 @@ public class Create
         }
     }
 
-    internal class Validator : AbstractValidator<Command>
+    public class Validator : AbstractValidator<Command>
     {
         public Validator(ApiDbContext db)
         {
+            RuleFor(x => x.Name).NotEmpty();
             RuleFor(x => x.Description).NotEmpty();
-            RuleFor(x => x.FileUri).NotEmpty();
-            RuleFor(x => x.IsDiaryForAll).NotEmpty();
+            RuleFor(x => x.IsDiaryForAll).NotNull();
             RuleFor(x => x.Time).NotEmpty();
 
-            When(x => !x.IsDiaryForAll && x.StudentIds.Any(), () =>
+            When(x => !x.IsDiaryForAll && !x.StudentIds.IsNullOrEmpty(), () =>
             {
-                RuleForEach(x => x.StudentIds).NotEmpty().SetAsyncValidator(new StudentExistenceValidator<Command>(db)).When(x => !x.ClassroomIds.Any()).WithMessage("Estudante não existe ou lista de salas vieram preenchidas.");
+                RuleForEach(x => x.StudentIds).NotEmpty().SetAsyncValidator(new StudentExistenceValidator<Command>(db)).When(x => x.ClassroomIds.IsNullOrEmpty()).WithMessage("Estudante não existe ou lista de salas vieram preenchidas.");
             });
 
-            When(x => !x.IsDiaryForAll && x.ClassroomIds.Any(), () =>
+            When(x => !x.IsDiaryForAll && !x.ClassroomIds.IsNullOrEmpty(), () =>
             {
-                RuleForEach(x => x.ClassroomIds).NotEmpty().SetAsyncValidator(new ClassroomExistenceValidator<Command>(db)).When(x => !x.StudentIds.Any()).WithMessage("Estudante não existe ou lista de salas vieram preenchidas.");
+                RuleForEach(x => x.ClassroomIds).NotEmpty().SetAsyncValidator(new ClassroomExistenceValidator<Command>(db)).When(x => x.StudentIds.IsNullOrEmpty()).WithMessage("Turma não existe ou lista de estudantes vieram preenchidas.");
             });
         }
     }
@@ -96,12 +102,22 @@ public class Create
         {
             var diary = request.Adapt<Core.Diary>();
 
-            diary.UserId = actor.UserId;
+            if (!request.IsDiaryForAll && !request.StudentIds.IsNullOrEmpty())
+            {
+                var studentsToAdd = request.StudentIds.Select(studentId => new Student { Id = studentId }).ToList();
+                db.Students.AttachRange(studentsToAdd);
 
-            if (!request.IsDiaryForAll && request.StudentIds.Any())
-                diary.Students.AddRange(db.Students.Where(x => request.StudentIds.Contains(x.Id)));
-            else if(!request.IsDiaryForAll && request.ClassroomIds.Any())
-                diary.Classrooms.AddRange(db.Classrooms.Where(x => request.ClassroomIds.Contains(x.Id)));
+                diary.Students = new();
+                diary.Students.AddRange(studentsToAdd);
+            }
+            else if (!request.IsDiaryForAll && !request.ClassroomIds.IsNullOrEmpty())
+            {
+                var classroomsToAdd = request.ClassroomIds.Select(classroomId => new Classroom { Id = classroomId }).ToList();
+                db.Classrooms.AttachRange(classroomsToAdd);
+
+                diary.Classrooms = new();
+                diary.Classrooms.AddRange(classroomsToAdd);
+            }
 
             db.Diaries.Add(diary);
             await db.SaveChangesAsync(cancellationToken);

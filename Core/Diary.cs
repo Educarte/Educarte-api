@@ -7,15 +7,13 @@ public class Diary : IEntity, IDeletable
 {
     public Guid Id { get; set; }
 
+    public string Name { get; set; }
     public string Description { get; set; }
     public string FileUri { get; set; }
     public bool IsDiaryForAll { get; set; }
     public DateTime Time { get; set; }
 
     public Status Status { get; set; }
-
-    public Guid? UserId { get; set; }
-    public User User { get; set; }
 
     public List<Student> Students { get; set; }
     public List<Classroom> Classrooms { get; set; }

@@ -79,10 +79,11 @@ public class Create
         {
             RuleFor(x => x.Name).NotEmpty();
             RuleFor(x => x.MaxStudents).NotEmpty();
-            RuleFor(x => x.Status).NotEmpty();
-            RuleFor(x => x.Time).NotEmpty();
-            RuleFor(x => x.ClassroomType).NotEmpty();
-            RuleFor(x => x.Time).NotEmpty();
+            RuleFor(x => x.Status).NotNull();
+            RuleFor(x => x.Time).NotNull();
+            RuleFor(x => x.ClassroomType).NotNull();
+            RuleFor(x => x.TeacherIds).NotEmpty();
+            RuleFor(x => x.StudentIds).NotEmpty();
 
             RuleForEach(x => x.TeacherIds).NotEmpty().SetAsyncValidator(new TeacherExistenceValidator<Command>(db));
             RuleForEach(x => x.StudentIds).NotEmpty().SetAsyncValidator(new StudentExistenceValidator<Command>(db));

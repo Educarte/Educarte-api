@@ -8,7 +8,7 @@ using Core.Enums;
 
 namespace Api.Results.Students;
 
-public class StudentSoftResult
+public class StudentBasicResult
 {
     public Guid Id { get; set; }
     public string Name { get; set; }
@@ -17,7 +17,4 @@ public class StudentSoftResult
     public BloodType BloodType { get; set; }
     public Time Time { get; set; }
     public Status Status { get; set; }
-
-    public ClassroomBasicResult Classroom { get; set; }
-    public ContractedHourResult ContractedHours { get; set; }
 }

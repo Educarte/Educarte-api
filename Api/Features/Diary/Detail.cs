@@ -51,9 +51,9 @@ public class Detail
         public async Task<ResultOf<DiaryResult>> Handle(Query request, CancellationToken cancellationToken)
         {
             var diary = await db.Diaries
-                .Include(x => x.User)
                 .Include(x => x.Students)
                 .Include(x => x.Classrooms)
+                    .ThenInclude(x => x.Teachers)
                 .OnlyActives()
                 .FirstOrDefaultAsync(d => d.Id == request.Id, cancellationToken);
 

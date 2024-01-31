@@ -22,7 +22,7 @@ public class AddAccessControl
     /// <summary>
     /// Add access control command
     /// </summary>
-    public class Command : IRequest<ResultOf<StudentSimpleResult>>
+    public class Command : IRequest<ResultOf<StudentBasicResult>>
     {
         /// <summary>
         /// Student id
@@ -43,10 +43,11 @@ public class AddAccessControl
         public Validator()
         {
             RuleFor(x => x.Id).NotEmpty();
+            RuleFor(x => x.AccessControlType).NotNull().IsInEnum();
         }
     }
 
-    internal class Handler : IRequestHandler<Command, ResultOf<StudentSimpleResult>>
+    internal class Handler : IRequestHandler<Command, ResultOf<StudentBasicResult>>
     {
         private readonly ApiDbContext db;
 
@@ -55,17 +56,17 @@ public class AddAccessControl
             this.db = db;
         }
 
-        public async Task<ResultOf<StudentSimpleResult>> Handle(Command request, CancellationToken cancellationToken)
+        public async Task<ResultOf<StudentBasicResult>> Handle(Command request, CancellationToken cancellationToken)
         {
             var student = await db.Students
-                .Include(x => x.AccessControls)
+                .Include(x => x.AccessControls.Where(x => !x.DeletedAt.HasValue))
                 .OnlyActives()
                 .FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken);
 
             if (student == null)
                 return new NotFoundError("Estudante não encontrado.");
 
-            var accessControlExists = student.AccessControls.FirstOrDefault(x => x.AccessControlType == request.AccessControlType && x.Time.Date == DateTime.UtcNow.Date);
+            var accessControlExists = student.AccessControls.FirstOrDefault(x => x.AccessControlType == request.AccessControlType && x.Time.Date == DateTime.Now.Date);
 
             if (accessControlExists != null)
                 return new BadRequestError("Não é possível registrar o mesmo tipo de acesso no mesmo dia.");
@@ -74,12 +75,12 @@ public class AddAccessControl
             {
                 AccessControlType = request.AccessControlType,
                 StudentId = request.Id,
-                Time = DateTime.UtcNow
+                Time = DateTime.Now
             });
 
             await db.SaveChangesAsync(cancellationToken);
 
-            return student.Adapt<StudentSimpleResult>();
+            return student.Adapt<StudentBasicResult>();
         }
     }
 }

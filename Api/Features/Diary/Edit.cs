@@ -11,6 +11,7 @@ using Mapster;
 using MediatR;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using Nudes.Retornator.AspnetCore.Errors;
 using Nudes.Retornator.Core;
 using System.Text.Json.Serialization;
@@ -33,6 +34,11 @@ public class Edit
         [BindNever]
         [JsonIgnore]
         public Guid Id { get; set; }
+
+        /// <summary>
+        /// Name
+        /// </summary>
+        public string Name { get; set; }
 
         /// <summary>
         /// Description
@@ -106,7 +112,6 @@ public class Edit
         public async Task<ResultOf<DiarySimpleResult>> Handle(Command request, CancellationToken cancellationToken)
         {
             var diary = await db.Diaries
-                .Include(x => x.User)
                 .Include(x => x.Students)
                 .Include(x => x.Classrooms)
                 .OnlyActives()
@@ -117,7 +122,7 @@ public class Edit
 
             request.Adapt(diary);
 
-            if (!request.IsDiaryForAll && request.StudentIds.Any())
+            if (!request.IsDiaryForAll && !request.StudentIds.IsNullOrEmpty())
             {
                 var studentsToAdd = request.StudentIds.Except(diary.Students.Select(x => x.Id))
                               .Select(studentId => new Student { Id = studentId }).ToList();
@@ -126,7 +131,7 @@ public class Edit
                 diary.Students.AddRange(studentsToAdd);
                 diary.Students.RemoveAll(diary.Students.Where(m => !request.StudentIds.Contains(m.Id)).Contains);
             }
-            else if (!request.IsDiaryForAll && request.ClassroomIds.Any())
+            else if (!request.IsDiaryForAll && !request.ClassroomIds.IsNullOrEmpty())
             {
                 var classroomsToAdd = request.ClassroomIds.Except(diary.Classrooms.Select(x => x.Id))
                                   .Select(classroomId => new Classroom { Id = classroomId }).ToList();
@@ -135,7 +140,6 @@ public class Edit
                 diary.Classrooms.AddRange(classroomsToAdd);
                 diary.Classrooms.RemoveAll(diary.Classrooms.Where(m => !request.ClassroomIds.Contains(m.Id)).Contains);
             }
-
 
             await db.SaveChangesAsync(cancellationToken);
 

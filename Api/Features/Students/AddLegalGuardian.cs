@@ -162,6 +162,7 @@ public class AddLegalGuardian
         public async Task<ResultOf<StudentResult>> Handle(Command request, CancellationToken cancellationToken)
         {
             var student = await db.Students
+                .Include(x => x.LegalGuardians)
                 .OnlyActives()
                 .FirstOrDefaultAsync(x => x.Id == request.StudentId, cancellationToken);
 

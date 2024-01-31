@@ -42,10 +42,22 @@ public class StudentsController : ControllerBase
     /// </summary>
     /// <returns></returns>
     [HttpPost("{Id}")]
-    [AuthorizeByProfile(Profile.Admin, Profile.Employee)]
+    [AuthorizeByProfile(Profile.Admin)]
     public Task<ResultOf<StudentResult>> AddLegalGuardian([FromBody] AddLegalGuardian.Command command, [FromRoute] Guid Id, CancellationToken cancellationToken)
     {
         command.StudentId = Id;
+        return mediator.Send(command, cancellationToken);
+    }
+
+    /// <summary>
+    /// Add an access control
+    /// </summary>
+    /// <returns></returns>
+    [HttpPost("AccessControl/{Id}")]
+    [AuthorizeByProfile(Profile.Admin)]
+    public Task<ResultOf<StudentBasicResult>> AddAccessControl([FromBody] AddAccessControl.Command command, [FromRoute] Guid Id, CancellationToken cancellationToken)
+    {
+        command.Id = Id;
         return mediator.Send(command, cancellationToken);
     }
 
@@ -54,7 +66,7 @@ public class StudentsController : ControllerBase
     /// </summary>
     /// <returns></returns>
     [HttpPut("{id}")]
-    [AuthorizeByProfile(Profile.Admin, Profile.Employee)]
+    [AuthorizeByProfile(Profile.Admin)]
     public Task<ResultOf<StudentResult>> Edit([FromBody] Edit.Command command, [FromRoute] Guid id, CancellationToken cancellationToken)
     {
         command.Id = id;
@@ -101,7 +113,7 @@ public class StudentsController : ControllerBase
     /// </summary>
     /// <returns></returns>
     [HttpDelete("{Id}")]
-    [AuthorizeByProfile(Profile.Admin, Profile.Employee)]
+    [AuthorizeByProfile(Profile.Admin)]
     public Task<Result> Delete([FromRoute] Delete.Command command, CancellationToken cancellationToken)
     {
         return mediator.Send(command, cancellationToken);
@@ -112,7 +124,7 @@ public class StudentsController : ControllerBase
     /// </summary>
     /// <returns></returns>
     [HttpPatch("{Id}/ToggleActive")]
-    [AuthorizeByProfile(Profile.Admin, Profile.Employee)]
+    [AuthorizeByProfile(Profile.Admin)]
     public Task<Result> ToggleStatus([FromRoute] ToggleActive.Command query, CancellationToken cancellationToken)
     {
         return mediator.Send(query, cancellationToken);

@@ -18,6 +18,7 @@ namespace Api.Data.Seed
                                         .RuleFor(y => y.Name, y => y.Name.JobTitle())
                                         .RuleFor(y => y.MaxStudents, y => y.Random.Int(1,15))
                                         .RuleFor(y => y.Diaries, y => new Faker<Diary>()
+                                            .RuleFor(y => y.Name, y => y.Random.Word())
                                             .RuleFor(y => y.Description, y => y.Random.Words())
                                             .RuleFor(y => y.FileUri, y => y.Image.PicsumUrl())
                                             .RuleFor(y => y.Time, y => y.Date.Past())

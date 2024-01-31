@@ -14,12 +14,6 @@
             
             </summary>
         </member>
-        <member name="M:Api.Features.AccessControls.AccessControlsController.Create(Api.Features.AccessControls.Create.Command,System.Threading.CancellationToken)">
-            <summary>
-            Create an access control
-            </summary>
-            <returns></returns>
-        </member>
         <member name="M:Api.Features.AccessControls.AccessControlsController.Edit(Api.Features.AccessControls.Edit.Command,System.Guid,System.Threading.CancellationToken)">
             <summary>
             Edit an access control
@@ -31,26 +25,6 @@
             Delete an access control
             </summary>
             <returns></returns>
-        </member>
-        <member name="T:Api.Features.AccessControls.Create">
-            <summary>
-            Create
-            </summary>
-        </member>
-        <member name="T:Api.Features.AccessControls.Create.Command">
-            <summary>
-            Create command
-            </summary>
-        </member>
-        <member name="P:Api.Features.AccessControls.Create.Command.AccessControlType">
-            <summary>
-            AccessControlType
-            </summary>
-        </member>
-        <member name="P:Api.Features.AccessControls.Create.Command.StudentId">
-            <summary>
-            StudentId
-            </summary>
         </member>
         <member name="T:Api.Features.AccessControls.Delete">
             <summary>
@@ -364,6 +338,11 @@
             Create command
             </summary>
         </member>
+        <member name="P:Api.Features.Diary.Create.Command.Name">
+            <summary>
+            Name
+            </summary>
+        </member>
         <member name="P:Api.Features.Diary.Create.Command.Description">
             <summary>
             Description
@@ -483,6 +462,11 @@
         <member name="P:Api.Features.Diary.Edit.Command.Id">
             <summary>
             Id
+            </summary>
+        </member>
+        <member name="P:Api.Features.Diary.Edit.Command.Name">
+            <summary>
+            Name
             </summary>
         </member>
         <member name="P:Api.Features.Diary.Edit.Command.Description">
@@ -1152,6 +1136,16 @@
             Student id 
             </summary>
         </member>
+        <member name="P:Api.Features.Students.DetailAccessControl.Query.StartDate">
+            <summary>
+            StartDate
+            </summary>
+        </member>
+        <member name="P:Api.Features.Students.DetailAccessControl.Query.EndDate">
+            <summary>
+            EndDate
+            </summary>
+        </member>
         <member name="T:Api.Features.Students.Edit">
             <summary>
             Edit an student
@@ -1416,6 +1410,12 @@
         <member name="M:Api.Features.Students.StudentsController.AddLegalGuardian(Api.Features.Students.AddLegalGuardian.Command,System.Guid,System.Threading.CancellationToken)">
             <summary>
             Add a Legal Guardian
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Api.Features.Students.StudentsController.AddAccessControl(Api.Features.Students.AddAccessControl.Command,System.Guid,System.Threading.CancellationToken)">
+            <summary>
+            Add an access control
             </summary>
             <returns></returns>
         </member>
