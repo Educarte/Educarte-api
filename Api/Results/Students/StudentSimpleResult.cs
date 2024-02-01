@@ -30,4 +30,5 @@ public class StudentSimpleResult
 
     public IList<UserSimpleResult> LegalGuardians { get; set; }
     public IList<ContractedHourResult> ContractedHours { get; set; }
+    public IList<AccessControlSimpleResult> AccessControls { get; set; }
 }

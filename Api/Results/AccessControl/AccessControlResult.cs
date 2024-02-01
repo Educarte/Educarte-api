@@ -10,6 +10,7 @@ public class AccessControlResult
     public StudentBasicResult Student { get; set; }
     public List<AccessControl> AccessControlsByDate { get; set; }
     public List<UserSimpleResult> LegalGuardians { get; set; }
+    public TimeSpan Summary { get; set; }
 }
 
 public class AccessControl
