@@ -791,11 +791,6 @@
             Student id
             </summary>
         </member>
-        <member name="P:Api.Features.Students.AddAccessControl.Command.AccessControlType">
-            <summary>
-            AccessControlType
-            </summary>
-        </member>
         <member name="T:Api.Features.Students.AddLegalGuardian">
             <summary>
             Add Legal Guardian

@@ -56,7 +56,7 @@ public class List
                 .Include(x => x.LegalGuardians)
                 .Include(x => x.ContractedHours)
                 .Include(x => x.Classroom)
-                .Include(x => x.AccessControls.Where(x => x.Time.Date >= DateTime.Now.Date && !x.DeletedAt.HasValue))
+                .Include(x => x.AccessControls)
                 .OnlyActives()
                 .AsQueryable();
 

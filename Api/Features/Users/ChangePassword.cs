@@ -68,6 +68,9 @@ public class ChangePassword
             user.PasswordHash = passwordHash;
             user.PasswordSalt = passwordSalt;
 
+            if (!user.FirstAccess.HasValue)
+                user.FirstAccess = DateTime.Now;
+
             await db.SaveChangesAsync(cancellationToken);
 
             return user.Adapt<UserSimpleResult>();

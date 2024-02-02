@@ -30,11 +30,6 @@ public class AddAccessControl
         [BindNever]
         [JsonIgnore]
         public Guid Id { get; set; }
-
-        /// <summary>
-        /// AccessControlType
-        /// </summary>
-        public AccessControlType AccessControlType { get; set; }
     }
 
 
@@ -43,7 +38,6 @@ public class AddAccessControl
         public Validator()
         {
             RuleFor(x => x.Id).NotEmpty();
-            RuleFor(x => x.AccessControlType).NotNull().IsInEnum();
         }
     }
 
@@ -66,14 +60,14 @@ public class AddAccessControl
             if (student == null)
                 return new NotFoundError("Estudante não encontrado.");
 
-            var accessControlExists = student.AccessControls.FirstOrDefault(x => x.AccessControlType == request.AccessControlType && x.Time.Date == DateTime.Now.Date);
+            var accessControlExists = student.AccessControls.Where(x => x.Time.Date == DateTime.Now.Date);
 
-            if (accessControlExists != null)
-                return new BadRequestError("Não é possível registrar o mesmo tipo de acesso no mesmo dia.");
+            if (accessControlExists.Where(x => x.AccessControlType == AccessControlType.Entrance || x.AccessControlType == AccessControlType.Exit).Count() > 1)
+                return new BadRequestError("Este usuário já registrou entrada e saída para o dia de hoje.");
 
             student.AccessControls.Add(new Core.AccessControl
             {
-                AccessControlType = request.AccessControlType,
+                AccessControlType = accessControlExists.FirstOrDefault(x => x.AccessControlType == AccessControlType.Entrance) == null ? AccessControlType.Entrance : AccessControlType.Exit,
                 StudentId = request.Id,
                 Time = DateTime.Now
             });

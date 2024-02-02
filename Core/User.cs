@@ -25,6 +25,7 @@ public class User : IEntity, IDeletable
     public IList<Classroom> Classrooms { get; set; }
     public IList<Diary> Diaries { get; set; }
 
+    public DateTime? FirstAccess { get; set; }
     public DateTime CreatedAt { get; set; }
     public DateTime ModifiedAt { get; set; }
     public DateTime? DeletedAt { get; set; }

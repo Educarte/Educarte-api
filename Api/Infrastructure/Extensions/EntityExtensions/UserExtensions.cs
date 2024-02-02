@@ -26,7 +26,8 @@ namespace Api.Infrastructure.Extensions.EntityExtensions
                 new Claim(JwtRegisteredClaimNames.Name, user.Name),
                 new Claim(JwtRegisteredClaimNames.Email, user.Email),
                 new Claim("role", user.Profile.ToString()),
-                new Claim("profile", user.Profile.ToString())
+                new Claim("profile", user.Profile.ToString()),
+                new Claim("isFirstAccess", (!user.FirstAccess.HasValue).ToString())
             };
 
             var creds = new SigningCredentials(new SymmetricSecurityKey(Encoding.UTF8.GetBytes(authTokenOptions.Key)), SecurityAlgorithms.HmacSha256);

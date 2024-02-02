@@ -101,7 +101,7 @@ public class DetailAccessControl
             foreach (var accessControl in accessControlGroup.AccessControlsByDate)
             {
                 accessControl.DailySummary = (accessControl.AccessControls.FirstOrDefault(x => x.AccessControlType == Core.Enums.AccessControlType.Exit)?.Time - accessControl.AccessControls.FirstOrDefault(x => x.AccessControlType == Core.Enums.AccessControlType.Entrance)?.Time) - TimeSpan.FromHours((double)accessControl.ContractedHour.Hours);
-                accessControlGroup.Summary += accessControl.DailySummary.Value;
+                accessControlGroup.Summary += accessControl.DailySummary.HasValue ? accessControl.DailySummary.Value : TimeSpan.Zero;
             }
 
             return accessControlGroup;
