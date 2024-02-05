@@ -46,8 +46,6 @@ public class Create
         /// <summary>
         /// Profile of user
         /// </summary>
-        [BindNever]
-        [JsonIgnore]
         public Profile Profile { get; set; }
     }
 

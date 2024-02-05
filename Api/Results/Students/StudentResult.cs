@@ -3,6 +3,7 @@ using Api.Results.Classroom;
 using Api.Results.ContractedHours;
 using Api.Results.Diary;
 using Api.Results.EmergencyContacts;
+using Api.Results.Menus;
 using Api.Results.Users;
 using Core.Enums;
 
@@ -25,6 +26,8 @@ public class StudentResult
     public BloodType BloodType { get; set; }
     public Time Time { get; set; }
     public Status Status { get; set; }
+
+    public MenuResult CurrentMenu { get; set; }
 
     public ClassroomSimpleResult Classroom { get; set; }
 

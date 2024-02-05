@@ -1,5 +1,6 @@
 ﻿using Api.Infrastructure.Security;
 using Api.Results.AccessControl;
+using Api.Results.Generic;
 using Api.Results.Students;
 using Core.Enums;
 using MediatR;
@@ -41,7 +42,7 @@ public class StudentsController : ControllerBase
     /// Add a Legal Guardian
     /// </summary>
     /// <returns></returns>
-    [HttpPost("{Id}")]
+    [HttpPost("LegalGuardian/{Id}")]
     [AuthorizeByProfile(Profile.Admin)]
     public Task<ResultOf<StudentResult>> AddLegalGuardian([FromBody] AddLegalGuardian.Command command, [FromRoute] Guid Id, CancellationToken cancellationToken)
     {
@@ -55,7 +56,19 @@ public class StudentsController : ControllerBase
     /// <returns></returns>
     [HttpPost("AccessControl/{Id}")]
     [AuthorizeByProfile(Profile.Admin)]
-    public Task<ResultOf<StudentBasicResult>> AddAccessControl([FromBody] AddAccessControl.Command command, [FromRoute] Guid Id, CancellationToken cancellationToken)
+    public Task<ResultOf<MessageResult>> AddAccessControl([FromBody] AddAccessControl.Command command, [FromRoute] Guid Id, CancellationToken cancellationToken)
+    {
+        command.Id = Id;
+        return mediator.Send(command, cancellationToken);
+    }
+    
+    /// <summary>
+    /// Add an contracted hour
+    /// </summary>
+    /// <returns></returns>
+    [HttpPost("ContractedHour/{Id}")]
+    [AuthorizeByProfile(Profile.Admin)]
+    public Task<ResultOf<MessageResult>> AddContractedHour([FromBody] AddContractedHour.Command command, [FromRoute] Guid Id, CancellationToken cancellationToken)
     {
         command.Id = Id;
         return mediator.Send(command, cancellationToken);

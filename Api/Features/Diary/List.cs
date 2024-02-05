@@ -37,6 +37,16 @@ public class List
         /// EndDate
         /// </summary>
         public DateTime? EndDate { get; set; }
+
+        /// <summary>
+        /// StudentId
+        /// </summary>
+        public Guid? StudentId { get; set; }
+
+        /// <summary>
+        /// ClassroomId
+        /// </summary>
+        public Guid? ClassroomId { get; set; }
     }
 
     internal class Handler : IRequestHandler<Query, ResultOf<PageResult<DiaryResult>>>
@@ -57,11 +67,20 @@ public class List
             if (request.Status.HasValue)
                 diaries = diaries.Where(x => x.Status == request.Status.Value);
 
+            if (request.StudentId.HasValue && request.ClassroomId.HasValue)
+                diaries = diaries.Where(x => (x.Students.Any(y => y.Id == request.StudentId) || x.Classrooms.Any(y => y.Id == request.ClassroomId)) || x.IsDiaryForAll);
+
+            if (request.StudentId.HasValue && !request.ClassroomId.HasValue)
+                diaries = diaries.Where(x => x.Students.Any(y => y.Id == request.StudentId) || x.IsDiaryForAll);
+
+            if (request.ClassroomId.HasValue && !request.StudentId.HasValue)
+                diaries = diaries.Where(x => x.Classrooms.Any(y => y.Id == request.ClassroomId));
+
             if (request.StartDate.HasValue)
-                diaries = diaries.Where(x => x.CreatedAt >= request.StartDate.Value);
+                diaries = diaries.Where(x => x.CreatedAt.Date >= request.StartDate.Value.Date);
 
             if (request.EndDate.HasValue)
-                diaries = diaries.Where(x => x.CreatedAt <= request.EndDate.Value);
+                diaries = diaries.Where(x => x.CreatedAt.Date <= request.EndDate.Value.Date);
 
             var total = await diaries.CountAsync(cancellationToken);
 

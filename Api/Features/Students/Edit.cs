@@ -208,6 +208,16 @@ public class Edit
             public Guid Id { get; set; }
 
             /// <summary>
+            /// Hours
+            /// </summary>
+            public decimal Hours { get; set; }
+
+            /// <summary>
+            /// StartDate
+            /// </summary>
+            public DateTime StartDate { get; set; }
+
+            /// <summary>
             /// EndDate
             /// </summary>
             public DateTime? EndDate { get; set; }

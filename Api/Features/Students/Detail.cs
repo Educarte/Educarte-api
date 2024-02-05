@@ -1,4 +1,5 @@
 ﻿using Api.Results.Diary;
+using Api.Results.Menus;
 using Api.Results.Students;
 using Core;
 using Core.Interfaces;
@@ -60,7 +61,7 @@ public class Detail
                 .Include(x => x.LegalGuardians.Where(x => !x.DeletedAt.HasValue))
                 .Include(x => x.Diaries.Where(x => !x.DeletedAt.HasValue))
                 .Include(x => x.EmergencyContacts)
-                .Include(x => x.AccessControls.Where(x => !x.DeletedAt.HasValue))
+                .Include(x => x.AccessControls.Where(x => !x.DeletedAt.HasValue && x.Time.Date >= DateTime.Now.Date))
                 .OnlyActives()
                 .FirstOrDefaultAsync(d => d.Id == request.Id, cancellationToken);
 
@@ -70,7 +71,7 @@ public class Detail
             var studentResult = student.Adapt<StudentResult>();
 
             var diaryClassrooms = db.Diaries
-                .Where(x => x.IsDiaryForAll || x.Classrooms.Any(y => y.Students.Any(z => z.Id == student.Id)))
+                .Where(x => (x.IsDiaryForAll || x.Classrooms.Any(y => y.Students.Any(z => z.Id == student.Id))) && x.Time.Date == DateTime.Now.Date)
                 .ToList();
 
             if (diaryClassrooms.Any())
@@ -78,6 +79,11 @@ public class Detail
                 var diaries = diaryClassrooms.Adapt<List<DiarySimpleResult>>();
                 studentResult.Diaries.AddRange(diaries);
             }
+
+            var currentMenu = await db.Menus.FirstOrDefaultAsync(x => x.Status == Core.Enums.Status.Active && (DateTime.Now.Date >= x.StartDate.Date && DateTime.Now.Date <= x.ValidUntil.Date), cancellationToken);
+
+            if (currentMenu != null)
+                studentResult.CurrentMenu = currentMenu.Adapt<MenuResult>();
 
             return studentResult;
         }

@@ -251,7 +251,8 @@ public class Create
             RuleForEach(x => x.ContractedHours).ChildRules(x =>
             {
                 x.RuleFor(x => x.Hours).GreaterThan(0);
-                x.RuleFor(x => x.StartDate).NotEmpty();
+                x.RuleFor(x => x.StartDate).NotEmpty().GreaterThanOrEqualTo(DateTime.Now.Date);
+                x.RuleFor(x => x.EndDate).GreaterThan(x => x.StartDate.Date).When(x => x.EndDate.HasValue).WithMessage("A data de término do contrato deve ser maior que a data de início.");
             }).NotEmpty();
 
             RuleForEach(x => x.LegalGuardians)

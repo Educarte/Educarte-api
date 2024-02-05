@@ -1,4 +1,5 @@
 ﻿using Api.Infrastructure.Validators;
+using Api.Results.Generic;
 using Api.Results.Students;
 using Core.Enums;
 using Core.Interfaces;
@@ -22,7 +23,7 @@ public class AddAccessControl
     /// <summary>
     /// Add access control command
     /// </summary>
-    public class Command : IRequest<ResultOf<StudentBasicResult>>
+    public class Command : IRequest<ResultOf<MessageResult>>
     {
         /// <summary>
         /// Student id
@@ -41,7 +42,7 @@ public class AddAccessControl
         }
     }
 
-    internal class Handler : IRequestHandler<Command, ResultOf<StudentBasicResult>>
+    internal class Handler : IRequestHandler<Command, ResultOf<MessageResult>>
     {
         private readonly ApiDbContext db;
 
@@ -50,7 +51,7 @@ public class AddAccessControl
             this.db = db;
         }
 
-        public async Task<ResultOf<StudentBasicResult>> Handle(Command request, CancellationToken cancellationToken)
+        public async Task<ResultOf<MessageResult>> Handle(Command request, CancellationToken cancellationToken)
         {
             var student = await db.Students
                 .Include(x => x.AccessControls.Where(x => !x.DeletedAt.HasValue))
@@ -74,7 +75,7 @@ public class AddAccessControl
 
             await db.SaveChangesAsync(cancellationToken);
 
-            return student.Adapt<StudentBasicResult>();
+            return new MessageResult($"Acesso do aluno registrado.");
         }
     }
 }

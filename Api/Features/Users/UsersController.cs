@@ -37,37 +37,13 @@ public class UsersController : ControllerBase
     }
 
     /// <summary>
-    /// Create Admin
+    /// Create an user
     /// </summary>
     /// <returns></returns>
     [HttpPost]
     [AuthorizeByProfile(Profile.Admin)]
     public Task<ResultOf<UserSimpleResult>> Create([FromBody] Create.Command command, CancellationToken cancellationToken)
     {
-        command.Profile = Profile.Admin;
-        return mediator.Send(command, cancellationToken);
-    }
-    /// <summary>
-    /// Create Employee
-    /// </summary>
-    /// <returns></returns>
-    [HttpPost("CreateEmployee")]
-    [AuthorizeByProfile(Profile.Admin)]
-    public Task<ResultOf<UserSimpleResult>> CreateEmplooye([FromBody] Create.Command command, CancellationToken cancellationToken)
-    {
-        command.Profile = Profile.Employee;
-        return mediator.Send(command, cancellationToken);
-    }
-
-    /// <summary>
-    /// Create Teacher
-    /// </summary>
-    /// <returns></returns>
-    [HttpPost("CreateTeacher")]
-    [AuthorizeByProfile(Profile.Admin)]
-    public Task<ResultOf<UserSimpleResult>> CreateTeacher([FromBody] Create.Command command, CancellationToken cancellationToken)
-    {
-        command.Profile = Profile.Teacher;
         return mediator.Send(command, cancellationToken);
     }
 
