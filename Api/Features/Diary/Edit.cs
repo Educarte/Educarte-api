@@ -124,6 +124,7 @@ public class Edit
 
             if (!request.IsDiaryForAll && !request.StudentIds.IsNullOrEmpty())
             {
+                diary.DiaryType = DiaryType.Student;
                 var studentsToAdd = request.StudentIds.Except(diary.Students.Select(x => x.Id))
                               .Select(studentId => new Student { Id = studentId }).ToList();
                 db.Students.AttachRange(studentsToAdd);
@@ -133,6 +134,7 @@ public class Edit
             }
             else if (!request.IsDiaryForAll && !request.ClassroomIds.IsNullOrEmpty())
             {
+                diary.DiaryType = DiaryType.Classroom;
                 var classroomsToAdd = request.ClassroomIds.Except(diary.Classrooms.Select(x => x.Id))
                                   .Select(classroomId => new Classroom { Id = classroomId }).ToList();
                 db.Classrooms.AttachRange(classroomsToAdd);
@@ -140,6 +142,8 @@ public class Edit
                 diary.Classrooms.AddRange(classroomsToAdd);
                 diary.Classrooms.RemoveAll(diary.Classrooms.Where(m => !request.ClassroomIds.Contains(m.Id)).Contains);
             }
+            else if (request.IsDiaryForAll)
+                diary.DiaryType = DiaryType.School;
 
             await db.SaveChangesAsync(cancellationToken);
 

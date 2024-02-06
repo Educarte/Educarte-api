@@ -104,6 +104,7 @@ public class Create
 
             if (!request.IsDiaryForAll && !request.StudentIds.IsNullOrEmpty())
             {
+                diary.DiaryType = Core.Enums.DiaryType.Student;
                 var studentsToAdd = request.StudentIds.Select(studentId => new Student { Id = studentId }).ToList();
                 db.Students.AttachRange(studentsToAdd);
 
@@ -112,12 +113,15 @@ public class Create
             }
             else if (!request.IsDiaryForAll && !request.ClassroomIds.IsNullOrEmpty())
             {
+                diary.DiaryType = Core.Enums.DiaryType.Classroom;
                 var classroomsToAdd = request.ClassroomIds.Select(classroomId => new Classroom { Id = classroomId }).ToList();
                 db.Classrooms.AttachRange(classroomsToAdd);
 
                 diary.Classrooms = new();
                 diary.Classrooms.AddRange(classroomsToAdd);
             }
+            else if (request.IsDiaryForAll)
+                diary.DiaryType = Core.Enums.DiaryType.School;
 
             db.Diaries.Add(diary);
             await db.SaveChangesAsync(cancellationToken);

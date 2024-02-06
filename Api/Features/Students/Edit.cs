@@ -248,8 +248,7 @@ public class Edit
 
     public class Validator : AbstractValidator<Command>
     {
-        public Validator(LegalGuardianExistenceValidator<Command> legalGuardianExistenceValidator,
-            ClassroomExistenceValidator<Command> classroomExistenceValidator)
+        public Validator(ClassroomExistenceValidator<Command> classroomExistenceValidator)
         {
             RuleFor(x => x.Id).NotEmpty();
             RuleFor(x => x.Name).NotEmpty();

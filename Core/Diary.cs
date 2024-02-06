@@ -14,6 +14,7 @@ public class Diary : IEntity, IDeletable
     public DateTime Time { get; set; }
 
     public Status Status { get; set; }
+    public DiaryType DiaryType { get; set; }
 
     public List<Student> Students { get; set; }
     public List<Classroom> Classrooms { get; set; }

@@ -1,7 +1,9 @@
-﻿using Api.Results.Students;
+﻿using Api.Infrastructure.Validators;
+using Api.Results.Students;
 using Core.Enums;
 using Core.Interfaces;
 using Data;
+using FluentValidation;
 using Mapster;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -39,6 +41,19 @@ public class List
         /// ClassroomType
         /// </summary>
         public ClassroomType? ClassroomType { get; set; }
+
+        /// <summary>
+        /// LegalGuardianId
+        /// </summary>
+        public Guid? LegalGuardianId { get; set; }
+    }
+
+    public class Validator : AbstractValidator<Query>
+    {
+        public Validator(ApiDbContext db)
+        {
+            RuleFor(x => x.LegalGuardianId).NotEmpty().SetAsyncValidator(new LegalGuardianExistenceValidator<Query>(db)).When(x => x.LegalGuardianId.HasValue);
+        }
     }
 
     internal class Handler : IRequestHandler<Query, ResultOf<PageResult<StudentSimpleResult>>>
@@ -59,6 +74,9 @@ public class List
                 .Include(x => x.AccessControls)
                 .OnlyActives()
                 .AsQueryable();
+
+            if (request.LegalGuardianId.HasValue)
+                students = students.Where(x => x.LegalGuardians.Any(y => y.Id == request.LegalGuardianId.Value));
 
             if (!string.IsNullOrWhiteSpace(request.Search))
                 students = students.Where(s => s.Name.Contains(request.Search));

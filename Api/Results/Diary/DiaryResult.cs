@@ -21,6 +21,7 @@ public class DiaryResult
     public bool IsDiaryForAll { get; set; }
 
     public Status Status { get; set; }
+    public DiaryType DiaryType { get; set; }
 
     public DateTime Time { get; set; }
     public DateTime CreatedAt { get; set; }

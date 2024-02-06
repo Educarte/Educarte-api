@@ -1,6 +1,7 @@
 ﻿using Api.Results.Classroom;
 using Api.Results.Students;
 using Core;
+using Core.Enums;
 using Core.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -17,5 +18,6 @@ public class DiarySimpleResult
     public string FileUri { get; set; }
     public string Description { get; set; }
     public bool IsDiaryForAll { get; set; }
+    public DiaryType DiaryType { get; set; }
     public DateTime Time { get; set; }
 }

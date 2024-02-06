@@ -1467,6 +1467,11 @@
             ClassroomType
             </summary>
         </member>
+        <member name="P:Api.Features.Students.List.Query.LegalGuardianId">
+            <summary>
+            LegalGuardianId
+            </summary>
+        </member>
         <member name="T:Api.Features.Students.StudentsController">
             <summary>
             Student Controller
