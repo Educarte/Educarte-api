@@ -5,6 +5,9 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
     <DocumentationFile>Api.xml</DocumentationFile>
+    <UserSecretsId>567b0269-33a4-4f10-ba19-2345d7b85ca3</UserSecretsId>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <DockerComposeProjectPath>..\docker-compose.dcproj</DockerComposeProjectPath>
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(RunConfiguration)' == 'Development' " />
@@ -16,6 +19,7 @@
     <PackageReference Include="Extensions.FluentValidation.Br" Version="1.0.2" />
     <PackageReference Include="MediatR" Version="12.1.1" />
     <PackageReference Include="MicroElements.Swashbuckle.FluentValidation" Version="5.7.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.19.5" />
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="7.0.11" />
     <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="7.0.0" />
     <PackageReference Include="SendGrid" Version="9.28.1" />
