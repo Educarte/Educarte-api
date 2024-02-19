@@ -18,6 +18,10 @@ jobs:
         with:
           dotnet-version: 7.x   
 
+      - name: Directory
+        run: | 
+             ls
+
       - name: Build
         run: dotnet build --configuration Release
 
