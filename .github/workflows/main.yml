@@ -1,0 +1,55 @@
+name: Deploy
+
+on: 
+  push: 
+    branches:
+    - 'main'
+
+jobs:
+  build: 
+    runs-on: ubuntu-latest
+    steps: 
+    
+      - name: Checkout
+        uses: actions/checkout@v4.1.1
+
+      - name: Setup .NET Core SDK
+        uses: actions/setup-dotnet@v4.0.0
+        with:
+          dotnet-version: 7.x   
+      
+      - name: Restore dependencies
+        run: dotnet restore
+
+      - name: Build
+        run: dotnet build --configuration Release
+
+      - name: Test
+        run: dotnet test --configuration Release
+
+      - name: Transfer Source Code
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.SERVER_IP }}
+          username: ${{ secrets.SERVER_USER }}
+          password: ${{ secrets.SERVER_PASSWORD }}
+          key: $ {{ secrets.SERVER_SSH_KEY }}
+          passphrase: ${{ secrets.SERVER_PASSPHRASE }}
+          source: ../workspace/
+          target: ~/
+                 
+      - name: Deploy 
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.SERVER_IP }}
+          username: ${{ secrets.SERVER_USER }}
+          password: ${{ secrets.SERVER_PASSWORD }}
+          key: ${{ secrets.SERVER_SSH_KEY }}
+          passphrase: ${{ secrets.SERVERR_PASSPHRASE }}
+          script: |
+            cd workspace
+            docker compose build --force-rm --no-cache --compress
+            docker compose up -d
+            cd ~
+            rm -r -d workspace
+            
