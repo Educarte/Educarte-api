@@ -20,8 +20,11 @@ jobs:
 
       - name: Directory
         run: | 
-             ls
+             cd api
 
+      - name: Restore dependencies
+        run: dotnet restore
+        
       - name: Build
         run: dotnet build --configuration Release
 
