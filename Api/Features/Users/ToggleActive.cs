@@ -23,7 +23,7 @@ public class ToggleActive
         public Guid Id { get; set; }
     }
 
-    internal class Validator : AbstractValidator<Command>
+    public class Validator : AbstractValidator<Command>
     {
         public Validator()
         {

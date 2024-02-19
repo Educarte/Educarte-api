@@ -27,7 +27,7 @@ public class RequestResetPassword
         public string Email { get; set; }
     }
 
-    internal class Validator : AbstractValidator<Command>
+    public class Validator : AbstractValidator<Command>
     {
         public Validator()
         {

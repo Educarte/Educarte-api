@@ -18,7 +18,7 @@ public class Detail
     /// <summary>
     /// Find user by id
     /// </summary>
-    public class Query : IRequest<ResultOf<UserResult>>
+    public class Query : IRequest<ResultOf<UserSimpleResult>>
     {
         /// <summary>
         /// user id 
@@ -26,7 +26,7 @@ public class Detail
         public Guid Id { get; set; }
     }
 
-    internal class Validator : AbstractValidator<Query>
+    public class Validator : AbstractValidator<Query>
     {
         public Validator()
         {
@@ -34,7 +34,7 @@ public class Detail
         }
     }
 
-    internal class Handler : IRequestHandler<Query, ResultOf<UserResult>>
+    internal class Handler : IRequestHandler<Query, ResultOf<UserSimpleResult>>
     {
         private readonly ApiDbContext db;
 
@@ -43,13 +43,13 @@ public class Detail
             this.db = db;
         }
 
-        public async Task<ResultOf<UserResult>> Handle(Query request, CancellationToken cancellationToken)
+        public async Task<ResultOf<UserSimpleResult>> Handle(Query request, CancellationToken cancellationToken)
         {
             var user = await db.Users.OnlyActives().FirstOrDefaultAsync(d => d.Id == request.Id, cancellationToken);
             if (user == null)
                 return new NotFoundError("Usuário não encontrado.");
 
-            return user.Adapt<UserResult>();
+            return user.Adapt<UserSimpleResult>();
         }
     }
 }

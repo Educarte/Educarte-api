@@ -38,7 +38,7 @@ public class ResetPassword
         public string ConfirmPassword { get; set; }
     }
 
-    internal class Validator : AbstractValidator<Command>
+    public class Validator : AbstractValidator<Command>
     {
         public Validator(ApiDbContext db)
         {

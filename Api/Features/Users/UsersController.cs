@@ -31,42 +31,19 @@ public class UsersController : ControllerBase
     /// <returns></returns>
     [HttpGet]
     [AuthorizeByProfile(Profile.Admin)]
-    public Task<ResultOf<PageResult<UserResult>>> List([FromQuery] List.Query query, CancellationToken cancellationToken)
+    public Task<ResultOf<PageResult<UserSimpleResult>>> List([FromQuery] List.Query query, CancellationToken cancellationToken)
     {
         return mediator.Send(query, cancellationToken);
     }
 
     /// <summary>
-    /// Create Admin
+    /// Create an user
     /// </summary>
     /// <returns></returns>
     [HttpPost]
     [AuthorizeByProfile(Profile.Admin)]
-    public Task<ResultOf<UserResult>> Create([FromBody] Create.Command command, CancellationToken cancellationToken)
+    public Task<ResultOf<UserSimpleResult>> Create([FromBody] Create.Command command, CancellationToken cancellationToken)
     {
-        command.Profile = Profile.Admin;
-        return mediator.Send(command, cancellationToken);
-    }
-    /// <summary>
-    /// Create Employee
-    /// </summary>
-    /// <returns></returns>
-    [HttpPost("CreateEmployee")]
-    [AuthorizeByProfile(Profile.Admin)]
-    public Task<ResultOf<UserResult>> CreateEmplooye([FromBody] Create.Command command, CancellationToken cancellationToken)
-    {
-        command.Profile = Profile.Employee;
-        return mediator.Send(command, cancellationToken);
-    }
-
-    /// <summary>
-    /// Create Legal Guardian
-    /// </summary>
-    /// <returns></returns>
-    [HttpPost("CreateLegalGuardian")]
-    public Task<ResultOf<UserResult>> CreateLegalGuardian([FromBody] Create.Command command, CancellationToken cancellationToken)
-    {
-        command.Profile = Profile.LegalGuardian;
         return mediator.Send(command, cancellationToken);
     }
 
@@ -76,7 +53,7 @@ public class UsersController : ControllerBase
     /// <returns></returns>
     [HttpPut("{id}")]
     [Authorize]
-    public Task<ResultOf<UserResult>> Edit([FromBody] Edit.Command command, [FromRoute] Guid id, CancellationToken cancellationToken)
+    public Task<ResultOf<UserSimpleResult>> Edit([FromBody] Edit.Command command, [FromRoute] Guid id, CancellationToken cancellationToken)
     {
         command.Id = id;
         return mediator.Send(command, cancellationToken);
@@ -99,7 +76,7 @@ public class UsersController : ControllerBase
     /// <returns></returns>
     [HttpGet("{Id}")]
     [Authorize]
-    public Task<ResultOf<UserResult>> Detail([FromRoute] Detail.Query query, CancellationToken cancellationToken)
+    public Task<ResultOf<UserSimpleResult>> Detail([FromRoute] Detail.Query query, CancellationToken cancellationToken)
     {
         return mediator.Send(query, cancellationToken);
     }
@@ -110,7 +87,7 @@ public class UsersController : ControllerBase
     /// <returns></returns>
     [HttpGet("Me")]
     [Authorize]
-    public Task<ResultOf<UserResult>> Me([FromQuery] Me.Query query, CancellationToken cancellationToken)
+    public Task<ResultOf<UserSimpleResult>> Me([FromQuery] Me.Query query, CancellationToken cancellationToken)
     {
         return mediator.Send(query, cancellationToken);
     }
@@ -121,7 +98,7 @@ public class UsersController : ControllerBase
     /// <returns></returns>
     [HttpPut("ChangePassword")]
     [Authorize]
-    public Task<ResultOf<UserResult>> ChangePassword([FromBody] ChangePassword.Command command, CancellationToken cancellationToken)
+    public Task<ResultOf<UserSimpleResult>> ChangePassword([FromBody] ChangePassword.Command command, CancellationToken cancellationToken)
     {
         return mediator.Send(command, cancellationToken);
     }

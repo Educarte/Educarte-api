@@ -26,7 +26,7 @@ public class Create
     /// <summary>
     /// Create a new user command
     /// </summary>
-    public class Command : IRequest<ResultOf<UserResult>>
+    public class Command : IRequest<ResultOf<UserSimpleResult>>
     {
         /// <summary>
         /// Name of user
@@ -44,20 +44,8 @@ public class Create
         public string Cellphone { get; set; }
 
         /// <summary>
-        /// NewPassword of user
-        /// </summary>
-        public string NewPassword { get; set; }
-
-        /// <summary>
-        /// ConfirmPassword of user
-        /// </summary>
-        public string ConfirmPassword { get; set; }
-
-        /// <summary>
         /// Profile of user
         /// </summary>
-        [BindNever]
-        [JsonIgnore]
         public Profile Profile { get; set; }
     }
 
@@ -70,20 +58,18 @@ public class Create
         }
     }
 
-    internal class Validator : AbstractValidator<Command>
+    public class Validator : AbstractValidator<Command>
     {
         public Validator(ApiDbContext db)
         {
             RuleFor(x => x.Name).NotEmpty();
             RuleFor(x => x.Email).NotEmpty().EmailAddress().SetAsyncValidator(new UniqueUserValidator<Command>(db));
 
-            RuleFor(x => x.Cellphone).NotEmpty().When(x => x.Profile == Profile.LegalGuardian);
-            RuleFor(d => d.ConfirmPassword).NotEmpty().Matches(x => x.NewPassword).WithMessage("Senha e Confirmação precisam ser iguais.").When(x => x.Profile == Profile.LegalGuardian);
-            RuleFor(d => d.NewPassword).NotEmpty().SetValidator(new PasswordValidator<Command>()).When(x => x.Profile == Profile.LegalGuardian);
+            RuleFor(x => x.Cellphone).NotEmpty().When(x => x.Profile == Profile.LegalGuardian).WithMessage("Necessário número de telefone em caso de usuário ser um responsável legal");
         }
     }
 
-    internal class Handler : IRequestHandler<Command, ResultOf<UserResult>>
+    internal class Handler : IRequestHandler<Command, ResultOf<UserSimpleResult>>
     {
         private readonly ApiDbContext db;
         private readonly HashService hashService;
@@ -98,26 +84,23 @@ public class Create
             this.resetPasswordOptions = options.Value;
         }
 
-        public async Task<ResultOf<UserResult>> Handle(Command request, CancellationToken cancellationToken)
+        public async Task<ResultOf<UserSimpleResult>> Handle(Command request, CancellationToken cancellationToken)
         {
             var user = request.Adapt<User>();
-            var password = user.Profile == Profile.Admin ? Guid.NewGuid().ToString().Substring(0, 8) : request.NewPassword;
+            var password = Guid.NewGuid().ToString().Substring(0, 8);
 
-            if (user.Profile == Profile.Admin)
-            {
-                await emailService.SendTemplateEmail(
-                    new EmailMessage
-                    {
-                        To = user.Email,
-                        Subject = $"{resetPasswordOptions.CompanyName} || Nova conta criada!"
-                    },
-                    resetPasswordOptions.TempPasswordTemplateId,
-                    new
-                    {
-                        company_name = resetPasswordOptions.CompanyName,
-                        temp_password = password,
-                    }, cancellationToken);
-            }
+            await emailService.SendTemplateEmail(
+                new EmailMessage
+                {
+                    To = user.Email,
+                    Subject = $"{resetPasswordOptions.CompanyName} || Nova conta criada!"
+                },
+                resetPasswordOptions.TempPasswordTemplateId,
+                new
+                {
+                    company_name = resetPasswordOptions.CompanyName,
+                    temp_password = password,
+                }, cancellationToken);
 
             var (passwordHash, passwordSalt) = hashService.Encrypt(password);
             user.PasswordHash = passwordHash;
@@ -126,7 +109,7 @@ public class Create
             db.Users.Add(user);
             await db.SaveChangesAsync(cancellationToken);
 
-            return user.Adapt<UserResult>();
+            return user.Adapt<UserSimpleResult>();
         }
     }
 }

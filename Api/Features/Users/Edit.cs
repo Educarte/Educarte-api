@@ -20,7 +20,7 @@ public class Edit
     /// <summary>
     /// Edit user
     /// </summary>
-    public class Command : IRequest<ResultOf<UserResult>>
+    public class Command : IRequest<ResultOf<UserSimpleResult>>
     {
         /// <summary>
         /// Id of user
@@ -45,7 +45,7 @@ public class Edit
         public string Cellphone { get; set; }
     }
 
-    internal class Validator : AbstractValidator<Command>
+    public class Validator : AbstractValidator<Command>
     {
         public Validator()
         {
@@ -54,7 +54,7 @@ public class Edit
         }
     }
 
-    internal class Handler : IRequestHandler<Command, ResultOf<UserResult>>
+    internal class Handler : IRequestHandler<Command, ResultOf<UserSimpleResult>>
     {
         private readonly ApiDbContext db;
 
@@ -63,7 +63,7 @@ public class Edit
             this.db = db;
         }
 
-        public async Task<ResultOf<UserResult>> Handle(Command request, CancellationToken cancellationToken)
+        public async Task<ResultOf<UserSimpleResult>> Handle(Command request, CancellationToken cancellationToken)
         {
             var user = await db.Users.OnlyActives().FirstOrDefaultAsync(s => s.Id == request.Id, cancellationToken);
             if (user == null)
@@ -77,7 +77,7 @@ public class Edit
 
             await db.SaveChangesAsync(cancellationToken);
 
-            return user.Adapt<UserResult>();
+            return user.Adapt<UserSimpleResult>();
         }
     }
 }

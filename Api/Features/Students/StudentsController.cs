@@ -1,4 +1,6 @@
 ﻿using Api.Infrastructure.Security;
+using Api.Results.AccessControl;
+using Api.Results.Generic;
 using Api.Results.Students;
 using Core.Enums;
 using MediatR;
@@ -30,9 +32,45 @@ public class StudentsController : ControllerBase
     /// </summary>
     /// <returns></returns>
     [HttpPost]
-    [AuthorizeByProfile(Profile.Admin, Profile.Employee)]
+    [AuthorizeByProfile(Profile.Admin)]
     public Task<ResultOf<StudentResult>> Create([FromBody] Create.Command command, CancellationToken cancellationToken)
     {
+        return mediator.Send(command, cancellationToken);
+    }
+    
+    /// <summary>
+    /// Add a Legal Guardian
+    /// </summary>
+    /// <returns></returns>
+    [HttpPost("LegalGuardian/{Id}")]
+    [AuthorizeByProfile(Profile.Admin)]
+    public Task<ResultOf<StudentResult>> AddLegalGuardian([FromBody] AddLegalGuardian.Command command, [FromRoute] Guid Id, CancellationToken cancellationToken)
+    {
+        command.StudentId = Id;
+        return mediator.Send(command, cancellationToken);
+    }
+
+    /// <summary>
+    /// Add an access control
+    /// </summary>
+    /// <returns></returns>
+    [HttpPost("AccessControl/{Id}")]
+    [AuthorizeByProfile(Profile.Admin)]
+    public Task<ResultOf<MessageResult>> AddAccessControl([FromBody] AddAccessControl.Command command, [FromRoute] Guid Id, CancellationToken cancellationToken)
+    {
+        command.Id = Id;
+        return mediator.Send(command, cancellationToken);
+    }
+    
+    /// <summary>
+    /// Add an contracted hour
+    /// </summary>
+    /// <returns></returns>
+    [HttpPost("ContractedHour/{Id}")]
+    [AuthorizeByProfile(Profile.Admin)]
+    public Task<ResultOf<MessageResult>> AddContractedHour([FromBody] AddContractedHour.Command command, [FromRoute] Guid Id, CancellationToken cancellationToken)
+    {
+        command.Id = Id;
         return mediator.Send(command, cancellationToken);
     }
 
@@ -41,7 +79,7 @@ public class StudentsController : ControllerBase
     /// </summary>
     /// <returns></returns>
     [HttpPut("{id}")]
-    [AuthorizeByProfile(Profile.Admin, Profile.Employee)]
+    [AuthorizeByProfile(Profile.Admin)]
     public Task<ResultOf<StudentResult>> Edit([FromBody] Edit.Command command, [FromRoute] Guid id, CancellationToken cancellationToken)
     {
         command.Id = id;
@@ -54,17 +92,41 @@ public class StudentsController : ControllerBase
     /// <returns></returns>
     [HttpGet]
     [Authorize]
-    public Task<ResultOf<PageResult<StudentResult>>> List([FromQuery] List.Query query, CancellationToken cancellationToken)
+    public Task<ResultOf<PageResult<StudentSimpleResult>>> List([FromQuery] List.Query query, CancellationToken cancellationToken)
     {
         return mediator.Send(query, cancellationToken);
     }
 
     /// <summary>
-    /// Delete an user
+    /// Return a student
+    /// </summary>
+    /// <returns></returns>
+    [HttpGet("{Id}")]
+    [Authorize]
+    public Task<ResultOf<StudentResult>> Get([FromQuery] Detail.Query query, [FromRoute] Guid Id, CancellationToken cancellationToken)
+    {
+        query.Id = Id;
+        return mediator.Send(query, cancellationToken);
+    }
+    
+    /// <summary>
+    /// Return a student with access controls details
+    /// </summary>
+    /// <returns></returns>
+    [HttpGet("AccessControls/{Id}")]
+    [Authorize]
+    public Task<ResultOf<AccessControlResult>> GetAccessControlDetails([FromQuery] DetailAccessControl.Query query, [FromRoute] Guid Id, CancellationToken cancellationToken)
+    {
+        query.Id = Id;
+        return mediator.Send(query, cancellationToken);
+    }
+
+    /// <summary>
+    /// Delete a student
     /// </summary>
     /// <returns></returns>
     [HttpDelete("{Id}")]
-    [AuthorizeByProfile(Profile.Admin, Profile.Employee)]
+    [AuthorizeByProfile(Profile.Admin)]
     public Task<Result> Delete([FromRoute] Delete.Command command, CancellationToken cancellationToken)
     {
         return mediator.Send(command, cancellationToken);
@@ -75,7 +137,7 @@ public class StudentsController : ControllerBase
     /// </summary>
     /// <returns></returns>
     [HttpPatch("{Id}/ToggleActive")]
-    [AuthorizeByProfile(Profile.Admin, Profile.Employee)]
+    [AuthorizeByProfile(Profile.Admin)]
     public Task<Result> ToggleStatus([FromRoute] ToggleActive.Command query, CancellationToken cancellationToken)
     {
         return mediator.Send(query, cancellationToken);

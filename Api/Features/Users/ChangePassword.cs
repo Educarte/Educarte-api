@@ -1,5 +1,6 @@
 ﻿using Api.Infrastructure;
 using Api.Infrastructure.Services;
+using Api.Infrastructure.Validators;
 using Api.Results.Users;
 using Data;
 using FluentValidation;
@@ -19,7 +20,7 @@ public class ChangePassword
     /// <summary>
     /// Change User Password
     /// </summary>
-    public class Command : IRequest<ResultOf<UserResult>>
+    public class Command : IRequest<ResultOf<UserSimpleResult>>
     {
         /// <summary>
         /// Current password
@@ -33,18 +34,15 @@ public class ChangePassword
 
     }
 
-    internal class Validator : AbstractValidator<Command>
+    public class Validator : AbstractValidator<Command>
     {
         public Validator()
         {
-            RuleFor(d => d.CurrentPassword)
-                .NotEmpty();
-
-            RuleFor(d => d.NewPassword)
-                .NotEmpty();
+            RuleFor(d => d.CurrentPassword).NotEmpty().Matches(x => x.NewPassword).WithMessage("Senha e Confirmação precisam ser iguais.");
+            RuleFor(d => d.NewPassword).NotEmpty().SetValidator(new PasswordValidator<Command>());
         }
     }
-    internal class Handler : IRequestHandler<Command, ResultOf<UserResult>>
+    internal class Handler : IRequestHandler<Command, ResultOf<UserSimpleResult>>
     {
         private readonly ApiDbContext db;
         private readonly IActor actor;
@@ -57,7 +55,7 @@ public class ChangePassword
             this.hashService = hashService;
         }
 
-        public async Task<ResultOf<UserResult>> Handle(Command request, CancellationToken cancellationToken)
+        public async Task<ResultOf<UserSimpleResult>> Handle(Command request, CancellationToken cancellationToken)
         {
             var user = await db.Users.FirstOrDefaultAsync(d => d.Id == actor.UserId, cancellationToken);
             if (user == null)
@@ -70,9 +68,12 @@ public class ChangePassword
             user.PasswordHash = passwordHash;
             user.PasswordSalt = passwordSalt;
 
+            if (!user.FirstAccess.HasValue)
+                user.FirstAccess = DateTime.Now;
+
             await db.SaveChangesAsync(cancellationToken);
 
-            return user.Adapt<UserResult>();
+            return user.Adapt<UserSimpleResult>();
         }
     }
 }

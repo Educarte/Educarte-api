@@ -12,6 +12,9 @@ public class StudentExistenceValidator<T> : AsyncPropertyValidator<T, Guid>
 
     public override string Name => _name;
 
+    protected override string GetDefaultMessageTemplate(string errorCode)
+                    => "Estudante não encontrado.";
+
     public StudentExistenceValidator(ApiDbContext db)
     {
         this.db = db;
