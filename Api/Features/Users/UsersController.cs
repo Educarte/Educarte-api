@@ -108,7 +108,6 @@ public class UsersController : ControllerBase
     /// </summary>
     /// <returns></returns>
     [HttpPost("MobileRequestResetPassword")]
-    [Authorize]
     public Task<Result> MobileResetPassword([FromBody] MobileRequestResetPassword.Command command, CancellationToken cancellationToken)
     {
         return mediator.Send(command, cancellationToken);
