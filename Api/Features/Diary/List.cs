@@ -86,6 +86,7 @@ public class List
 
             var list = await diaries
                 .ProjectToType<DiaryResult>()
+                .PaginateBy(request, d => d.Name)
                 .ToListAsync(cancellationToken);
 
             return new PageResult<DiaryResult>(request, total, list);
