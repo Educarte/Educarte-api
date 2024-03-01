@@ -19,6 +19,9 @@ jobs:
     - name: Save Docker image to tar.gz
       run: docker save api | gzip > api.tar.gz
 
+    - name: Clear known hosts
+      run: ssh-keygen -R ${{ secrets.SERVER_IP }}
+
     - name: Save SSH private key to file
       run: echo "${{ secrets.SERVER_SSH_KEY }}" > ssh_key.pem
       shell: bash
