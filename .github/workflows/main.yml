@@ -44,7 +44,9 @@ jobs:
         key: ${{ secrets.SERVER_SSH_KEY }}
         passphrase: ${{ secrets.SERVER_PASSPHRASE }}
         script: |
-          ls
+          docker stop containerapi || true
+          docker rm containerapi || true
+          docker rmi api || true
           docker load -i api.tar.gz
           docker run -d -p 5000:80 api
             
