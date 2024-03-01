@@ -22,12 +22,8 @@ jobs:
     - name: Clear known hosts
       run: ssh-keygen -R ${{ secrets.SERVER_IP }}
 
-    - name: Save SSH private key to file
-      run: echo "${{ secrets.SERVER_SSH_KEY }}" > ssh_key.pem
-      shell: bash
-
     - name: Copy tar.gz to remote server
-      run: scp -i ssh_key.pem api.tar.gz root@${{ secrets.SERVER_IP }}:/root/
+      run: scp -i -o StrictHostKeyChecking=no ${{ secrets.SERVER_SSH_KEY }} api.tar.gz root@${{ secrets.SERVER_IP }}:/root/
 
     - name: Remove temporary SSH private key file
       run: rm ssh_key.pem
