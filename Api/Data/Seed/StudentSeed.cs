@@ -33,6 +33,7 @@ namespace Api.Data.Seed
                                                 .RuleFor(x => x.AccessControlType, x => x.PickRandom<AccessControlType>())
                                                 .RuleFor(x => x.Time, x => x.Date.Recent())
                                                 .GenerateBetween(1, 10).ToList())
+                                            .RuleFor(c => c.BirthDate, f => f.Date.Past(10))
                                             .RuleFor(c => c.CreatedAt, f => f.Date.Past())
                                             .RuleFor(c => c.ModifiedAt, f => f.Date.Recent())
                                             .RuleFor(c => c.DeletedAt, f => f.Random.Bool() ? f.Date.Past() : null)
