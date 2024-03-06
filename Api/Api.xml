@@ -540,6 +540,11 @@
             List all query
             </summary>
         </member>
+        <member name="P:Api.Features.Diary.List.Query.Name">
+            <summary>
+            Name
+            </summary>
+        </member>
         <member name="P:Api.Features.Diary.List.Query.Status">
             <summary>
             Status
@@ -1012,6 +1017,11 @@
             SpecialChildHasReport
             </summary>
         </member>
+        <member name="P:Api.Features.Students.Create.Command.BirthDate">
+            <summary>
+            BirthDate
+            </summary>
+        </member>
         <member name="P:Api.Features.Students.Create.Command.Genre">
             <summary>
             Genre
@@ -1270,6 +1280,11 @@
         <member name="P:Api.Features.Students.Edit.Command.SpecialChildHasReport">
             <summary>
             SpecialChildHasReport
+            </summary>
+        </member>
+        <member name="P:Api.Features.Students.Edit.Command.BirthDate">
+            <summary>
+            BirthDate
             </summary>
         </member>
         <member name="P:Api.Features.Students.Edit.Command.Genre">

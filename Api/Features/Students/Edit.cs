@@ -75,6 +75,12 @@ public class Edit
         /// SpecialChildHasReport
         /// </summary>
         public bool SpecialChildHasReport { get; set; }
+
+        /// <summary>
+        /// BirthDate
+        /// </summary>
+        public DateTime BirthDate { get; set; }
+
         /// <summary>
         /// Genre
         /// </summary>

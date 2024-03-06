@@ -18,6 +18,8 @@ public class StudentSoftResult
     public Time Time { get; set; }
     public Status Status { get; set; }
 
+    public DateTime BirthDate { get; set; }
+
     public ClassroomBasicResult Classroom { get; set; }
     public ContractedHourResult ContractedHours { get; set; }
 }

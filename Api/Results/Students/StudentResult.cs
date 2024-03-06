@@ -27,6 +27,8 @@ public class StudentResult
     public Time Time { get; set; }
     public Status Status { get; set; }
 
+    public DateTime BirthDate { get; set; }
+
     public MenuResult CurrentMenu { get; set; }
 
     public ClassroomSimpleResult Classroom { get; set; }

@@ -24,6 +24,11 @@ public class List
     public class Query : PageRequest, IRequest<ResultOf<PageResult<DiaryResult>>>
     {
         /// <summary>
+        /// Name
+        /// </summary>
+        public string Name { get; set; }
+
+        /// <summary>
         /// Status
         /// </summary>
         public Status? Status { get; set; }
@@ -81,6 +86,9 @@ public class List
 
             if (request.EndDate.HasValue)
                 diaries = diaries.Where(x => x.CreatedAt.Date <= request.EndDate.Value.Date);
+
+            if(!string.IsNullOrEmpty(request.Name))
+                diaries = diaries.Where(x => x.Name.Contains(request.Name));
 
             var total = await diaries.CountAsync(cancellationToken);
 

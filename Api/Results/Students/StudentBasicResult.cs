@@ -17,4 +17,6 @@ public class StudentBasicResult
     public BloodType BloodType { get; set; }
     public Time Time { get; set; }
     public Status Status { get; set; }
+
+    public DateTime BirthDate { get; set; }
 }
