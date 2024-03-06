@@ -2,6 +2,7 @@
 using Api.Infrastructure.Services;
 using Api.Infrastructure.Validators;
 using Bogus;
+using Core.Enums;
 using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -29,9 +30,8 @@ namespace Test.Tests.Unit.Features.Users
         {
             var command = new Faker<Create.Command>()
                 .RuleFor(d => d.Name, d => d.Person.FirstName)
-                .RuleFor(d => d.SupplierName, d => d.Person.LastName)
                 .RuleFor(d => d.Email, d => d.Internet.Email())
-                .RuleFor(d => d.Password, d => d.Internet.Password(6))
+                .RuleFor(d => d.Profile, d => d.PickRandom<Profile>())
                 .Generate();
 
             var result = await handler.Handle(command, default);
@@ -39,18 +39,12 @@ namespace Test.Tests.Unit.Features.Users
 
             result.Error.Should().BeNull();
 
-            result.Result.Should().NotBeNull().And.BeOfType<ProductResult>();
-
             var user = await db.Users.FirstOrDefaultAsync(d => d.Id == result.Result.Id);
 
             user.Should().NotBeNull();
 
             result.Result.Id.Should().Be(user.Id);
-            result.Result.FirstName.Should().Be(command.Name).And.Be(user.Name);
-            result.Result.LastName.Should().Be(command.SupplierName).And.Be(user.SupplierName);
             result.Result.Email.Should().Be(command.Email).And.Be(user.Email);
-
-            hashService.Compare(user.PasswordHash, user.PasswordSalt, command.Password).Should().BeTrue();
         }
 
         [Fact]
@@ -58,9 +52,8 @@ namespace Test.Tests.Unit.Features.Users
         {
             var command = new Faker<Create.Command>()
                .RuleFor(d => d.Name, d => string.Empty)
-               .RuleFor(d => d.SupplierName, d => string.Empty)
                .RuleFor(d => d.Email, d => string.Empty)
-               .RuleFor(d => d.Password, d => string.Empty)
+               .RuleFor(d => d.Profile, d => d.PickRandom<Profile>())
                .Generate();
 
             var validationResult = await validator.ValidateAsync(command, default);
@@ -78,9 +71,7 @@ namespace Test.Tests.Unit.Features.Users
 
 
             fieldErrors.Should().Contain(nameof(command.Name));
-            fieldErrors.Should().Contain(nameof(command.SupplierName));
             fieldErrors.Should().Contain(nameof(command.Email));
-            fieldErrors.Should().Contain(nameof(command.Password));
         }
 
         [Fact]
@@ -88,9 +79,8 @@ namespace Test.Tests.Unit.Features.Users
         {
             var command = new Faker<Create.Command>()
                .RuleFor(d => d.Name, d => d.Person.FirstName)
-               .RuleFor(d => d.SupplierName, d => d.Person.LastName)
                .RuleFor(d => d.Email, d => d.Person.FirstName)
-               .RuleFor(d => d.Password, d => d.Internet.Password(3))
+               .RuleFor(d => d.Profile, d => d.PickRandom<Profile>())
                .Generate();
 
             var result = await handler.Handle(command, default);
@@ -104,7 +94,6 @@ namespace Test.Tests.Unit.Features.Users
             fieldErrors.Should().NotBeEmpty();
 
             fieldErrors.Should().Contain(nameof(command.Email));
-            fieldErrors.Should().Contain(nameof(command.Password));
         }
 
         [Fact]
@@ -112,9 +101,8 @@ namespace Test.Tests.Unit.Features.Users
         {
             var command = new Faker<Create.Command>()
                 .RuleFor(d => d.Name, d => d.Person.FirstName)
-                .RuleFor(d => d.SupplierName, d => d.Person.LastName)
                 .RuleFor(d => d.Email, d => d.Internet.Email())
-                .RuleFor(d => d.Password, d => d.Internet.Password(6))
+                .RuleFor(d => d.Profile, d => d.PickRandom<Profile>())
                 .Generate();
 
             await handler.Handle(command, default);

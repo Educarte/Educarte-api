@@ -1,5 +1,6 @@
 ﻿using Api.Features.Users;
 using Bogus;
+using Core.Enums;
 using FluentAssertions;
 using Nudes.Retornator.Core;
 using System.Net.Http.Json;
@@ -19,16 +20,12 @@ namespace Test.Tests.Integration.Features.Users
         {
             var command = new Faker<Create.Command>()
                 .RuleFor(d => d.Name, d => d.Person.FirstName)
-                .RuleFor(d => d.SupplierName, d => d.Person.LastName)
                 .RuleFor(d => d.Email, d => d.Internet.Email())
-                .RuleFor(d => d.Password, d => d.Internet.Password(6))
+                .RuleFor(d => d.Profile, d => d.PickRandom<Profile>())
                 .Generate();
 
             var response = await client.PostAsJsonAsync($"users", command, default);
             response.IsSuccessStatusCode.Should().BeTrue();
-
-            var result = response.Content.ReadFromJsonAsync<ResultOf<ProductResult>>();
-            result.Should().NotBeNull();
         }
 
         [Fact]
@@ -36,9 +33,8 @@ namespace Test.Tests.Integration.Features.Users
         {
             var command = new Faker<Create.Command>()
                .RuleFor(d => d.Name, d => string.Empty)
-               .RuleFor(d => d.SupplierName, d => string.Empty)
                .RuleFor(d => d.Email, d => string.Empty)
-               .RuleFor(d => d.Password, d => string.Empty)
+               .RuleFor(d => d.Profile, d => d.PickRandom<Profile>())
                .Generate();
             var response = await client.PostAsJsonAsync($"users", command, default);
             response.IsSuccessStatusCode.Should().BeFalse();
@@ -49,9 +45,8 @@ namespace Test.Tests.Integration.Features.Users
         {
             var command = new Faker<Create.Command>()
                .RuleFor(d => d.Name, d => d.Person.FirstName)
-               .RuleFor(d => d.SupplierName, d => d.Person.LastName)
+               .RuleFor(d => d.Profile, d => d.PickRandom<Profile>())
                .RuleFor(d => d.Email, d => d.Person.FirstName)
-               .RuleFor(d => d.Password, d => d.Internet.Password(3))
                .Generate();
 
             var response = await client.PostAsJsonAsync($"users", command, default);
@@ -63,9 +58,8 @@ namespace Test.Tests.Integration.Features.Users
         {
             var command = new Faker<Create.Command>()
                 .RuleFor(d => d.Name, d => d.Person.FirstName)
-                .RuleFor(d => d.SupplierName, d => d.Person.LastName)
+                .RuleFor(d => d.Profile, d => d.PickRandom<Profile>())
                 .RuleFor(d => d.Email, d => d.Internet.Email())
-                .RuleFor(d => d.Password, d => d.Internet.Password(6))
                 .Generate();
 
             var response = await client.PostAsJsonAsync($"users", command, default);

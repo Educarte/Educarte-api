@@ -14,6 +14,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Data", "Data\Data.csproj", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SeedMaster", "SeedMaster\SeedMaster.csproj", "{54E11C94-4397-4207-8CCD-775FF4E72E81}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Test", "Test\Test.csproj", "{DCB92D31-524A-4183-B50C-06C764AA1E0C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -36,10 +38,10 @@ Global
 		{54E11C94-4397-4207-8CCD-775FF4E72E81}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{54E11C94-4397-4207-8CCD-775FF4E72E81}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{54E11C94-4397-4207-8CCD-775FF4E72E81}.Release|Any CPU.Build.0 = Release|Any CPU
-		{DC13788B-DE44-4F34-AB3A-919635D93064}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DC13788B-DE44-4F34-AB3A-919635D93064}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DC13788B-DE44-4F34-AB3A-919635D93064}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DC13788B-DE44-4F34-AB3A-919635D93064}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DCB92D31-524A-4183-B50C-06C764AA1E0C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DCB92D31-524A-4183-B50C-06C764AA1E0C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DCB92D31-524A-4183-B50C-06C764AA1E0C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DCB92D31-524A-4183-B50C-06C764AA1E0C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
