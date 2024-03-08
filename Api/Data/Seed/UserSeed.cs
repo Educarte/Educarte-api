@@ -25,6 +25,46 @@ namespace Api.Data.Seed
                 PasswordSalt = defaultSalt,
                 PasswordHash = defaultPassword,
             };
+            var childs = new Faker<Student>()
+                            .RuleFor(x => x.Name, x => x.Person.FullName)
+                            .RuleFor(x => x.RegistrationNumber, x => x.Random.Int(10000000, 99999999).ToString())
+                            .RuleFor(x => x.Classroom, x => x.PickRandom(db.Classrooms.Local).First())
+                            .RuleFor(x => x.ContractedHours, x => new Faker<ContractedHour>()
+                                .RuleFor(x => x.Hours, x => x.Random.Int(1, 10))
+                                .RuleFor(x => x.StartDate, x => x.Date.Recent())
+                                .RuleFor(x => x.StartDate, x => x.Date.Soon())
+                                .GenerateBetween(1, 2).ToList())
+                            .RuleFor(x => x.EmergencyContacts, x => new Faker<EmergencyContact>()
+                                .RuleFor(x => x.Name, x => x.Person.FullName)
+                                .RuleFor(x => x.Telephone, x => x.Phone.PhoneNumber())
+                                .GenerateBetween(1, 2).ToList())
+                            .RuleFor(x => x.Diaries, x => new Faker<Diary>()
+                                .RuleFor(y => y.Name, y => y.Random.Word())
+                                .RuleFor(x => x.Description, x => x.Random.Words())
+                                .RuleFor(y => y.FileUri, y => y.Image.PicsumUrl())
+                                .RuleFor(y => y.Time, y => y.Date.Past())
+                                .GenerateBetween(1, 10).ToList())
+                            .RuleFor(x => x.AccessControls, x => new Faker<AccessControl>()
+                                .RuleFor(x => x.AccessControlType, x => x.PickRandom<AccessControlType>())
+                                .RuleFor(x => x.Time, x => x.Date.Recent())
+                                .GenerateBetween(1, 10).ToList())
+                            .RuleFor(c => c.BirthDate, f => f.Date.Past(10))
+                            .RuleFor(c => c.CreatedAt, f => f.Date.Past())
+                            .RuleFor(c => c.ModifiedAt, f => f.Date.Recent())
+                            .RuleFor(c => c.DeletedAt, f => f.Random.Bool() ? f.Date.Past() : null)
+                            .Generate(2);
+            
+            var father = new User
+            {
+                Name = "Pai",
+                Email = "pai@email.com",
+                Profile = Profile.LegalGuardian,
+                PasswordSalt = defaultSalt,
+                PasswordHash = defaultPassword,
+                Childs = childs,
+                LegalGuardianType = "Responsável Legal",
+                Cellphone = "11940028922"
+            };
 
             var usersTeachers = new Faker<User>().RuleFor(x => x.Name, x => x.Person.FullName)
                                          .RuleFor(x => x.Email, x => x.Internet.Email())
@@ -35,7 +75,7 @@ namespace Api.Data.Seed
                                          .RuleFor(x => x.PasswordSalt, x => defaultSalt)
                                          .RuleFor(x => x.Classrooms, x => new Faker<Classroom>()
                                                                             .RuleFor(y => y.Name, y => y.Name.JobTitle())
-                                                                            .RuleFor(y => y.MaxStudents, y => x.Random.Int(1,15))
+                                                                            .RuleFor(y => y.MaxStudents, y => x.Random.Int(1, 15))
                                                                             .RuleFor(y => y.Diaries, y => new Faker<Diary>()
                                                                                 .RuleFor(y => y.Name, y => y.Random.Word())
                                                                                 .RuleFor(y => y.Description, y => y.Random.Words())
@@ -74,6 +114,7 @@ namespace Api.Data.Seed
                                          .Generate(25).ToList();
 
             db.Users.Add(mainAdm);
+            db.Users.Add(father);
             db.AddRange(usersTeachers);
             db.AddRange(usersParents);
         }
