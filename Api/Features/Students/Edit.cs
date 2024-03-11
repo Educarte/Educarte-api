@@ -77,6 +77,16 @@ public class Edit
         public bool SpecialChildHasReport { get; set; }
 
         /// <summary>
+        /// Profession
+        /// </summary>
+        public string Profession { get; set; }
+
+        /// <summary>
+        /// Workplace
+        /// </summary>
+        public string Workplace { get; set; }
+
+        /// <summary>
         /// BirthDate
         /// </summary>
         public DateTime BirthDate { get; set; }
@@ -99,7 +109,7 @@ public class Edit
         /// <summary>
         /// Classroom Id
         /// </summary>
-        public Guid ClassroomId { get; set; }
+        public Guid? ClassroomId { get; set; }
 
         /// <summary>
         /// Contracted hours
@@ -259,7 +269,13 @@ public class Edit
             RuleFor(x => x.Id).NotEmpty();
             RuleFor(x => x.Name).NotEmpty();
             RuleFor(x => x.LegalGuardians).NotEmpty();
-            RuleFor(x => x.ClassroomId).NotEmpty().SetAsyncValidator(classroomExistenceValidator);
+            RuleFor(x => x.Profession).NotEmpty();
+            RuleFor(x => x.Workplace).NotEmpty();
+
+            When(x => x.ClassroomId.HasValue, () =>
+            {
+                RuleFor(x => x.ClassroomId).SetAsyncValidator(classroomExistenceValidator);
+            });
         }
     }
 
