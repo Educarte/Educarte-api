@@ -74,6 +74,16 @@ public class Create
         public bool SpecialChildHasReport { get; set; }
 
         /// <summary>
+        /// Profession
+        /// </summary>
+        public string Profession { get; set; }
+
+        /// <summary>
+        /// Workplace
+        /// </summary>
+        public string Workplace { get; set; }
+
+        /// <summary>
         /// BirthDate
         /// </summary>
         public DateTime BirthDate { get; set; }
@@ -96,7 +106,7 @@ public class Create
         /// <summary>
         /// Classroom Id
         /// </summary>
-        public Guid ClassroomId { get; set; }
+        public Guid? ClassroomId { get; set; }
 
         /// <summary>
         /// Contracted hours
@@ -247,6 +257,8 @@ public class Create
         public Validator(ApiDbContext db)
         {
             RuleFor(x => x.Name).NotEmpty();
+            RuleFor(x => x.Profession).NotEmpty();
+            RuleFor(x => x.Workplace).NotEmpty();
 
             RuleForEach(x => x.EmergencyContacts).ChildRules(x =>
             {
@@ -271,7 +283,10 @@ public class Create
                     x.RuleFor(x => x.Address).NotEmpty();
                 }).NotEmpty();
 
-            RuleFor(x => x.ClassroomId).NotEmpty().SetAsyncValidator(new ClassroomExistenceValidator<Command>(db)).WithMessage("Turma não existe");
+            When(x => x.ClassroomId.HasValue, () =>
+            {
+                RuleFor(x => x.ClassroomId).SetAsyncValidator(new ClassroomExistenceValidator<Command>(db));
+            });
         }
     }
 
