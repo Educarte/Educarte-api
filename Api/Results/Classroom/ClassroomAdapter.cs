@@ -14,6 +14,8 @@ namespace Api.Results.Classroom
         /// <param name="config"></param>
         public void Register(TypeAdapterConfig config)
         {
+            config.NewConfig<Core.Classroom, ClassroomStudentsSimpleResult>();
+
             config.NewConfig<Core.Classroom, ClassroomResult>()
                 .Map(x => x.CurrentQuantityStudents, x => x.Students.Count);
 

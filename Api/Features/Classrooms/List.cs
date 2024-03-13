@@ -19,7 +19,7 @@ public class List
     /// <summary>
     /// List all classrooms query
     /// </summary>
-    public class Query : PageRequest, IRequest<ResultOf<PageResult<ClassroomSimpleResult>>>
+    public class Query : PageRequest, IRequest<ResultOf<PageResult<ClassroomStudentsSimpleResult>>>
     {
         /// <summary>
         /// Filter
@@ -42,7 +42,7 @@ public class List
         public ClassroomType? ClassroomType { get; set; }
     }
 
-    internal class Handler : IRequestHandler<Query, ResultOf<PageResult<ClassroomSimpleResult>>>
+    internal class Handler : IRequestHandler<Query, ResultOf<PageResult<ClassroomStudentsSimpleResult>>>
     {
         private readonly ApiDbContext db;
 
@@ -51,7 +51,7 @@ public class List
             this.db = db;
         }
 
-        public async Task<ResultOf<PageResult<ClassroomSimpleResult>>> Handle(Query request, CancellationToken cancellationToken)
+        public async Task<ResultOf<PageResult<ClassroomStudentsSimpleResult>>> Handle(Query request, CancellationToken cancellationToken)
         {
             var classrooms = db.Classrooms
                 .Include(x => x.Students)
@@ -74,11 +74,11 @@ public class List
             var total = await classrooms.CountAsync(cancellationToken);
 
             var list = await classrooms
-                .ProjectToType<ClassroomSimpleResult>()
+                .ProjectToType<ClassroomStudentsSimpleResult>()
                 .PaginateBy(request, s => s.Name)
                 .ToListAsync(cancellationToken);
 
-            return new PageResult<ClassroomSimpleResult>(request, total, list);
+            return new PageResult<ClassroomStudentsSimpleResult>(request, total, list);
         }
     }
 }
