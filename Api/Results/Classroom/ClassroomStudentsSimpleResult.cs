@@ -14,7 +14,7 @@ public class ClassroomStudentsSimpleResult
     public int CurrentQuantityStudents { get; set; }
     public UserSimpleResult Teacher { get; set; }
 
-    public IList<StudentSimpleResult> Students { get; set; }
+    public IList<StudentSimpleListResult> Students { get; set; }
 
     public Status Status { get; set; }
     public Time Time { get; set; }
