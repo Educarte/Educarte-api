@@ -21,8 +21,7 @@ namespace Api.Results.Classroom
             config.NewConfig<Core.Classroom, ClassroomBasicResult>();
 
             config.NewConfig<Core.Classroom, ClassroomSimpleResult>()
-                .Map(x => x.CurrentQuantityStudents, x => x.Students.Count)
-                .Map(x => x.Teacher, x => x.Teachers.FirstOrDefault(x => x.Profile == Core.Enums.Profile.Teacher));
+                .Map(x => x.CurrentQuantityStudents, x => x.Students.Count);
 
             config.NewConfig<Core.Classroom, ClassroomStudentsSimpleResult>()
                 .Map(x => x.CurrentQuantityStudents, x => x.Students.Count)

@@ -11,6 +11,7 @@ namespace Api.Results.Students;
 public class StudentSimpleListResult
 {
     public Guid Id { get; set; }
+    public string Name { get; set; }
 
     public Genre Genre { get; set; }
     public BloodType BloodType { get; set; }
