@@ -1,4 +1,5 @@
-﻿using Api.Infrastructure.Validators;
+﻿using Api.Infrastructure.Extensions;
+using Api.Infrastructure.Validators;
 using Api.Results.Generic;
 using Api.Results.Students;
 using Core.Enums;
@@ -56,7 +57,7 @@ public class AddContractedHour
             RuleFor(x => x.Id).NotEmpty();
 
             RuleFor(x => x.Hours).GreaterThan(0);
-            RuleFor(x => x.StartDate).NotEmpty().GreaterThanOrEqualTo(DateTime.Now.Date);
+            RuleFor(x => x.StartDate).NotEmpty().MustBeValidDateTime();
             RuleFor(x => x.EndDate).GreaterThan(x => x.StartDate.Date).When(x => x.EndDate.HasValue).WithMessage("A data de término do contrato deve ser maior que a data de início.");
         }
     }
