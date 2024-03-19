@@ -70,7 +70,7 @@ public class AddAccessControl
             {
                 AccessControlType = accessControlExists.FirstOrDefault(x => x.AccessControlType == AccessControlType.Entrance) == null ? AccessControlType.Entrance : AccessControlType.Exit,
                 StudentId = request.Id,
-                Time = DateTime.Now
+                Time = DateTime.UtcNow
             });
 
             await db.SaveChangesAsync(cancellationToken);
