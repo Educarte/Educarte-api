@@ -18,6 +18,6 @@ public class ClassroomResult
     public ClassroomType ClassroomType { get; set; }
 
     public IList<UserSimpleResult> Teachers { get; set; }
-    public IList<StudentBasicResult> Students { get; set; }
+    public IList<StudentSoftResult> Students { get; set; }
     public IList<DiarySimpleResult> Diaries { get; set; }
 }

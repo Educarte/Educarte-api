@@ -20,6 +20,5 @@ public class StudentSoftResult
 
     public DateTime BirthDate { get; set; }
 
-    public ClassroomBasicResult Classroom { get; set; }
     public ContractedHourResult ContractedHours { get; set; }
 }
