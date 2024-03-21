@@ -74,16 +74,6 @@ public class Create
         public bool SpecialChildHasReport { get; set; }
 
         /// <summary>
-        /// Profession
-        /// </summary>
-        public string Profession { get; set; }
-
-        /// <summary>
-        /// Workplace
-        /// </summary>
-        public string Workplace { get; set; }
-
-        /// <summary>
         /// BirthDate
         /// </summary>
         public DateTime BirthDate { get; set; }
@@ -147,6 +137,16 @@ public class Create
             /// LegalGuardianType
             /// </summary>
             public string LegalGuardianType { get; set; }
+
+            /// <summary>
+            /// Profession
+            /// </summary>
+            public string Profession { get; set; }
+
+            /// <summary>
+            /// Workplace
+            /// </summary>
+            public string Workplace { get; set; }
 
             /// <summary>
             /// Address
@@ -257,8 +257,6 @@ public class Create
         public Validator(ApiDbContext db)
         {
             RuleFor(x => x.Name).NotEmpty();
-            RuleFor(x => x.Profession).NotEmpty();
-            RuleFor(x => x.Workplace).NotEmpty();
 
             RuleForEach(x => x.EmergencyContacts).ChildRules(x =>
             {
@@ -280,6 +278,8 @@ public class Create
                     x.RuleFor(x => x.Name).NotEmpty();
                     x.RuleFor(x => x.Email).NotEmpty().EmailAddress().SetAsyncValidator(new UniqueUserValidator<Command.LegalGuardianCommand>(db));
                     x.RuleFor(x => x.LegalGuardianType).NotEmpty();
+                    x.RuleFor(x => x.Profession).NotEmpty();
+                    x.RuleFor(x => x.Workplace).NotEmpty();
                     x.RuleFor(x => x.Address).NotEmpty();
                 }).NotEmpty();
 

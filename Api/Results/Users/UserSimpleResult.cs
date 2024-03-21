@@ -1,4 +1,5 @@
-﻿using Core.Enums;
+﻿using Api.Results.Adresses;
+using Core.Enums;
 
 namespace Api.Results.Users;
 
@@ -12,4 +13,6 @@ public class UserSimpleResult
 
     public Profile Profile { get; set; }
     public Status Status { get; set; }
+
+    public AddressResult Address { get; set; }
 }

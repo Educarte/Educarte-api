@@ -1017,16 +1017,6 @@
             SpecialChildHasReport
             </summary>
         </member>
-        <member name="P:Api.Features.Students.Create.Command.Profession">
-            <summary>
-            Profession
-            </summary>
-        </member>
-        <member name="P:Api.Features.Students.Create.Command.Workplace">
-            <summary>
-            Workplace
-            </summary>
-        </member>
         <member name="P:Api.Features.Students.Create.Command.BirthDate">
             <summary>
             BirthDate
@@ -1090,6 +1080,16 @@
         <member name="P:Api.Features.Students.Create.Command.LegalGuardianCommand.LegalGuardianType">
             <summary>
             LegalGuardianType
+            </summary>
+        </member>
+        <member name="P:Api.Features.Students.Create.Command.LegalGuardianCommand.Profession">
+            <summary>
+            Profession
+            </summary>
+        </member>
+        <member name="P:Api.Features.Students.Create.Command.LegalGuardianCommand.Workplace">
+            <summary>
+            Workplace
             </summary>
         </member>
         <member name="P:Api.Features.Students.Create.Command.LegalGuardianCommand.Address">
@@ -1292,16 +1292,6 @@
             SpecialChildHasReport
             </summary>
         </member>
-        <member name="P:Api.Features.Students.Edit.Command.Profession">
-            <summary>
-            Profession
-            </summary>
-        </member>
-        <member name="P:Api.Features.Students.Edit.Command.Workplace">
-            <summary>
-            Workplace
-            </summary>
-        </member>
         <member name="P:Api.Features.Students.Edit.Command.BirthDate">
             <summary>
             BirthDate
@@ -1370,6 +1360,16 @@
         <member name="P:Api.Features.Students.Edit.Command.LegalGuardianCommand.LegalGuardianType">
             <summary>
             LegalGuardianType
+            </summary>
+        </member>
+        <member name="P:Api.Features.Students.Edit.Command.LegalGuardianCommand.Profession">
+            <summary>
+            Profession
+            </summary>
+        </member>
+        <member name="P:Api.Features.Students.Edit.Command.LegalGuardianCommand.Workplace">
+            <summary>
+            Workplace
             </summary>
         </member>
         <member name="P:Api.Features.Students.Edit.Command.LegalGuardianCommand.Address">

@@ -10,7 +10,7 @@ namespace Api.Results.Adresses
     {
         public void Register(TypeAdapterConfig config)
         {
-            config.NewConfig<Address, AdressResult>();
+            config.NewConfig<Address, AddressResult>();
         }
     }
 }

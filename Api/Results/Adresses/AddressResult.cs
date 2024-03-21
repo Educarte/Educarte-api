@@ -1,6 +1,6 @@
 ﻿namespace Api.Results.Adresses;
 
-public class AdressResult
+public class AddressResult
 {
     public Guid Id { get; set; }
 
