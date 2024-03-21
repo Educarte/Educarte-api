@@ -93,6 +93,8 @@ namespace Api.Data.Seed
             var usersParents = new Faker<User>().RuleFor(x => x.Name, x => x.Person.FullName)
                                          .RuleFor(x => x.Email, x => x.Internet.Email())
                                          .RuleFor(x => x.Cellphone, x => x.Person.Phone)
+                                         .RuleFor(x => x.Profession, x => x.Music.Locale)
+                                         .RuleFor(x => x.Workplace, x => x.Locale)
                                          .RuleFor(x => x.Profile, x => Profile.LegalGuardian)
                                          .RuleFor(x => x.Status, x => x.PickRandom<Status>())
                                          .RuleFor(x => x.LegalGuardianType, x => "Responsável Legal")

@@ -77,16 +77,6 @@ public class Edit
         public bool SpecialChildHasReport { get; set; }
 
         /// <summary>
-        /// Profession
-        /// </summary>
-        public string Profession { get; set; }
-
-        /// <summary>
-        /// Workplace
-        /// </summary>
-        public string Workplace { get; set; }
-
-        /// <summary>
         /// BirthDate
         /// </summary>
         public DateTime BirthDate { get; set; }
@@ -155,6 +145,16 @@ public class Edit
             /// LegalGuardianType
             /// </summary>
             public string LegalGuardianType { get; set; }
+
+            /// <summary>
+            /// Profession
+            /// </summary>
+            public string Profession { get; set; }
+
+            /// <summary>
+            /// Workplace
+            /// </summary>
+            public string Workplace { get; set; }
 
             /// <summary>
             /// Address
@@ -269,8 +269,17 @@ public class Edit
             RuleFor(x => x.Id).NotEmpty();
             RuleFor(x => x.Name).NotEmpty();
             RuleFor(x => x.LegalGuardians).NotEmpty();
-            RuleFor(x => x.Profession).NotEmpty();
-            RuleFor(x => x.Workplace).NotEmpty();
+
+            RuleForEach(x => x.LegalGuardians)
+                .ChildRules(x =>
+                {
+                    x.RuleFor(x => x.Cellphone).NotEmpty();
+                    x.RuleFor(x => x.Name).NotEmpty();
+                    x.RuleFor(x => x.LegalGuardianType).NotEmpty();
+                    x.RuleFor(x => x.Profession).NotEmpty();
+                    x.RuleFor(x => x.Workplace).NotEmpty();
+                    x.RuleFor(x => x.Address).NotEmpty();
+                }).NotEmpty();
 
             When(x => x.ClassroomId.HasValue, () =>
             {

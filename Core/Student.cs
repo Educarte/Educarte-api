@@ -17,8 +17,6 @@ public class Student : IEntity, IDeletable
     public string AllergicBugBite { get; set; }
     public string SpecialChild { get; set; }
     public bool SpecialChildHasReport { get; set; }
-    public string Profession { get; set; }
-    public string Workplace { get; set; }
 
     public Genre Genre { get; set; }
     public BloodType BloodType { get; set; }
