@@ -10,6 +10,8 @@ public class UserSimpleResult
     public string Email { get; set; }
     public string Cellphone { get; set; }
     public string LegalGuardianType { get; set; }
+    public string Profession { get; set; }
+    public string Workplace { get; set; }
 
     public Profile Profile { get; set; }
     public Status Status { get; set; }
