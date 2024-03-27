@@ -1,4 +1,5 @@
 ﻿using Api.Results.AccessControl;
+using Api.Results.Classroom;
 using Api.Results.ContractedHours;
 using Api.Results.Diary;
 using Api.Results.Students;
@@ -95,7 +96,8 @@ public class DetailAccessControl
                     ContractedHour = student.ContractedHours.FirstOrDefault(y => y.EndDate.HasValue ? x.Key <= y.EndDate.Value.Date : true)?.Adapt<ContractedHourResult>()
                 }).ToList(),
                 LegalGuardians = student.LegalGuardians.Select(x => x.Adapt<UserSimpleResult>()).ToList(),
-                Student = student.Adapt<StudentBasicResult>()
+                Student = student.Adapt<StudentBasicResult>(),
+                Classroom = student.Classroom.Adapt<ClassroomBasicResult>()
             };
 
             foreach (var accessControl in accessControlGroup.AccessControlsByDate)

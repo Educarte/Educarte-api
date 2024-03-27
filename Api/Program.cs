@@ -229,6 +229,11 @@ var app = builder.Build();
 
 #region Pipeline
 
+using (var scope = app.Services.CreateScope())
+{
+    await app.RunDatabaseMigrations<Program>(scope.ServiceProvider, app.Logger);
+}
+
 if (app.Environment.IsProduction())
 {
     app.UseHsts();

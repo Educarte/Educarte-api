@@ -1,6 +1,8 @@
 ﻿using Api.Infrastructure.Swagger;
+using Data;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Mvc.Controllers;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Any;
 using Microsoft.OpenApi.Models;
 using System.Reflection;
@@ -61,6 +63,27 @@ namespace Api.Infrastructure.Extensions
 
                 options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, $"{Assembly.GetEntryAssembly().GetName().Name}.xml"));
             });
+        }
+
+        public static async Task RunDatabaseMigrations<T>(this WebApplication app, IServiceProvider serviceProvider, ILogger logger)
+        {
+            if (app is null)
+                throw new ArgumentNullException(nameof(app));
+
+            logger.LogInformation("Program start, applying migrations");
+
+            try
+            {
+                var db = serviceProvider.GetRequiredService<ApiDbContext>();
+
+                await db.Database.MigrateAsync();
+
+                logger.LogInformation("Migrations applied");
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, "Migrations error");
+            }
         }
     }
 }
