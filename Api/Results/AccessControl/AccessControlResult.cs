@@ -1,4 +1,5 @@
-﻿using Api.Results.ContractedHours;
+﻿using Api.Results.Classroom;
+using Api.Results.ContractedHours;
 using Api.Results.Students;
 using Api.Results.Users;
 using Core.Enums;
@@ -8,6 +9,7 @@ namespace Api.Results.AccessControl;
 public class AccessControlResult
 {
     public StudentBasicResult Student { get; set; }
+    public ClassroomBasicResult Classroom { get; set; }
     public List<AccessControl> AccessControlsByDate { get; set; }
     public List<UserSimpleResult> LegalGuardians { get; set; }
     public TimeSpan Summary { get; set; }
