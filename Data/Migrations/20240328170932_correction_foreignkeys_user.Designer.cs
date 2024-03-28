@@ -3,6 +3,7 @@ using System;
 using Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Data.Migrations
 {
     [DbContext(typeof(ApiDbContext))]
-    partial class ApiDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240328170932_correction_foreignkeys_user")]
+    partial class correction_foreignkeys_user
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -414,9 +417,6 @@ namespace Data.Migrations
                     b.Property<string>("HealthProblem")
                         .HasColumnType("longtext");
 
-                    b.Property<Guid>("LegalGuardianId")
-                        .HasColumnType("char(36)");
-
                     b.Property<DateTime>("ModifiedAt")
                         .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("datetime(6)")
@@ -448,8 +448,6 @@ namespace Data.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("ClassroomId");
-
-                    b.HasIndex("LegalGuardianId");
 
                     b.ToTable("Students");
                 });
@@ -526,6 +524,21 @@ namespace Data.Migrations
                     b.HasIndex("StudentsId");
 
                     b.ToTable("DiaryStudent");
+                });
+
+            modelBuilder.Entity("StudentUser", b =>
+                {
+                    b.Property<Guid>("ChildsId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<Guid>("LegalGuardiansId")
+                        .HasColumnType("char(36)");
+
+                    b.HasKey("ChildsId", "LegalGuardiansId");
+
+                    b.HasIndex("LegalGuardiansId");
+
+                    b.ToTable("StudentUser");
                 });
 
             modelBuilder.Entity("ClassroomDiary", b =>
@@ -626,15 +639,7 @@ namespace Data.Migrations
                         .WithMany("Students")
                         .HasForeignKey("ClassroomId");
 
-                    b.HasOne("Core.User", "LegalGuardian")
-                        .WithMany("Childs")
-                        .HasForeignKey("LegalGuardianId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("Classroom");
-
-                    b.Navigation("LegalGuardian");
                 });
 
             modelBuilder.Entity("DiaryStudent", b =>
@@ -648,6 +653,21 @@ namespace Data.Migrations
                     b.HasOne("Core.Student", null)
                         .WithMany()
                         .HasForeignKey("StudentsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("StudentUser", b =>
+                {
+                    b.HasOne("Core.Student", null)
+                        .WithMany()
+                        .HasForeignKey("ChildsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Core.User", null)
+                        .WithMany()
+                        .HasForeignKey("LegalGuardiansId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -669,8 +689,6 @@ namespace Data.Migrations
             modelBuilder.Entity("Core.User", b =>
                 {
                     b.Navigation("Address");
-
-                    b.Navigation("Childs");
 
                     b.Navigation("Diaries");
 

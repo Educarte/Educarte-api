@@ -58,7 +58,7 @@ public class Detail
                 .Include(x => x.Classroom)
                     .ThenInclude(x => x.Teachers)
                 .Include(x => x.ContractedHours)
-                .Include(x => x.LegalGuardians.Where(x => !x.DeletedAt.HasValue))
+                .Include(x => x.LegalGuardian)
                     .ThenInclude(x => x.Address)
                 .Include(x => x.Diaries.Where(x => !x.DeletedAt.HasValue))
                 .Include(x => x.EmergencyContacts)

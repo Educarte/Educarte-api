@@ -11,7 +11,7 @@ public class AccessControlResult
     public StudentBasicResult Student { get; set; }
     public ClassroomBasicResult Classroom { get; set; }
     public List<AccessControl> AccessControlsByDate { get; set; }
-    public List<UserSimpleResult> LegalGuardians { get; set; }
+    public UserSimpleResult LegalGuardian { get; set; }
     public TimeSpan Summary { get; set; }
 }
 

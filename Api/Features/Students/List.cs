@@ -68,7 +68,7 @@ public class List
         public async Task<ResultOf<PageResult<StudentSimpleResult>>> Handle(Query request, CancellationToken cancellationToken)
         {
             var students = db.Students
-                .Include(x => x.LegalGuardians)
+                .Include(x => x.LegalGuardian)
                 .Include(x => x.ContractedHours)
                 .Include(x => x.Classroom)
                 .Include(x => x.AccessControls)
@@ -76,7 +76,7 @@ public class List
                 .AsQueryable();
 
             if (request.LegalGuardianId.HasValue)
-                students = students.Where(x => x.LegalGuardians.Any(y => y.Id == request.LegalGuardianId.Value));
+                students = students.Where(x => x.LegalGuardian.Id == request.LegalGuardianId.Value);
 
             if (!string.IsNullOrWhiteSpace(request.Search))
                 students = students.Where(s => s.Name.Contains(request.Search));

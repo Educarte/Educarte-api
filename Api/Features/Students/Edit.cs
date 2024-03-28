@@ -112,9 +112,9 @@ public class Edit
         public IList<EmergencyContactCommand> EmergencyContacts { get; set; }
 
         /// <summary>
-        /// Legal Guardians
+        /// Legal Guardian
         /// </summary>
-        public IList<LegalGuardianCommand> LegalGuardians { get; set; }
+        public LegalGuardianCommand LegalGuardian { get; set; }
 
         /// <summary>
         /// Legal guardian command
@@ -268,9 +268,9 @@ public class Edit
         {
             RuleFor(x => x.Id).NotEmpty();
             RuleFor(x => x.Name).NotEmpty();
-            RuleFor(x => x.LegalGuardians).NotEmpty();
+            RuleFor(x => x.LegalGuardian).NotEmpty();
 
-            RuleForEach(x => x.LegalGuardians)
+            RuleFor(x => x.LegalGuardian)
                 .ChildRules(x =>
                 {
                     x.RuleFor(x => x.Cellphone).NotEmpty();
@@ -296,10 +296,16 @@ public class Edit
         {
             this.db = db;
         }
-
+        // TODO: Verificar problema do pq emergencyContacts não edita e duplica
         public async Task<ResultOf<StudentResult>> Handle(Command request, CancellationToken cancellationToken)
         {
-            var student = await db.Students.OnlyActives().FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken);
+            var student = await db.Students
+                .Include(x => x.EmergencyContacts)
+                .Include(x => x.LegalGuardian)
+                    .ThenInclude(x => x.Address)
+                .Include(x => x.ContractedHours)
+                .OnlyActives()
+                .FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken);
             if (student == null)
                 return new NotFoundError("Estudante não encontrado.");
 

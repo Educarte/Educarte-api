@@ -19,7 +19,6 @@ public class User : IEntity, IDeletable
     public byte[] PasswordHash { get; set; }
     public byte[] PasswordSalt { get; set; }
 
-    public Guid AddressId { get; set; }
     public Address Address { get; set; }
 
     public IList<ResetPasswordCode> ResetPasswordCodes { get; set; }

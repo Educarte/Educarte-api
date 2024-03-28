@@ -109,9 +109,9 @@ public class Create
         public IList<EmergencyContactCommand> EmergencyContacts { get; set; }
 
         /// <summary>
-        /// Legal Guardians
+        /// Legal Guardian
         /// </summary>
-        public IList<LegalGuardianCommand> LegalGuardians { get; set; }
+        public LegalGuardianCommand LegalGuardian { get; set; }
 
         /// <summary>
         /// Legal guardian command
@@ -271,7 +271,7 @@ public class Create
                 x.RuleFor(x => x.EndDate).GreaterThan(x => x.StartDate.Date).When(x => x.EndDate.HasValue).WithMessage("A data de término do contrato deve ser maior que a data de início.");
             }).NotEmpty();
 
-            RuleForEach(x => x.LegalGuardians)
+            RuleFor(x => x.LegalGuardian)
                 .ChildRules(x =>
                 {
                     x.RuleFor(x => x.Cellphone).NotEmpty();
@@ -307,22 +307,21 @@ public class Create
 
         public async Task<ResultOf<StudentResult>> Handle(Command request, CancellationToken cancellationToken)
         {
-            var legalGuardians = await db.Users
+            var legalGuardian = await db.Users
                 .Include(x => x.Childs)
                 .OnlyActives()
-                .Where(x => request.LegalGuardians.Select(x => x.Email).Contains(x.Email)).ToListAsync(cancellationToken);
-
-            var legalGuardiansToAddEmails = request.LegalGuardians.Select(x => x.Email).Except(legalGuardians.Select(x => x.Email));
-            var legalGuardiansToAdd = request.LegalGuardians.Where(x => legalGuardiansToAddEmails.Contains(x.Email)).ToList();
-            var legalGuardiansToBind = legalGuardians.Where(x => !legalGuardiansToAddEmails.Contains(x.Email)).ToList();
-
-            if (legalGuardiansToBind.Select(x => x.Childs).Any(x => x.Count >= 2))
-                return new BadRequestError("Responsável legal selecionado já contem 2 crianças vinculadas ao mesmo.");
+                .FirstOrDefaultAsync(x => request.LegalGuardian.Email.Contains(x.Email), cancellationToken);
 
             var student = request.Adapt<Student>();
-            var users = legalGuardiansToAdd.Select(x => x.Adapt<User>()).ToList();
 
-            foreach (var user in users)
+            User user = new();
+
+            if (legalGuardian == null)
+                user = request.LegalGuardian.Adapt<User>();
+            else
+                user = legalGuardian;
+
+            if (user == null)
             {
                 var password = Guid.NewGuid().ToString().Substring(0, 8);
 
@@ -344,10 +343,7 @@ public class Create
                 user.PasswordSalt = passwordSalt;
             }
 
-            if(legalGuardiansToBind.Any())
-                users.AddRange(legalGuardiansToBind);
-
-            student.LegalGuardians = users;
+            student.LegalGuardian = user;
 
             db.Students.Add(student);
             await db.SaveChangesAsync(cancellationToken);

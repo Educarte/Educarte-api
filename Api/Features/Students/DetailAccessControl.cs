@@ -68,7 +68,7 @@ public class DetailAccessControl
             var student = await db.Students
                 .Include(x => x.Classroom)
                 .Include(x => x.ContractedHours)
-                .Include(x => x.LegalGuardians)
+                .Include(x => x.LegalGuardian)
                 .Include(x => x.AccessControls.Where(x => !x.DeletedAt.HasValue))
                 .OnlyActives()
                 .FirstOrDefaultAsync(d => d.Id == request.Id, cancellationToken);
@@ -95,7 +95,7 @@ public class DetailAccessControl
                     }).ToList(),
                     ContractedHour = student.ContractedHours.FirstOrDefault(y => y.EndDate.HasValue ? x.Key <= y.EndDate.Value.Date : true)?.Adapt<ContractedHourResult>()
                 }).ToList(),
-                LegalGuardians = student.LegalGuardians.Select(x => x.Adapt<UserSimpleResult>()).ToList(),
+                LegalGuardian = student.LegalGuardian.Adapt<UserSimpleResult>(),
                 Student = student.Adapt<StudentBasicResult>(),
                 Classroom = student.Classroom.Adapt<ClassroomBasicResult>()
             };

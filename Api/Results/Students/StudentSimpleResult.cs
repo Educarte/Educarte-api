@@ -30,7 +30,7 @@ public class StudentSimpleResult
 
     public ClassroomBasicResult Classroom { get; set; }
 
-    public IList<UserSimpleResult> LegalGuardians { get; set; }
+    public UserSimpleResult LegalGuardian { get; set; }
     public IList<ContractedHourResult> ContractedHours { get; set; }
     public IList<AccessControlSimpleResult> AccessControls { get; set; }
 }
