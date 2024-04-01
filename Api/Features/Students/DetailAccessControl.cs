@@ -92,7 +92,7 @@ public class DetailAccessControl
                         Id = y.Id,
                         AccessControlType = y.AccessControlType,
                         Time = y.Time
-                    }).ToList(),
+                    }).OrderBy(x => x.AccessControlType).ToList(),
                     ContractedHour = student.ContractedHours.FirstOrDefault(y => y.EndDate.HasValue ? x.Key <= y.EndDate.Value.Date : true)?.Adapt<ContractedHourResult>()
                 }).ToList(),
                 LegalGuardian = student.LegalGuardian.Adapt<UserSimpleResult>(),
