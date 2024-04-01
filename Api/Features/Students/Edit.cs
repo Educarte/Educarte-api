@@ -296,7 +296,7 @@ public class Edit
         {
             this.db = db;
         }
-        // TODO: Verificar problema do pq emergencyContacts não edita e duplica
+
         public async Task<ResultOf<StudentResult>> Handle(Command request, CancellationToken cancellationToken)
         {
             var student = await db.Students
