@@ -1347,11 +1347,6 @@
             Name
             </summary>
         </member>
-        <member name="P:Api.Features.Students.Edit.Command.LegalGuardianCommand.Email">
-            <summary>
-            Email
-            </summary>
-        </member>
         <member name="P:Api.Features.Students.Edit.Command.LegalGuardianCommand.Cellphone">
             <summary>
             Cellphone

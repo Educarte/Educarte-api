@@ -132,11 +132,6 @@ public class Edit
             public string Name { get; set; }
 
             /// <summary>
-            /// Email
-            /// </summary>
-            public string Email { get; set; }
-
-            /// <summary>
             /// Cellphone
             /// </summary>
             public string Cellphone { get; set; }
