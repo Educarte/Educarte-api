@@ -93,6 +93,17 @@ public class UsersController : ControllerBase
     }
 
     /// <summary>
+    /// Get user by name or email
+    /// </summary>
+    /// <returns></returns>
+    [HttpGet("Get")]
+    [Authorize]
+    public Task<ResultOf<UserSimpleResult>> Get([FromQuery] Get.Query command, CancellationToken cancellationToken)
+    {
+        return mediator.Send(command, cancellationToken);
+    }
+    
+    /// <summary>
     /// Change User Password
     /// </summary>
     /// <returns></returns>

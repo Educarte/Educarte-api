@@ -1702,99 +1702,19 @@
             Cellphone of user
             </summary>
         </member>
-        <member name="T:Api.Features.Users.EditLegalGuardian">
+        <member name="T:Api.Features.Users.Get">
             <summary>
-            Edit user LegalGuardian
+            Get User
             </summary>
         </member>
-        <member name="T:Api.Features.Users.EditLegalGuardian.Command">
+        <member name="T:Api.Features.Users.Get.Query">
             <summary>
-            Edit user LegalGuardian
+            Get User
             </summary>
         </member>
-        <member name="P:Api.Features.Users.EditLegalGuardian.Command.Id">
+        <member name="P:Api.Features.Users.Get.Query.Search">
             <summary>
-            Id of user
-            </summary>
-        </member>
-        <member name="P:Api.Features.Users.EditLegalGuardian.Command.Name">
-            <summary>
-            Name
-            </summary>
-        </member>
-        <member name="P:Api.Features.Users.EditLegalGuardian.Command.Email">
-            <summary>
-            Email
-            </summary>
-        </member>
-        <member name="P:Api.Features.Users.EditLegalGuardian.Command.Cellphone">
-            <summary>
-            Cellphone
-            </summary>
-        </member>
-        <member name="P:Api.Features.Users.EditLegalGuardian.Command.LegalGuardianType">
-            <summary>
-            LegalGuardianType
-            </summary>
-        </member>
-        <member name="P:Api.Features.Users.EditLegalGuardian.Command.Profession">
-            <summary>
-            Profession
-            </summary>
-        </member>
-        <member name="P:Api.Features.Users.EditLegalGuardian.Command.Workplace">
-            <summary>
-            Workplace
-            </summary>
-        </member>
-        <member name="P:Api.Features.Users.EditLegalGuardian.Command.Address">
-            <summary>
-            Address
-            </summary>
-        </member>
-        <member name="T:Api.Features.Users.EditLegalGuardian.Command.AddressCommand">
-            <summary>
-            Address command
-            </summary>
-        </member>
-        <member name="P:Api.Features.Users.EditLegalGuardian.Command.AddressCommand.Name">
-            <summary>
-            Name
-            </summary>
-        </member>
-        <member name="P:Api.Features.Users.EditLegalGuardian.Command.AddressCommand.Cep">
-            <summary>
-            Cep
-            </summary>
-        </member>
-        <member name="P:Api.Features.Users.EditLegalGuardian.Command.AddressCommand.Street">
-            <summary>
-            Street
-            </summary>
-        </member>
-        <member name="P:Api.Features.Users.EditLegalGuardian.Command.AddressCommand.Number">
-            <summary>
-            Number
-            </summary>
-        </member>
-        <member name="P:Api.Features.Users.EditLegalGuardian.Command.AddressCommand.District">
-            <summary>
-            District
-            </summary>
-        </member>
-        <member name="P:Api.Features.Users.EditLegalGuardian.Command.AddressCommand.Complement">
-            <summary>
-            Complement
-            </summary>
-        </member>
-        <member name="P:Api.Features.Users.EditLegalGuardian.Command.AddressCommand.Reference">
-            <summary>
-            Reference
-            </summary>
-        </member>
-        <member name="P:Api.Features.Users.EditLegalGuardian.Command.AddressCommand.Telephone">
-            <summary>
-            Telephone
+            Filter by name and email
             </summary>
         </member>
         <member name="T:Api.Features.Users.List">
@@ -1975,6 +1895,12 @@
         <member name="M:Api.Features.Users.UsersController.Me(Api.Features.Users.Me.Query,System.Threading.CancellationToken)">
             <summary>
             Detail logged user
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Api.Features.Users.UsersController.Get(Api.Features.Users.Get.Query,System.Threading.CancellationToken)">
+            <summary>
+            Get user by name or email
             </summary>
             <returns></returns>
         </member>
