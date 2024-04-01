@@ -138,7 +138,7 @@ public class AddLegalGuardian
             RuleFor(x => x.StudentId).NotEmpty().SetAsyncValidator(new StudentExistenceValidator<Command>(db));
             RuleFor(x => x.LegalGuardian.Cellphone).NotEmpty();
             RuleFor(x => x.LegalGuardian.Name).NotEmpty();
-            RuleFor(x => x.LegalGuardian.Email).NotEmpty().EmailAddress().SetAsyncValidator(new UniqueUserValidator<Command>(db));
+            RuleFor(x => x.LegalGuardian.Email).NotEmpty().EmailAddress();
             RuleFor(x => x.LegalGuardian.LegalGuardianType).NotEmpty();
             RuleFor(x => x.LegalGuardian.Address).NotEmpty();
         }
@@ -166,29 +166,42 @@ public class AddLegalGuardian
                 .OnlyActives()
                 .FirstOrDefaultAsync(x => x.Id == request.StudentId, cancellationToken);
 
+            var legalGuardian = await db.Users
+                .AsNoTracking()
+                .OnlyActives()
+                .FirstOrDefaultAsync(x => request.LegalGuardian.Email.Contains(x.Email), cancellationToken);
+
             if (student == null)
                 return new NotFoundError("Estudante não foi encontrado");
 
-            var user = request.LegalGuardian.Adapt<User>();
+            User user = new();
 
-            var password = Guid.NewGuid().ToString().Substring(0, 8);
+            if (legalGuardian == null)
+                user = request.LegalGuardian.Adapt<User>();
+            else
+                user = legalGuardian;
 
-            await emailService.SendTemplateEmail(
-                new EmailMessage
-                {
-                    To = user.Email,
-                    Subject = $"{resetPasswordOptions.CompanyName} || Nova conta criada!"
-                },
-                resetPasswordOptions.TempPasswordTemplateId,
-                new
-                {
-                    company_name = resetPasswordOptions.CompanyName,
-                    temp_password = password,
-                }, cancellationToken);
+            if (legalGuardian == null)
+            {
+                var password = Guid.NewGuid().ToString().Substring(0, 8);
 
-            var (passwordHash, passwordSalt) = hashService.Encrypt(password);
-            user.PasswordHash = passwordHash;
-            user.PasswordSalt = passwordSalt;
+                await emailService.SendTemplateEmail(
+                    new EmailMessage
+                    {
+                        To = user.Email,
+                        Subject = $"{resetPasswordOptions.CompanyName} || Nova conta criada!"
+                    },
+                    resetPasswordOptions.TempPasswordTemplateId,
+                    new
+                    {
+                        company_name = resetPasswordOptions.CompanyName,
+                        temp_password = password,
+                    }, cancellationToken);
+
+                var (passwordHash, passwordSalt) = hashService.Encrypt(password);
+                user.PasswordHash = passwordHash;
+                user.PasswordSalt = passwordSalt;
+            }
 
             student.LegalGuardian = user;
 

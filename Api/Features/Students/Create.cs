@@ -276,7 +276,7 @@ public class Create
                 {
                     x.RuleFor(x => x.Cellphone).NotEmpty();
                     x.RuleFor(x => x.Name).NotEmpty();
-                    x.RuleFor(x => x.Email).NotEmpty().EmailAddress().SetAsyncValidator(new UniqueUserValidator<Command.LegalGuardianCommand>(db));
+                    x.RuleFor(x => x.Email).NotEmpty().EmailAddress();
                     x.RuleFor(x => x.LegalGuardianType).NotEmpty();
                     x.RuleFor(x => x.Profession).NotEmpty();
                     x.RuleFor(x => x.Workplace).NotEmpty();
@@ -321,7 +321,7 @@ public class Create
             else
                 user = legalGuardian;
 
-            if (user == null)
+            if (legalGuardian == null)
             {
                 var password = Guid.NewGuid().ToString().Substring(0, 8);
 
