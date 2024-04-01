@@ -15,6 +15,9 @@ public class Address : IEntity, IDeletable
     public string Reference { get; set; }
     public string Telephone { get; set; }
 
+    public Guid UserId { get; set; }
+    public User User { get; set; }
+
     public DateTime CreatedAt { get; set; }
     public DateTime ModifiedAt { get; set; }
     public DateTime? DeletedAt { get; set; }

@@ -28,6 +28,7 @@ public class ApiDbContext : DbContext
         mb.Entity<Address>(d =>
         {
             d.HasKey(d => d.Id);
+            d.HasOne(d => d.User).WithOne(d => d.Address).HasForeignKey<Address>(d => d.UserId);
         });
 
         mb.Entity<Menu>(d =>
@@ -75,7 +76,7 @@ public class ApiDbContext : DbContext
         {
             d.HasKey(d => d.Id);
             d.Property(d => d.Status).HasDefaultValue(Status.Active);
-            d.HasMany(d => d.LegalGuardians).WithMany(d => d.Childs);
+            d.HasOne(d => d.LegalGuardian).WithMany(d => d.Childs).HasForeignKey(d => d.LegalGuardianId);
             d.HasOne(d => d.Classroom).WithMany(d => d.Students).HasForeignKey(d => d.ClassroomId);
             d.HasMany(d => d.AccessControls).WithOne(d => d.Student).HasForeignKey(d => d.StudentId);
             d.HasMany(d => d.ContractedHours).WithOne(d => d.Student).HasForeignKey(d => d.StudentId);
@@ -93,9 +94,9 @@ public class ApiDbContext : DbContext
         {
             d.HasKey(d => d.Id);
             d.Property(d => d.Status).HasDefaultValue(Status.Active);
-            d.HasOne(d => d.Address).WithOne().HasForeignKey<Address>(d => d.Id);
+            d.HasOne(d => d.Address).WithOne(d => d.User).HasForeignKey<Address>(d => d.UserId).OnDelete(DeleteBehavior.Cascade);
             d.HasMany(d => d.ResetPasswordCodes).WithOne(d => d.User).HasForeignKey(d => d.UserId);
-            d.HasMany(d => d.Childs).WithMany(d => d.LegalGuardians);
+            d.HasMany(d => d.Childs).WithOne(d => d.LegalGuardian).HasForeignKey(d => d.LegalGuardianId);
             d.HasMany(d => d.Classrooms).WithMany(d => d.Teachers);
         });
 

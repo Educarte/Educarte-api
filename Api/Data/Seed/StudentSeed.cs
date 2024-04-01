@@ -14,6 +14,7 @@ namespace Api.Data.Seed
                                             .RuleFor(x => x.Name, x => x.Person.FullName)
                                             .RuleFor(x => x.RegistrationNumber, x => x.Random.Int(10000000,99999999).ToString())
                                             .RuleFor(x => x.Classroom, x => x.PickRandom(db.Classrooms.Local).First())
+                                            .RuleFor(x => x.LegalGuardian, x => x.PickRandom(db.Users.Local).First(x => x.Profile == Profile.LegalGuardian))
                                             .RuleFor(x => x.ContractedHours, x => new Faker<ContractedHour>()
                                                 .RuleFor(x => x.Hours, x => x.Random.Int(1, 10))
                                                 .RuleFor(x => x.StartDate, x => x.Date.Recent())
@@ -37,7 +38,7 @@ namespace Api.Data.Seed
                                             .RuleFor(c => c.CreatedAt, f => f.Date.Past())
                                             .RuleFor(c => c.ModifiedAt, f => f.Date.Recent())
                                             .RuleFor(c => c.DeletedAt, f => f.Random.Bool() ? f.Date.Past() : null)
-                                            .Generate(25).ToList();
+                                            .Generate(3).ToList();
             db.AddRange(students);
         }
 

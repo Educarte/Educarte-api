@@ -22,6 +22,7 @@ namespace Api.Results.Students
                 .Map(x => x.ContractedHours, x => x.ContractedHours.FirstOrDefault(x => x.Status == Core.Enums.Status.Active));
             config.NewConfig<Student, StudentSimpleResult>()
                 .Map(x => x.ContractedHours, x => x.ContractedHours.Where(x => x.Status == Core.Enums.Status.Active && !x.DeletedAt.HasValue))
+                .Map(x => x.LegalGuardian, x => x.LegalGuardian)
                 .Map(x => x.AccessControls, x => x.AccessControls.Where(x => x.Time.Date >= DateTime.Now.Date && !x.DeletedAt.HasValue));
 
             config.NewConfig<Student, StudentSimpleListResult>();

@@ -162,7 +162,7 @@ public class AddLegalGuardian
         public async Task<ResultOf<StudentResult>> Handle(Command request, CancellationToken cancellationToken)
         {
             var student = await db.Students
-                .Include(x => x.LegalGuardians)
+                .Include(x => x.LegalGuardian)
                 .OnlyActives()
                 .FirstOrDefaultAsync(x => x.Id == request.StudentId, cancellationToken);
 
@@ -190,7 +190,7 @@ public class AddLegalGuardian
             user.PasswordHash = passwordHash;
             user.PasswordSalt = passwordSalt;
 
-            student.LegalGuardians.Add(user);
+            student.LegalGuardian = user;
 
             await db.SaveChangesAsync(cancellationToken);
 

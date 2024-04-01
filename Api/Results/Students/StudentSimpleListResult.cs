@@ -20,6 +20,6 @@ public class StudentSimpleListResult
 
     public DateTime BirthDate { get; set; }
 
-    public IList<UserSimpleResult> LegalGuardians { get; set; }
+    public UserSimpleResult LegalGuardian { get; set; }
     public IList<ContractedHourResult> ContractedHours { get; set; }
 }

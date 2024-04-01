@@ -63,7 +63,14 @@ namespace Api.Data.Seed
                 PasswordHash = defaultPassword,
                 Childs = childs,
                 LegalGuardianType = "Responsável Legal",
-                Cellphone = "11940028922"
+                Cellphone = "11940028922",
+                Address = new Faker<Core.Address>().RuleFor(x => x.Name, x => x.Address.StreetName())
+                                                   .RuleFor(x => x.Cep, x => x.Address.ZipCode())
+                                                   .RuleFor(x => x.Street, x => x.Address.StreetAddress())
+                                                   .RuleFor(x => x.Number, x => $"{x.Random.Int(10, 1000)}")
+                                                   .RuleFor(x => x.District, x => x.Address.Country())
+                                                   .RuleFor(x => x.Complement, x => x.Address.BuildingNumber())
+                                                   .RuleFor(x => x.Reference, x => x.Company.CompanyName())
             };
 
             var usersTeachers = new Faker<User>().RuleFor(x => x.Name, x => x.Person.FullName)
@@ -73,6 +80,13 @@ namespace Api.Data.Seed
                                          .RuleFor(x => x.Status, x => x.PickRandom<Status>())
                                          .RuleFor(x => x.PasswordHash, x => defaultPassword)
                                          .RuleFor(x => x.PasswordSalt, x => defaultSalt)
+                                         .RuleFor(x => x.Address, x => new Faker<Core.Address>().RuleFor(x => x.Name, x => x.Address.StreetName())
+                                                                            .RuleFor(x => x.Cep, x => x.Address.ZipCode())
+                                                                            .RuleFor(x => x.Street, x => x.Address.StreetAddress())
+                                                                            .RuleFor(x => x.Number, x => $"{x.Random.Int(10, 1000)}")
+                                                                            .RuleFor(x => x.District, x => x.Address.Country())
+                                                                            .RuleFor(x => x.Complement, x => x.Address.BuildingNumber())
+                                                                            .RuleFor(x => x.Reference, x => x.Company.CompanyName()))
                                          .RuleFor(x => x.Classrooms, x => new Faker<Classroom>()
                                                                             .RuleFor(y => y.Name, y => y.Name.JobTitle())
                                                                             .RuleFor(y => y.MaxStudents, y => x.Random.Int(1, 15))
@@ -98,7 +112,6 @@ namespace Api.Data.Seed
                                          .RuleFor(x => x.Profile, x => Profile.LegalGuardian)
                                          .RuleFor(x => x.Status, x => x.PickRandom<Status>())
                                          .RuleFor(x => x.LegalGuardianType, x => "Responsável Legal")
-                                         .RuleFor(x => x.Childs, x => x.PickRandom(db.Students.Local, 2).ToList())
                                          .RuleFor(x => x.PasswordHash, x => defaultPassword)
                                          .RuleFor(x => x.PasswordSalt, x => defaultSalt)
                                          .RuleFor(x => x.Address, x => new Faker<Core.Address>().RuleFor(x => x.Name, x => x.Address.StreetName())

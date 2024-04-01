@@ -23,7 +23,8 @@ public class Student : IEntity, IDeletable
     public Time Time { get; set; }
     public Status Status { get; set; }
 
-    public IList<User> LegalGuardians { get; set; }
+    public Guid LegalGuardianId { get; set; } //TODO: Fazer mudanças no relacionamento entre estudantes e responsáveis legais
+    public User LegalGuardian { get; set; }
 
     public Guid? ClassroomId { get; set; }
     public Classroom Classroom { get; set; }
