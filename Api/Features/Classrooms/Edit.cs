@@ -108,6 +108,7 @@ public class Edit
                 .Include(x => x.Teachers)
                     .ThenInclude(x => x.Address)
                 .Include(x => x.Students)
+                    .ThenInclude(x => x.ContractedHours)
                 .OnlyActives()
                 .FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken);
             if (classroom == null)
