@@ -106,6 +106,7 @@ public class Edit
         {
             var classroom = await db.Classrooms
                 .Include(x => x.Teachers)
+                    .ThenInclude(x => x.Address)
                 .Include(x => x.Students)
                 .OnlyActives()
                 .FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken);

@@ -72,7 +72,8 @@ public class Detail
             var studentResult = student.Adapt<StudentResult>();
 
             var diaryClassrooms = db.Diaries
-                .Where(x => (x.IsDiaryForAll || x.Classrooms.Any(y => y.Students.Any(z => z.Id == student.Id))) && x.Time.Date == DateTime.Now.Date)
+                .Where(x => (x.IsDiaryForAll || (x.Classrooms.Any(y => y.Students.Any(z => z.Id == student.Id)) && !x.Students.Any(x => x.Id == request.Id))) &&
+                x.Time.Date == DateTime.Now.Date)
                 .ToList();
 
             if (diaryClassrooms.Any())

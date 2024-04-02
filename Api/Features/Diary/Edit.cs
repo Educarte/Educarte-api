@@ -131,6 +131,7 @@ public class Edit
 
                 diary.Students.AddRange(studentsToAdd);
                 diary.Students.RemoveAll(diary.Students.Where(m => !request.StudentIds.Contains(m.Id)).Contains);
+                diary.Classrooms.RemoveAll(diary.Classrooms.Where(m => !request.ClassroomIds.Contains(m.Id)).Contains);
             }
             else if (!request.IsDiaryForAll && !request.ClassroomIds.IsNullOrEmpty())
             {
@@ -141,9 +142,14 @@ public class Edit
 
                 diary.Classrooms.AddRange(classroomsToAdd);
                 diary.Classrooms.RemoveAll(diary.Classrooms.Where(m => !request.ClassroomIds.Contains(m.Id)).Contains);
+                diary.Students.RemoveAll(diary.Students.Where(m => !request.StudentIds.Contains(m.Id)).Contains);
             }
             else if (request.IsDiaryForAll)
+            {
                 diary.DiaryType = DiaryType.School;
+                diary.Students.RemoveAll(diary.Students.Where(m => !request.StudentIds.Contains(m.Id)).Contains);
+                diary.Classrooms.RemoveAll(diary.Classrooms.Where(m => !request.ClassroomIds.Contains(m.Id)).Contains);
+            }
 
             await db.SaveChangesAsync(cancellationToken);
 
