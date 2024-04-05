@@ -1497,6 +1497,11 @@
             ClassroomType
             </summary>
         </member>
+        <member name="P:Api.Features.Students.List.Query.Time">
+            <summary>
+            Time
+            </summary>
+        </member>
         <member name="P:Api.Features.Students.List.Query.LegalGuardianId">
             <summary>
             LegalGuardianId
