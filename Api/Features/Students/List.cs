@@ -46,6 +46,11 @@ public class List
         /// LegalGuardianId
         /// </summary>
         public Guid? LegalGuardianId { get; set; }
+
+        /// <summary>
+        /// ClassroomId
+        /// </summary>
+        public Guid? ClassroomId { get; set; }
     }
 
     public class Validator : AbstractValidator<Query>
@@ -71,12 +76,16 @@ public class List
                 .Include(x => x.LegalGuardian)
                 .Include(x => x.ContractedHours)
                 .Include(x => x.Classroom)
+                    .ThenInclude(x => x.Students)
                 .Include(x => x.AccessControls)
                 .OnlyActives()
                 .AsQueryable();
 
             if (request.LegalGuardianId.HasValue)
                 students = students.Where(x => x.LegalGuardian.Id == request.LegalGuardianId.Value);
+
+            if (request.ClassroomId.HasValue)
+                students = students.Where(x => x.ClassroomId.HasValue ? x.ClassroomId.Value == request.ClassroomId : false);
 
             if (!string.IsNullOrWhiteSpace(request.Search))
                 students = students.Where(s => s.Name.Contains(request.Search));

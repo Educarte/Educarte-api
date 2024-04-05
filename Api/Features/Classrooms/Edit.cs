@@ -23,7 +23,7 @@ public class Edit
     /// <summary>
     /// Edit and classroom command
     /// </summary>
-    public class Command : IRequest<ResultOf<ClassroomResult>>
+    public class Command : IRequest<ResultOf<ClassroomBasicResult>>
     {
         /// <summary>
         /// Classroom id
@@ -93,7 +93,7 @@ public class Edit
         }
     }
 
-    internal class Handler : IRequestHandler<Command, ResultOf<ClassroomResult>>
+    internal class Handler : IRequestHandler<Command, ResultOf<ClassroomBasicResult>>
     {
         private readonly ApiDbContext db;
 
@@ -102,13 +102,11 @@ public class Edit
             this.db = db;
         }
 
-        public async Task<ResultOf<ClassroomResult>> Handle(Command request, CancellationToken cancellationToken)
+        public async Task<ResultOf<ClassroomBasicResult>> Handle(Command request, CancellationToken cancellationToken)
         {
             var classroom = await db.Classrooms
                 .Include(x => x.Teachers)
-                    .ThenInclude(x => x.Address)
                 .Include(x => x.Students)
-                    .ThenInclude(x => x.ContractedHours)
                 .OnlyActives()
                 .FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken);
             if (classroom == null)
@@ -132,7 +130,7 @@ public class Edit
 
             await db.SaveChangesAsync(cancellationToken);
 
-            return classroom.Adapt<ClassroomResult>();
+            return classroom.Adapt<ClassroomBasicResult>();
         }
     }
 }

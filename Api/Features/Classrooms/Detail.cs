@@ -52,6 +52,7 @@ public class Detail
         {
             var classroom = await db.Classrooms
                 .Include(x => x.Teachers)
+                    .ThenInclude(x => x.Address)
                 .Include(x => x.Diaries)
                 .Include(x => x.Students)
                     .ThenInclude(x => x.ContractedHours)
