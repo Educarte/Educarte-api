@@ -1502,6 +1502,11 @@
             LegalGuardianId
             </summary>
         </member>
+        <member name="P:Api.Features.Students.List.Query.ClassroomId">
+            <summary>
+            ClassroomId
+            </summary>
+        </member>
         <member name="T:Api.Features.Students.StudentsController">
             <summary>
             Student Controller

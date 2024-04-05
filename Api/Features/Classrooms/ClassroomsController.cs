@@ -43,7 +43,7 @@ public class ClassroomController : ControllerBase
     /// <returns></returns>
     [HttpPut("{id}")]
     [AuthorizeByProfile(Profile.Admin)]
-    public Task<ResultOf<ClassroomResult>> Edit([FromBody] Edit.Command command, [FromRoute] Guid id, CancellationToken cancellationToken)
+    public Task<ResultOf<ClassroomBasicResult>> Edit([FromBody] Edit.Command command, [FromRoute] Guid id, CancellationToken cancellationToken)
     {
         command.Id = id;
         return mediator.Send(command, cancellationToken);
