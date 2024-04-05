@@ -43,6 +43,11 @@ public class List
         public ClassroomType? ClassroomType { get; set; }
 
         /// <summary>
+        /// Time
+        /// </summary>
+        public Time? Time { get; set; }
+
+        /// <summary>
         /// LegalGuardianId
         /// </summary>
         public Guid? LegalGuardianId { get; set; }
@@ -98,6 +103,9 @@ public class List
 
             if (request.ClassroomType.HasValue)
                 students = students.Where(x => x.Classroom.ClassroomType == request.ClassroomType);
+
+            if (request.Time.HasValue)
+                students = students.Where(x => x.ClassroomId.HasValue ? x.Classroom.Time == request.Time : false);
 
             var total = await students.CountAsync(cancellationToken);
 
