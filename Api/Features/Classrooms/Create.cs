@@ -27,7 +27,7 @@ public class Create
     /// <summary>
     /// Create a classroom command
     /// </summary>
-    public class Command : IRequest<ResultOf<ClassroomResult>>
+    public class Command : IRequest<ResultOf<ClassroomBasicResult>>
     {
         /// <summary>
         /// Name
@@ -90,7 +90,7 @@ public class Create
         }
     }
 
-    internal class Handler : IRequestHandler<Command, ResultOf<ClassroomResult>>
+    internal class Handler : IRequestHandler<Command, ResultOf<ClassroomBasicResult>>
     {
         private readonly ApiDbContext db;
 
@@ -99,7 +99,7 @@ public class Create
             this.db = db;
         }
 
-        public async Task<ResultOf<ClassroomResult>> Handle(Command request, CancellationToken cancellationToken)
+        public async Task<ResultOf<ClassroomBasicResult>> Handle(Command request, CancellationToken cancellationToken)
         {
             var teachers = await db.Users
                 .Where(x => request.TeacherIds.Contains(x.Id))
@@ -117,7 +117,7 @@ public class Create
             db.Classrooms.Add(classroom);
             await db.SaveChangesAsync(cancellationToken);
 
-            return classroom.Adapt<ClassroomResult>();
+            return classroom.Adapt<ClassroomBasicResult>();
         }
     }
 }
