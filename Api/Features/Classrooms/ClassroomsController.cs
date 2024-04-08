@@ -32,7 +32,7 @@ public class ClassroomController : ControllerBase
     /// <returns></returns>
     [HttpPost]
     [AuthorizeByProfile(Profile.Admin)]
-    public Task<ResultOf<ClassroomResult>> Create([FromBody] Create.Command command, CancellationToken cancellationToken)
+    public Task<ResultOf<ClassroomBasicResult>> Create([FromBody] Create.Command command, CancellationToken cancellationToken)
     {
         return mediator.Send(command, cancellationToken);
     }
