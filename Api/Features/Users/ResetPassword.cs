@@ -69,6 +69,9 @@ public class ResetPassword
             user.PasswordHash = passwordHash;
             user.PasswordSalt = passwordSalt;
 
+            if (!user.FirstAccess.HasValue)
+                user.FirstAccess = DateTime.Now;
+
             await db.SaveChangesAsync(cancellationToken);
 
             return Result.Success;
