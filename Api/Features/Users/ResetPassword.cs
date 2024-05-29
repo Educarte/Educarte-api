@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.EntityFrameworkCore;
 using Nudes.Retornator.AspnetCore.Errors;
 using Nudes.Retornator.Core;
+using System.Text.Json.Serialization;
 
 namespace Api.Features.Users;
 
@@ -25,6 +26,7 @@ public class ResetPassword
         /// Id of user
         /// </summary>
         [BindNever]
+        [JsonIgnore]
         public Guid UserId { get; set; }
 
         /// <summary>

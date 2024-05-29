@@ -170,9 +170,9 @@ public class UsersController : ControllerBase
     /// <returns></returns>
     [HttpPatch("{Id}/ResetPassword")]
     [Authorize]
-    public Task<Result> ResetPassword(ResetPassword.Command command, [FromRoute] Guid id, CancellationToken cancellationToken)
+    public Task<Result> ResetPassword([FromBody] ResetPassword.Command command, [FromRoute] Guid Id, CancellationToken cancellationToken)
     {
-        command.UserId = id;
+        command.UserId = Id;
         return mediator.Send(command, cancellationToken);
     }
 }
