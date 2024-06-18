@@ -1512,6 +1512,11 @@
             ClassroomId
             </summary>
         </member>
+        <member name="P:Api.Features.Students.List.Query.StudentHasNoClass">
+            <summary>
+            StudentHasNoClass
+            </summary>
+        </member>
         <member name="T:Api.Features.Students.StudentsController">
             <summary>
             Student Controller

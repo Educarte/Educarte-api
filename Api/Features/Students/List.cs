@@ -56,6 +56,11 @@ public class List
         /// ClassroomId
         /// </summary>
         public Guid? ClassroomId { get; set; }
+
+        /// <summary>
+        /// StudentHasNoClass
+        /// </summary>
+        public bool? StudentHasNoClass { get; set; }
     }
 
     public class Validator : AbstractValidator<Query>
@@ -106,6 +111,9 @@ public class List
 
             if (request.Time.HasValue)
                 students = students.Where(x => x.ClassroomId.HasValue ? x.Classroom.Time == request.Time : false);
+
+            if(request.StudentHasNoClass.HasValue && request.StudentHasNoClass == true)
+                students = students.Where(x => x.ClassroomId == null);
 
             var total = await students.CountAsync(cancellationToken);
 
