@@ -53,10 +53,7 @@ public class Delete
                 return new NotFoundError("Turma não encontrada.");
 
             if (classroom.Students.Any())
-            {
-                foreach (var student in classroom.Students)
-                    student.ClassroomId = null;
-            }
+                classroom.Students.RemoveAll(classroom.Students.Contains);
 
             classroom.DeletedAt = DateTime.UtcNow;
 

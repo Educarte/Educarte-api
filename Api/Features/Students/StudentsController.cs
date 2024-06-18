@@ -101,7 +101,7 @@ public class StudentsController : ControllerBase
     /// List Mobile
     /// </summary>
     /// <returns></returns>
-    [HttpGet]
+    [HttpGet("Mobile")]
     [Authorize]
     public Task<ResultOf<MobileListResult<StudentSimpleResult>>> ListMobile([FromQuery] ListMobile.Query query, CancellationToken cancellationToken)
     {
