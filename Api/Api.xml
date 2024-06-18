@@ -462,6 +462,12 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:Api.Features.Diary.DiaryController.ListMobile(Api.Features.Diary.ListMobile.Query,System.Threading.CancellationToken)">
+            <summary>
+            List Mobile
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:Api.Features.Diary.DiaryController.Get(Api.Features.Diary.Detail.Query,System.Guid,System.Threading.CancellationToken)">
             <summary>
             Get diary
@@ -566,6 +572,46 @@
             </summary>
         </member>
         <member name="P:Api.Features.Diary.List.Query.ClassroomId">
+            <summary>
+            ClassroomId
+            </summary>
+        </member>
+        <member name="T:Api.Features.Diary.ListMobile">
+            <summary>
+            ListMobile
+            </summary>
+        </member>
+        <member name="T:Api.Features.Diary.ListMobile.Query">
+            <summary>
+            ListMobile
+            </summary>
+        </member>
+        <member name="P:Api.Features.Diary.ListMobile.Query.Name">
+            <summary>
+            Name
+            </summary>
+        </member>
+        <member name="P:Api.Features.Diary.ListMobile.Query.Status">
+            <summary>
+            Status
+            </summary>
+        </member>
+        <member name="P:Api.Features.Diary.ListMobile.Query.StartDate">
+            <summary>
+            StartDate
+            </summary>
+        </member>
+        <member name="P:Api.Features.Diary.ListMobile.Query.EndDate">
+            <summary>
+            EndDate
+            </summary>
+        </member>
+        <member name="P:Api.Features.Diary.ListMobile.Query.StudentId">
+            <summary>
+            StudentId
+            </summary>
+        </member>
+        <member name="P:Api.Features.Diary.ListMobile.Query.ClassroomId">
             <summary>
             ClassroomId
             </summary>
@@ -1512,6 +1558,61 @@
             ClassroomId
             </summary>
         </member>
+        <member name="P:Api.Features.Students.List.Query.StudentHasNoClass">
+            <summary>
+            StudentHasNoClass
+            </summary>
+        </member>
+        <member name="T:Api.Features.Students.ListMobile">
+            <summary>
+            ListMobile
+            </summary>
+        </member>
+        <member name="T:Api.Features.Students.ListMobile.Query">
+            <summary>
+            ListMobile
+            </summary>
+        </member>
+        <member name="P:Api.Features.Students.ListMobile.Query.Search">
+            <summary>
+            Filter
+            </summary>
+        </member>
+        <member name="P:Api.Features.Students.ListMobile.Query.StudentStatus">
+            <summary>
+            StudentStatus
+            </summary>
+        </member>
+        <member name="P:Api.Features.Students.ListMobile.Query.ContractStatus">
+            <summary>
+            ContractStatus
+            </summary>
+        </member>
+        <member name="P:Api.Features.Students.ListMobile.Query.ClassroomType">
+            <summary>
+            ClassroomType
+            </summary>
+        </member>
+        <member name="P:Api.Features.Students.ListMobile.Query.Time">
+            <summary>
+            Time
+            </summary>
+        </member>
+        <member name="P:Api.Features.Students.ListMobile.Query.LegalGuardianId">
+            <summary>
+            LegalGuardianId
+            </summary>
+        </member>
+        <member name="P:Api.Features.Students.ListMobile.Query.ClassroomId">
+            <summary>
+            ClassroomId
+            </summary>
+        </member>
+        <member name="P:Api.Features.Students.ListMobile.Query.StudentHasNoClass">
+            <summary>
+            StudentHasNoClass
+            </summary>
+        </member>
         <member name="T:Api.Features.Students.StudentsController">
             <summary>
             Student Controller
@@ -1555,6 +1656,12 @@
         <member name="M:Api.Features.Students.StudentsController.List(Api.Features.Students.List.Query,System.Threading.CancellationToken)">
             <summary>
             List all students
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Api.Features.Students.StudentsController.ListMobile(Api.Features.Students.ListMobile.Query,System.Threading.CancellationToken)">
+            <summary>
+            List Mobile
             </summary>
             <returns></returns>
         </member>

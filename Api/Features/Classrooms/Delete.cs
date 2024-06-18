@@ -1,4 +1,5 @@
-﻿using Core.Interfaces;
+﻿using Core;
+using Core.Interfaces;
 using Data;
 using FluentValidation;
 using MediatR;
@@ -43,10 +44,16 @@ public class Delete
 
         public async Task<Result> Handle(Command request, CancellationToken cancellationToken)
         {
-            var classroom = await db.Classrooms.OnlyActives().FirstOrDefaultAsync(s => s.Id == request.Id, cancellationToken);
+            var classroom = await db.Classrooms
+                .Include(x => x.Students)
+                .OnlyActives()
+                .FirstOrDefaultAsync(s => s.Id == request.Id, cancellationToken);
 
             if (classroom == null)
-                return new NotFoundError("Turma não encontrado.");
+                return new NotFoundError("Turma não encontrada.");
+
+            if (classroom.Students.Any())
+                classroom.Students.RemoveAll(classroom.Students.Contains);
 
             classroom.DeletedAt = DateTime.UtcNow;
 

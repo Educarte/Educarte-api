@@ -1,4 +1,5 @@
 ﻿using Api.Infrastructure.Validators;
+using Api.Results.Generic;
 using Api.Results.Students;
 using Core.Enums;
 using Core.Interfaces;
@@ -13,14 +14,14 @@ using Nudes.Retornator.Core;
 namespace Api.Features.Students;
 
 /// <summary>
-/// List all students
+/// ListMobile
 /// </summary>
-public class List
+public class ListMobile
 {
     /// <summary>
-    /// List all students query
+    /// ListMobile
     /// </summary>
-    public class Query : PageRequest, IRequest<ResultOf<PageResult<StudentSimpleResult>>>
+    public class Query : PageRequest, IRequest<ResultOf<MobileListResult<StudentSimpleResult>>>
     {
         /// <summary>
         /// Filter
@@ -31,7 +32,7 @@ public class List
         /// StudentStatus
         /// </summary>
         public Status? StudentStatus { get; set; }
-        
+
         /// <summary>
         /// ContractStatus
         /// </summary>
@@ -71,7 +72,7 @@ public class List
         }
     }
 
-    internal class Handler : IRequestHandler<Query, ResultOf<PageResult<StudentSimpleResult>>>
+    internal class Handler : IRequestHandler<Query, ResultOf<MobileListResult<StudentSimpleResult>>>
     {
         private readonly ApiDbContext db;
 
@@ -80,7 +81,7 @@ public class List
             this.db = db;
         }
 
-        public async Task<ResultOf<PageResult<StudentSimpleResult>>> Handle(Query request, CancellationToken cancellationToken)
+        public async Task<ResultOf<MobileListResult<StudentSimpleResult>>> Handle(Query request, CancellationToken cancellationToken)
         {
             var students = db.Students
                 .Include(x => x.LegalGuardian)
@@ -112,17 +113,15 @@ public class List
             if (request.Time.HasValue)
                 students = students.Where(x => x.ClassroomId.HasValue ? x.Classroom.Time == request.Time : false);
 
-            if(request.StudentHasNoClass.HasValue && request.StudentHasNoClass == true)
+            if (request.StudentHasNoClass.HasValue && request.StudentHasNoClass == true)
                 students = students.Where(x => x.ClassroomId == null);
-
-            var total = await students.CountAsync(cancellationToken);
 
             var list = await students
                 .ProjectToType<StudentSimpleResult>()
                 .PaginateBy(request, s => s.Name)
                 .ToListAsync(cancellationToken);
 
-            return new PageResult<StudentSimpleResult>(request, total, list);
+            return new MobileListResult<StudentSimpleResult>(list);
         }
     }
 }

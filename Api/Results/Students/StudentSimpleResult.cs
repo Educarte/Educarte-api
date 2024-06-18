@@ -1,14 +1,13 @@
 ﻿using Api.Results.AccessControl;
 using Api.Results.Classroom;
 using Api.Results.ContractedHours;
-using Api.Results.Diary;
-using Api.Results.EmergencyContacts;
 using Api.Results.Users;
 using Core.Enums;
+using Core.Interfaces;
 
 namespace Api.Results.Students;
 
-public class StudentSimpleResult
+public class StudentSimpleResult : IMobileListResult
 {
     public Guid Id { get; set; }
     public string Name { get; set; }
