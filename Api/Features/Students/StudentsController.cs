@@ -98,6 +98,17 @@ public class StudentsController : ControllerBase
     }
 
     /// <summary>
+    /// List Mobile
+    /// </summary>
+    /// <returns></returns>
+    [HttpGet]
+    [Authorize]
+    public Task<ResultOf<MobileListResult<StudentSimpleResult>>> ListMobile([FromQuery] ListMobile.Query query, CancellationToken cancellationToken)
+    {
+        return mediator.Send(query, cancellationToken);
+    }
+
+    /// <summary>
     /// Return a student
     /// </summary>
     /// <returns></returns>

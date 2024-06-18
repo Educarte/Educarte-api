@@ -462,6 +462,12 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:Api.Features.Diary.DiaryController.ListMobile(Api.Features.Diary.ListMobile.Query,System.Threading.CancellationToken)">
+            <summary>
+            ListMobile
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:Api.Features.Diary.DiaryController.Get(Api.Features.Diary.Detail.Query,System.Guid,System.Threading.CancellationToken)">
             <summary>
             Get diary
@@ -566,6 +572,46 @@
             </summary>
         </member>
         <member name="P:Api.Features.Diary.List.Query.ClassroomId">
+            <summary>
+            ClassroomId
+            </summary>
+        </member>
+        <member name="T:Api.Features.Diary.ListMobile">
+            <summary>
+            ListMobile
+            </summary>
+        </member>
+        <member name="T:Api.Features.Diary.ListMobile.Query">
+            <summary>
+            ListMobile
+            </summary>
+        </member>
+        <member name="P:Api.Features.Diary.ListMobile.Query.Name">
+            <summary>
+            Name
+            </summary>
+        </member>
+        <member name="P:Api.Features.Diary.ListMobile.Query.Status">
+            <summary>
+            Status
+            </summary>
+        </member>
+        <member name="P:Api.Features.Diary.ListMobile.Query.StartDate">
+            <summary>
+            StartDate
+            </summary>
+        </member>
+        <member name="P:Api.Features.Diary.ListMobile.Query.EndDate">
+            <summary>
+            EndDate
+            </summary>
+        </member>
+        <member name="P:Api.Features.Diary.ListMobile.Query.StudentId">
+            <summary>
+            StudentId
+            </summary>
+        </member>
+        <member name="P:Api.Features.Diary.ListMobile.Query.ClassroomId">
             <summary>
             ClassroomId
             </summary>

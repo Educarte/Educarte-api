@@ -1,5 +1,6 @@
 ﻿using Api.Infrastructure.Security;
 using Api.Results.Diary;
+using Api.Results.Generic;
 using Api.Results.Menus;
 using Core.Enums;
 using MediatR;
@@ -56,6 +57,17 @@ public class DiaryController : ControllerBase
     [HttpGet]
     [Authorize]
     public Task<ResultOf<PageResult<DiaryResult>>> List([FromQuery] List.Query query, CancellationToken cancellationToken)
+    {
+        return mediator.Send(query, cancellationToken);
+    }
+
+    /// <summary>
+    /// List Mobile
+    /// </summary>
+    /// <returns></returns>
+    [HttpGet("Mobile")]
+    [Authorize]
+    public Task<ResultOf<MobileListResult<DiaryResult>>> ListMobile([FromQuery] ListMobile.Query query, CancellationToken cancellationToken)
     {
         return mediator.Send(query, cancellationToken);
     }

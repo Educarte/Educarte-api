@@ -1,4 +1,5 @@
 ﻿using Api.Results.Diary;
+using Api.Results.Generic;
 using Core.Enums;
 using Core.Interfaces;
 using Data;
@@ -11,14 +12,14 @@ using Nudes.Retornator.Core;
 namespace Api.Features.Diary;
 
 /// <summary>
-/// List all
+/// ListMobile
 /// </summary>
-public class List
+public class ListMobile
 {
     /// <summary>
-    /// List all query
+    /// ListMobile
     /// </summary>
-    public class Query : PageRequest, IRequest<ResultOf<PageResult<DiaryResult>>>
+    public class Query : PageRequest, IRequest<ResultOf<MobileListResult<DiaryResult>>>
     {
         /// <summary>
         /// Name
@@ -51,7 +52,7 @@ public class List
         public Guid? ClassroomId { get; set; }
     }
 
-    internal class Handler : IRequestHandler<Query, ResultOf<PageResult<DiaryResult>>>
+    internal class Handler : IRequestHandler<Query, ResultOf<MobileListResult<DiaryResult>>>
     {
         private readonly ApiDbContext db;
 
@@ -60,7 +61,7 @@ public class List
             this.db = db;
         }
 
-        public async Task<ResultOf<PageResult<DiaryResult>>> Handle(Query request, CancellationToken cancellationToken)
+        public async Task<ResultOf<MobileListResult<DiaryResult>>> Handle(Query request, CancellationToken cancellationToken)
         {
             var diaries = db.Diaries
                 .OnlyActives()
@@ -84,17 +85,15 @@ public class List
             if (request.EndDate.HasValue)
                 diaries = diaries.Where(x => x.CreatedAt.Date <= request.EndDate.Value.Date);
 
-            if(!string.IsNullOrEmpty(request.Name))
+            if (!string.IsNullOrEmpty(request.Name))
                 diaries = diaries.Where(x => x.Name.Contains(request.Name));
-
-            var total = await diaries.CountAsync(cancellationToken);
 
             var list = await diaries
                 .ProjectToType<DiaryResult>()
                 .PaginateBy(request, d => d.Name)
                 .ToListAsync(cancellationToken);
 
-            return new PageResult<DiaryResult>(request, total, list);
+            return new MobileListResult<DiaryResult>(list);
         }
     }
 }
