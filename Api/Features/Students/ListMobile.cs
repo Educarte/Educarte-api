@@ -89,6 +89,7 @@ public class ListMobile
                 .Include(x => x.Classroom)
                     .ThenInclude(x => x.Students)
                 .Include(x => x.AccessControls)
+                .Where(x => x.Status == Status.Active)
                 .OnlyActives()
                 .AsQueryable();
 
