@@ -64,6 +64,7 @@ public class ListMobile
         public async Task<ResultOf<MobileListResult<DiaryResult>>> Handle(Query request, CancellationToken cancellationToken)
         {
             var diaries = db.Diaries
+                .Where(x => x.Status == Status.Active)
                 .OnlyActives()
                 .AsQueryable();
 
