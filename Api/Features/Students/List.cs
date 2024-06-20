@@ -115,6 +115,9 @@ public class List
             if(request.StudentHasNoClass.HasValue && request.StudentHasNoClass == true)
                 students = students.Where(x => x.ClassroomId == null);
 
+            if (request.StudentHasNoClass.HasValue && request.StudentHasNoClass == false)
+                students = students.Where(x => x.ClassroomId != null);
+
             var total = await students.CountAsync(cancellationToken);
 
             var list = await students
