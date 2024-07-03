@@ -56,11 +56,6 @@ public class Edit
         public bool IsDiaryForAll { get; set; }
 
         /// <summary>
-        /// Time
-        /// </summary>
-        public DateTime Time { get; set; }
-
-        /// <summary>
         /// StudentIds
         /// </summary>
         public IList<Guid> StudentIds { get; set; }
@@ -86,7 +81,6 @@ public class Edit
             RuleFor(x => x.Description).NotEmpty();
             RuleFor(x => x.FileUri).NotEmpty();
             RuleFor(x => x.IsDiaryForAll).NotEmpty();
-            RuleFor(x => x.Time).NotEmpty();
 
             When(x => !x.IsDiaryForAll && x.StudentIds.Any(), () =>
             {
