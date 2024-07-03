@@ -43,11 +43,6 @@ public class Create
         public bool IsDiaryForAll { get; set; }
 
         /// <summary>
-        /// Time
-        /// </summary>
-        public DateTime Time { get; set; }
-
-        /// <summary>
         /// StudentIds
         /// </summary>
         public IList<Guid> StudentIds { get; set; }
@@ -73,7 +68,6 @@ public class Create
             RuleFor(x => x.Name).NotEmpty();
             RuleFor(x => x.Description).NotEmpty();
             RuleFor(x => x.IsDiaryForAll).NotNull();
-            RuleFor(x => x.Time).NotEmpty();
 
             When(x => !x.IsDiaryForAll && !x.StudentIds.IsNullOrEmpty(), () =>
             {
@@ -101,6 +95,8 @@ public class Create
         public async Task<ResultOf<DiarySimpleResult>> Handle(Command request, CancellationToken cancellationToken)
         {
             var diary = request.Adapt<Core.Diary>();
+
+            diary.Time = DateTime.UtcNow;
 
             if (!request.IsDiaryForAll && !request.StudentIds.IsNullOrEmpty())
             {
