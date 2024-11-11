@@ -32,13 +32,16 @@ public class ChangePassword
         /// </summary>
         public string NewPassword { get; set; }
 
+        /// <summary>
+        /// Confirm password
+        /// </summary>
+        public string ConfirmPassword { get; set; }
     }
 
     public class Validator : AbstractValidator<Command>
     {
         public Validator()
         {
-            RuleFor(d => d.CurrentPassword).NotEmpty().Matches(x => x.NewPassword).WithMessage("Senha e Confirmação precisam ser iguais.");
             RuleFor(d => d.NewPassword).NotEmpty().SetValidator(new PasswordValidator<Command>());
         }
     }
@@ -57,6 +60,9 @@ public class ChangePassword
 
         public async Task<ResultOf<UserSimpleResult>> Handle(Command request, CancellationToken cancellationToken)
         {
+            if (request.ConfirmPassword != request.NewPassword)
+                return new BadRequestError("Senha e Confirmação precisam ser iguais.");
+
             var user = await db.Users.FirstOrDefaultAsync(d => d.Id == actor.UserId, cancellationToken);
             if (user == null)
                 return new ForbiddenError();
