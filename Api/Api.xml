@@ -389,11 +389,6 @@
             IsDiaryForAll
             </summary>
         </member>
-        <member name="P:Api.Features.Diary.Create.Command.Time">
-            <summary>
-            Time
-            </summary>
-        </member>
         <member name="P:Api.Features.Diary.Create.Command.StudentIds">
             <summary>
             StudentIds
@@ -519,11 +514,6 @@
         <member name="P:Api.Features.Diary.Edit.Command.IsDiaryForAll">
             <summary>
             IsDiaryForAll
-            </summary>
-        </member>
-        <member name="P:Api.Features.Diary.Edit.Command.Time">
-            <summary>
-            Time
             </summary>
         </member>
         <member name="P:Api.Features.Diary.Edit.Command.StudentIds">
@@ -1613,6 +1603,31 @@
             StudentHasNoClass
             </summary>
         </member>
+        <member name="T:Api.Features.Students.MobileDetail">
+            <summary>
+            Find student by id
+            </summary>
+        </member>
+        <member name="T:Api.Features.Students.MobileDetail.Query">
+            <summary>
+            Find student by id
+            </summary>
+        </member>
+        <member name="P:Api.Features.Students.MobileDetail.Query.Id">
+            <summary>
+            Student id 
+            </summary>
+        </member>
+        <member name="P:Api.Features.Students.MobileDetail.Query.StartDate">
+            <summary>
+            StartDate
+            </summary>
+        </member>
+        <member name="P:Api.Features.Students.MobileDetail.Query.EndDate">
+            <summary>
+            EndDate
+            </summary>
+        </member>
         <member name="T:Api.Features.Students.StudentsController">
             <summary>
             Student Controller
@@ -1641,6 +1656,12 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:Api.Features.Students.StudentsController.ListMobile(Api.Features.Students.ListMobile.Query,System.Threading.CancellationToken)">
+            <summary>
+            List mobile
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:Api.Features.Students.StudentsController.AddContractedHour(Api.Features.Students.AddContractedHour.Command,System.Guid,System.Threading.CancellationToken)">
             <summary>
             Add an contracted hour
@@ -1659,9 +1680,9 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Api.Features.Students.StudentsController.ListMobile(Api.Features.Students.ListMobile.Query,System.Threading.CancellationToken)">
+        <member name="M:Api.Features.Students.StudentsController.GetMobile(Api.Features.Students.MobileDetail.Query,System.Guid,System.Threading.CancellationToken)">
             <summary>
-            List Mobile
+            Return a student (Mobile)
             </summary>
             <returns></returns>
         </member>
@@ -1722,6 +1743,11 @@
         <member name="P:Api.Features.Users.ChangePassword.Command.NewPassword">
             <summary>
             New password
+            </summary>
+        </member>
+        <member name="P:Api.Features.Users.ChangePassword.Command.ConfirmPassword">
+            <summary>
+            Confirm password
             </summary>
         </member>
         <member name="T:Api.Features.Users.Create">

@@ -44,7 +44,6 @@ public class ResetPassword
     {
         public Validator(ApiDbContext db)
         {
-            RuleFor(d => d.ConfirmPassword).NotEmpty().Matches(x => x.NewPassword).WithMessage("Senha e Confirmação precisam ser iguais.");
             RuleFor(d => d.NewPassword).NotEmpty().SetValidator(new PasswordValidator<Command>());
         }
     }
@@ -63,6 +62,9 @@ public class ResetPassword
 
         public async Task<Result> Handle(Command request, CancellationToken cancellationToken)
         {
+            if (request.ConfirmPassword != request.NewPassword)
+                return new BadRequestError("Senha e Confirmação precisam ser iguais.");
+
             var user = await db.Users.FirstOrDefaultAsync(d => d.Id == request.UserId, cancellationToken);
             if (user == null)
                 return new ForbiddenError();

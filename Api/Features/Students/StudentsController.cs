@@ -61,7 +61,18 @@ public class StudentsController : ControllerBase
         command.Id = Id;
         return mediator.Send(command, cancellationToken);
     }
-    
+
+    /// <summary>
+    /// List mobile
+    /// </summary>
+    /// <returns></returns>
+    [HttpGet("Mobile")]
+    [Authorize]
+    public Task<ResultOf<MobileListResult<StudentSimpleResult>>> ListMobile([FromQuery] ListMobile.Query query, CancellationToken cancellationToken)
+    {
+        return mediator.Send(query, cancellationToken);
+    }
+
     /// <summary>
     /// Add an contracted hour
     /// </summary>
@@ -98,13 +109,14 @@ public class StudentsController : ControllerBase
     }
 
     /// <summary>
-    /// List Mobile
+    /// Return a student (Mobile)
     /// </summary>
     /// <returns></returns>
-    [HttpGet("Mobile")]
+    [HttpGet("{Id}/Mobile")]
     [Authorize]
-    public Task<ResultOf<MobileListResult<StudentSimpleResult>>> ListMobile([FromQuery] ListMobile.Query query, CancellationToken cancellationToken)
+    public Task<ResultOf<StudentResult>> GetMobile([FromQuery] MobileDetail.Query query, [FromRoute] Guid Id, CancellationToken cancellationToken)
     {
+        query.Id = Id;
         return mediator.Send(query, cancellationToken);
     }
 

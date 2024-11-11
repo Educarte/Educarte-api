@@ -3,6 +3,7 @@ using Api.Results.Generic;
 using Core.Enums;
 using Core.Interfaces;
 using Data;
+using FluentValidation;
 using Mapster;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -52,6 +53,18 @@ public class ListMobile
         public Guid? ClassroomId { get; set; }
     }
 
+    public class Validator : AbstractValidator<Query>
+    {
+        public Validator()
+        {
+            When(x => x.StudentId.HasValue, () =>
+            {
+                RuleFor(x => x.StartDate).NotEmpty().WithMessage("Caso seja enviado um filtro por estudante é também necessário enviar os campos StartDate e EndDate");
+                RuleFor(x => x.EndDate).NotEmpty().WithMessage("Caso seja enviado um filtro por estudante é também necessário enviar os campos StartDate e EndDate");
+            });
+        }
+    }
+
     internal class Handler : IRequestHandler<Query, ResultOf<MobileListResult<DiaryResult>>>
     {
         private readonly ApiDbContext db;
@@ -93,6 +106,21 @@ public class ListMobile
                 .ProjectToType<DiaryResult>()
                 .PaginateBy(request, d => d.Name)
                 .ToListAsync(cancellationToken);
+
+            if (request.StudentId.HasValue)
+            {
+                var diaryClassrooms = db.Diaries
+                    .Where(x => (x.IsDiaryForAll || x.Classrooms.Any(y => y.Students.Any(z => z.Id == request.StudentId.Value))) &&
+                    (x.Time.Date >= request.StartDate.Value.Date && x.Time.Date <= request.EndDate.Value.Date) &&
+                    !x.DeletedAt.HasValue)
+                    .ToList();
+
+                if (diaryClassrooms.Any())
+                {
+                    var diaryClass = diaryClassrooms.Adapt<List<DiaryResult>>();
+                    list.AddRange(diaryClass);
+                }
+            }
 
             return new MobileListResult<DiaryResult>(list);
         }
