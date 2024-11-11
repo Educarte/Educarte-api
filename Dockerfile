@@ -5,7 +5,7 @@ RUN dotnet publish "Api/Api.csproj" -c Release -o /app --no-restore
 FROM mcr.microsoft.com/dotnet/aspnet:7.0 AS runner
 ENV ASPNETCORE_ENVIRONMENT=Development
 ENV EmailOptions__EmailSender=crecheescolaeducarte@gmail.com
-ENV ConnectionStrings__Default=Server=db-mysql-nyc3-61172-do-user-15730039-0.c.db.ondigitalocean.com;Port=25060;Database=educarteDb;Uid=doadmin;Pwd=AVNS_YwTdAOiRLRrkcfoSqgS;SslMode=Required;
+#ENV ConnectionStrings__Default=Server=db-mysql-nyc3-61172-do-user-15730039-0.c.db.ondigitalocean.com;Port=25060;Database=educarteDb;Uid=doadmin;Pwd=AVNS_YwTdAOiRLRrkcfoSqgS;SslMode=Required;
 ENV SpaceOptions__SpaceName=educarte-storage
 ENV SpaceOptions__ServiceURL=https://nyc3.digitaloceanspaces.com/
 ENV SpaceOptions__AccessKey=DO00D8V4D8QYULRYQRB4

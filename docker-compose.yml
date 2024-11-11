@@ -2,8 +2,18 @@ version: '3.4'
 
 services:
   api:
+    environment:
+        - ASPNETCORE_ENVIRONMENT=Development
     build:
       context: .
-      dockerfile: ./Dockerfile
+      dockerfile: Api/Dockerfile
     ports:
-      - 5000:80
+      - 5080:80
+    
+  db:
+    image: mysql
+    restart: always
+    ports:
+        - 3307:3306 
+    environment:
+      - MYSQL_ROOT_PASSWORD=MySql@123

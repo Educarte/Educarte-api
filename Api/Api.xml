@@ -389,11 +389,6 @@
             IsDiaryForAll
             </summary>
         </member>
-        <member name="P:Api.Features.Diary.Create.Command.Time">
-            <summary>
-            Time
-            </summary>
-        </member>
         <member name="P:Api.Features.Diary.Create.Command.StudentIds">
             <summary>
             StudentIds
@@ -519,11 +514,6 @@
         <member name="P:Api.Features.Diary.Edit.Command.IsDiaryForAll">
             <summary>
             IsDiaryForAll
-            </summary>
-        </member>
-        <member name="P:Api.Features.Diary.Edit.Command.Time">
-            <summary>
-            Time
             </summary>
         </member>
         <member name="P:Api.Features.Diary.Edit.Command.StudentIds">
