@@ -55,7 +55,7 @@ public class StudentsController : ControllerBase
     /// </summary>
     /// <returns></returns>
     [HttpPost("AccessControl/{Id}")]
-    [AuthorizeByProfile(Profile.Admin)]
+    [AuthorizeByProfile(Profile.Admin, Profile.Employee, Profile.Teacher)]
     public Task<ResultOf<MessageResult>> AddAccessControl([FromBody] AddAccessControl.Command command, [FromRoute] Guid Id, CancellationToken cancellationToken)
     {
         command.Id = Id;
