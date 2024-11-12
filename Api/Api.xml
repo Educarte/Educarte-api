@@ -2188,17 +2188,6 @@
             Token duration
             </summary>
         </member>
-        <member name="T:Api.Infrastructure.Security.AuthorizeByProfileAttribute">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="M:Api.Infrastructure.Security.AuthorizeByProfileAttribute.#ctor(Core.Enums.Profile[])">
-            <summary>
-            
-            </summary>
-            <param name="profiles"></param>
-        </member>
         <member name="T:Api.Infrastructure.Services.EmailService">
             <summary>
             
