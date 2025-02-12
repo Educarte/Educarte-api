@@ -30,4 +30,14 @@ public class User : IEntity, IDeletable
     public DateTime CreatedAt { get; set; }
     public DateTime ModifiedAt { get; set; }
     public DateTime? DeletedAt { get; set; }
+
+    public void DeleteUser()
+    {
+        this.DeletedAt = DateTime.Now;
+        this.Email = Guid.NewGuid().ToString() + "_user_deleted";
+        this.Cellphone = string.Empty;
+        this.LegalGuardianType = string.Empty;
+        this.Profession = string.Empty;
+        this.Workplace = string.Empty;
+    }
 }

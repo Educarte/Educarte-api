@@ -46,7 +46,7 @@ public class Delete
             if (user == null)
                 return new NotFoundError("Usuário não encontrado.");
 
-            user.DeletedAt = DateTime.UtcNow;
+            user.DeleteUser();
 
             await db.SaveChangesAsync(cancellationToken);
 
